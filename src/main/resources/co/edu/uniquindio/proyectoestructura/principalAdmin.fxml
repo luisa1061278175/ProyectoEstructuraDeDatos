@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
@@ -29,27 +28,32 @@
                         <Insets bottom="100.0" top="100.0" />
                      </VBox.margin>
                   </Text>
-                  <Button fx:id="btnTareas" mnemonicParsing="false" prefHeight="35.0" prefWidth="119.0" style="-fx-background-color: #000000;" text="Tareas" textFill="#fffefe">
+                  <Button fx:id="btnTareas" mnemonicParsing="false" prefHeight="35.0" prefWidth="119.0" style="-fx-background-color: #000000; -fx-text-fill: #fffefe;"
+                          onMouseEntered="#handleMouseEnterTareas" onMouseExited="#handleMouseExitTareas" text="Tareas">
                      <font>
                         <Font name="Arial Black" size="16.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnProcesos" mnemonicParsing="false" prefHeight="35.0" prefWidth="122.0" style="-fx-background-color: #000000;" text="Procesos" textFill="#fffefe">
+                  <Button fx:id="btnProcesos" mnemonicParsing="false" prefHeight="35.0" prefWidth="122.0" style="-fx-background-color: #000000; -fx-text-fill: #fffefe;"
+                          onMouseEntered="#handleMouseEnterProcesos" onMouseExited="#handleMouseExitProcesos" text="Procesos">
                      <font>
                         <Font name="Arial Black" size="16.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnActividades" mnemonicParsing="false" prefHeight="35.0" prefWidth="129.0" style="-fx-background-color: #000000;" text="Actividades" textFill="#fffefe">
+                  <Button fx:id="btnActividades" mnemonicParsing="false" prefHeight="35.0" prefWidth="129.0" style="-fx-background-color: #000000; -fx-text-fill: #fffefe;"
+                          onMouseEntered="#handleMouseEnterActividades" onMouseExited="#handleMouseExitActividades" text="Actividades">
                      <font>
                         <Font name="Arial Black" size="16.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnUsuarios" mnemonicParsing="false" prefHeight="35.0" prefWidth="132.0" style="-fx-background-color: #000000;" text="Usuarios" textFill="#fffefe">
+                  <Button fx:id="btnUsuarios" mnemonicParsing="false" prefHeight="35.0" prefWidth="132.0" style="-fx-background-color: #000000; -fx-text-fill: #fffefe;"
+                          onMouseEntered="#handleMouseEnterUsuarios" onMouseExited="#handleMouseExitUsuarios" text="Usuarios">
                      <font>
                         <Font name="Arial Black" size="16.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnSalir" mnemonicParsing="false" prefHeight="35.0" prefWidth="86.0" style="-fx-background-color: #000000;" text="Salir" textFill="#fffefe">
+                  <Button fx:id="btnSalir" mnemonicParsing="false" prefHeight="35.0" prefWidth="86.0" style="-fx-background-color: #000000; -fx-text-fill: #fffefe;"
+                          onMouseEntered="#handleMouseEnterSalir" onMouseExited="#handleMouseExitSalir" text="Salir">
                      <font>
                         <Font name="Arial Black" size="11.0" />
                      </font>
