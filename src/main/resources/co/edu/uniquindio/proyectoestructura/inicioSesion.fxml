@@ -49,7 +49,7 @@
                <Font name="Cambria" size="19.0" />
             </font></Button>
          <StackPane.margin>
-            <Insets bottom="50.0" left="110.0" right="110.0" top="50.0" />
+            <Insets bottom="50.0" left="150.0" right="150.0" top="50.0" />
          </StackPane.margin>
       </VBox>
    </children>

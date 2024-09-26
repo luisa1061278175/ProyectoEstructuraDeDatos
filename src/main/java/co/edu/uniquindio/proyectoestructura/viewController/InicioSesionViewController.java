@@ -1,6 +1,7 @@
 package co.edu.uniquindio.proyectoestructura.viewController;
 
 import co.edu.uniquindio.proyectoestructura.controller.Proyecto;
+import co.edu.uniquindio.proyectoestructura.util.ArchivoUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +15,7 @@ import java.io.IOException;
 
 public class InicioSesionViewController {
     Proyecto proyecto= new Proyecto();
+    ArchivoUtil archivoUtil= new ArchivoUtil();
 
     @FXML
     private Button btnInicioSesion;
@@ -24,31 +26,46 @@ public class InicioSesionViewController {
     @FXML
     private TextField txtUsuario;
 
+    private static final String RUTA_ARCHIVO_USUARIO_REGISTRADO = "src/main/resources/archivosTxt/UsuariosRegistrados.txt";
+
     @FXML
     void iniciarSesion(ActionEvent event) throws IOException {
-        String id = txtUsuario.getText();               // Obtén el ID del campo de texto
-        String contrasenia = txtContrasenia.getText();  // Obtén la contraseña del campo de contraseña
-
+        Stage stage = new Stage();
+        String id = txtUsuario.getText();
+        String contrasenia = txtContrasenia.getText();
 
         boolean respuesta = proyecto.validarUsuarioProperties(id, contrasenia);
 
         if (respuesta) {
-            Stage stage = new Stage();
 
             cargarAdmin(stage);
         } else {
-            System.out.println("Credenciales incorrectas");
-            proyecto.mostrarMensajeError("Credenciales incorrectas");
+            String rutaArchivo = RUTA_ARCHIVO_USUARIO_REGISTRADO;
+            System.out.println("Id "+id);
+            System.out.println("Contraseña "+contrasenia);
 
 
+            if (archivoUtil.verificarCredenciales(rutaArchivo, id, contrasenia)) {
+
+                cargarUsuario(stage);
+            } else {
+                System.out.println("Usuario no encontrado.");
+            }
         }
     }
 
+
     public void cargarAdmin(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/proyectoestructura/principalAdmin.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/proyectoestructura/adminPrincipal.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Bienvenido Administrador");
         stage.setScene(scene);
+        stage.show();
+    }
+    public void cargarUsuario(Stage stage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/proyectoestructura/usuarioPrincipal.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setTitle("Bienvenido Usuario");
         stage.show();
     }
 }

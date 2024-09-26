@@ -1,0 +1,3 @@
+0,0,dillan,dillan@buitrago,estudiante
+1,1,luisa,luisa@osorio,estudiante
+id,contrasenia,nom,correo,rol
