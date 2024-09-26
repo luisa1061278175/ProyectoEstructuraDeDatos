@@ -48,12 +48,12 @@ public class InicioSesionViewController {
             if (archivoUtil.verificarCredenciales(rutaArchivo, id, contrasenia)) {
 
                 cargarUsuario(stage);
+
             } else {
                 System.out.println("Usuario no encontrado.");
             }
         }
     }
-
 
     public void cargarAdmin(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/proyectoestructura/adminPrincipal.fxml"));
@@ -66,6 +66,8 @@ public class InicioSesionViewController {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/proyectoestructura/usuarioPrincipal.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Bienvenido Usuario");
+        stage.setScene(scene);
         stage.show();
     }
+
 }

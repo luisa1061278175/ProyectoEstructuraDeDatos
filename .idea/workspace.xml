@@ -4,22 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6aaae5b7-b31a-4ff7-9b60-ab078e52e8ed" name="Changes" comment="&#10;cambian de color los botones">
-      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/viewController/PrincipalUsuarioViewController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/archivosTxt/UsuariosRegistrados.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/usuarioActividad.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/usuarioPrincipal.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/usuarioProceso.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/usuarioTarea.fxml" afterDir="false" />
+    <list default="true" id="6aaae5b7-b31a-4ff7-9b60-ab078e52e8ed" name="Changes" comment="&#10;inicia sesion usuario y admin">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/imagenes/blancoNegroAzul.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/imagenes/blancoNegroVerde.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/imagenes/paraTabla.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/modelo/UsuarioRegular.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/modelo/UsuarioRegular.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/util/ArchivoUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/util/ArchivoUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/viewController/InicioSesionViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/viewController/InicioSesionViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/actividades.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/adminActividad.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/inicioSesion.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/inicioSesion.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/principalAdmin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/adminPrincipal.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/procesos.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/adminProcesos.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/tareas.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/adminTarea.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/adminPrincipal.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/adminPrincipal.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/adminProcesos.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/adminProcesos.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/usuarioPrincipal.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/usuarioPrincipal.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,11 +75,11 @@
       <recent name="C:\Users\USUARIO\Documents\DatosProgramacion\ProyectoEstructura\src\main\resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\USUARIO\Documents\DatosProgramacion\ProyectoEstructura\src\main\resources\imagenes" />
       <recent name="C:\Users\USUARIO\Documents\DatosProgramacion\ProyectoEstructura\src\main\resources\archivosTxt" />
       <recent name="C:\Users\USUARIO\Documents\DatosProgramacion\ProyectoEstructura\src\main\resources\archivostxt" />
       <recent name="C:\Users\USUARIO\Documents\DatosProgramacion\ProyectoEstructura\src\main\java\co\edu\uniquindio\proyectoestructura" />
       <recent name="C:\Users\USUARIO\Documents\DatosProgramacion\ProyectoEstructura\src\main\resources\estilos" />
-      <recent name="C:\Users\USUARIO\Documents\DatosProgramacion\ProyectoEstructura\src\main\resources" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="co.edu.uniquindio.proyectoestructura" />
@@ -157,13 +150,22 @@
       <option name="project" value="LOCAL" />
       <updated>1727297312926</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="&#10;inicia sesion usuario y admin">
+      <option name="closed" value="true" />
+      <created>1727311142692</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1727311142692</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Estructura del proyecto" />
     <MESSAGE value="&#10;Abren ventanas principales" />
     <MESSAGE value="&#10;cambian de color los botones" />
-    <option name="LAST_COMMIT_MESSAGE" value="&#10;cambian de color los botones" />
+    <MESSAGE value="&#10;inicia sesion usuario y admin" />
+    <option name="LAST_COMMIT_MESSAGE" value="&#10;inicia sesion usuario y admin" />
   </component>
 </project>
