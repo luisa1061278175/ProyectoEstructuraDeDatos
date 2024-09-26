@@ -17,8 +17,11 @@
             <font>
                 <Font name="Arial Black" size="43.0" />
             </font>
+         <VBox.margin>
+            <Insets top="20.0" />
+         </VBox.margin>
         </Text>
-        <VBox alignment="CENTER" prefHeight="199.0" prefWidth="550.0" style="-fx-background-color: #ffffff;">
+        <VBox alignment="CENTER" prefHeight="196.0" prefWidth="550.0" style="-fx-background-color: #ffffff;">
             <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
@@ -81,7 +84,7 @@
                 <Insets left="100.0" right="100.0" />
             </VBox.margin>
         </VBox>
-        <HBox alignment="CENTER" prefHeight="60.0" prefWidth="750.0">
+        <HBox alignment="CENTER" prefHeight="73.0" prefWidth="750.0">
             <children>
                 <Button fx:id="btnCrear" mnemonicParsing="false" onAction="#crearProceso" prefHeight="21.0" prefWidth="103.0" style="-fx-background-color: #3accdf;" text="Crear">
                     <font>
@@ -106,7 +109,7 @@
                 </Button>
             </children>
         </HBox>
-        <HBox alignment="CENTER" prefHeight="215.0" prefWidth="750.0">
+        <HBox alignment="CENTER" prefHeight="153.0" prefWidth="750.0">
             <children>
                 <TableView fx:id="tablaProceso" prefHeight="215.0" prefWidth="320.0" style="-fx-border-color: #000000;">
                     <columns>

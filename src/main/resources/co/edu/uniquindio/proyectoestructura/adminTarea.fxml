@@ -17,6 +17,9 @@
             <font>
                 <Font name="Arial Black" size="43.0" />
             </font>
+         <VBox.margin>
+            <Insets top="20.0" />
+         </VBox.margin>
         </Text>
         <VBox alignment="CENTER" prefHeight="206.0" prefWidth="550.0" style="-fx-background-color: #ffffff;">
             <children>
@@ -103,9 +106,9 @@
                 </Button>
             </children>
         </HBox>
-        <HBox alignment="CENTER" prefHeight="215.0" prefWidth="750.0">
+        <HBox alignment="CENTER" prefHeight="120.0" prefWidth="750.0">
             <children>
-                <TableView fx:id="tablaProceso" prefHeight="215.0" prefWidth="320.0" style="-fx-border-color: #000000;">
+                <TableView fx:id="tablaProceso" prefHeight="125.0" prefWidth="320.0" style="-fx-border-color: #000000;">
                     <columns>
                         <TableColumn fx:id="colId" prefWidth="110.66663873195648" text="Id" />
                         <TableColumn fx:id="colNombre" minWidth="4.66668701171875" prefWidth="97.33332061767578" text="Nombre" />
