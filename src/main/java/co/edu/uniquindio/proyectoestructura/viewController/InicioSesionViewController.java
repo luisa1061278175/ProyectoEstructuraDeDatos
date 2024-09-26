@@ -19,6 +19,8 @@ public class InicioSesionViewController {
 
     @FXML
     private Button btnInicioSesion;
+    @FXML
+    private Button btnSalir;
 
     @FXML
     private PasswordField txtContrasenia;
@@ -29,34 +31,37 @@ public class InicioSesionViewController {
     private static final String RUTA_ARCHIVO_USUARIO_REGISTRADO = "src/main/resources/archivosTxt/UsuariosRegistrados.txt";
 
     @FXML
+
     void iniciarSesion(ActionEvent event) throws IOException {
-        Stage stage = new Stage();
+
+        Stage currentStage = (Stage) btnInicioSesion.getScene().getWindow();
+        Stage newStage = new Stage();
+
         String id = txtUsuario.getText();
         String contrasenia = txtContrasenia.getText();
 
         boolean respuesta = proyecto.validarUsuarioProperties(id, contrasenia);
 
         if (respuesta) {
-
-            cargarAdmin(stage);
+            cargarAdmin(newStage);
         } else {
             String rutaArchivo = RUTA_ARCHIVO_USUARIO_REGISTRADO;
-            System.out.println("Id "+id);
-            System.out.println("Contraseña "+contrasenia);
-
+            System.out.println("Id " + id);
+            System.out.println("Contraseña " + contrasenia);
 
             if (archivoUtil.verificarCredenciales(rutaArchivo, id, contrasenia)) {
-
-                cargarUsuario(stage);
-
+                cargarUsuario(newStage);
             } else {
                 System.out.println("Usuario no encontrado.");
             }
         }
+
+        currentStage.close();
     }
 
+
     public void cargarAdmin(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/proyectoestructura/adminPrincipal.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/proyectoestructura/adminTab.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Bienvenido Administrador");
         stage.setScene(scene);
@@ -69,5 +74,22 @@ public class InicioSesionViewController {
         stage.setScene(scene);
         stage.show();
     }
-
+    @FXML
+    private void handleMouseEnterSalir() {
+        btnSalir.setStyle("-fx-background-color: #ff57cb; -fx-text-fill: #ffffff;");
+    }
+    @FXML
+    private void handleMouseExitSalir() {
+        btnSalir.setStyle("-fx-background-color:  #3accdf; -fx-text-fill: #fffefe;");
+    }
+    @FXML
+    private void handleMouseIniciarSesion() {
+        btnInicioSesion.setStyle("-fx-background-color: #ff57cb; -fx-text-fill: #ffffff;");
+    }
+    @FXML
+    private void handleMouseIniciarSesion2() {
+        btnInicioSesion.setStyle("-fx-background-color: #3accdf; -fx-text-fill: #fffefe;");
+    }
 }
+
+

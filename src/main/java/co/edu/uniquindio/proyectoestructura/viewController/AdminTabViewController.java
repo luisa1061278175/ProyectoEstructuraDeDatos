@@ -1,4 +1,4 @@
 package co.edu.uniquindio.proyectoestructura.viewController;
 
-public class ProcesosViewController {
+public class AdminTabViewController {
 }

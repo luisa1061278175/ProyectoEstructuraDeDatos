@@ -3,7 +3,7 @@ package co.edu.uniquindio.proyectoestructura.viewController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-public class PrincipalAdminViewController {
+public class AdminPrincipalViewController {
 
     @FXML
     private Button btnActividades;

@@ -12,44 +12,58 @@
 <?import javafx.scene.text.Text?>
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="750.0" styleClass="fondoLilaOscuro" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.proyectoestructura.viewController.InicioSesionViewController">
-   <!-- Imagen de fondo -->
    <children>
-
       <ImageView fitHeight="570.0" fitWidth="750.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="false">
          <image>
-            <Image url="@../../../../imagenes/imgBlancoNegro.png" />
-         </image></ImageView>
-
-      <!-- VBox centrado encima de la imagen -->
-      <VBox alignment="CENTER" spacing="10" style="-fx-background-color: #ffffff;">
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Inicio de Sesión">
-            <font>
-               <Font name="Castellar" size="43.0" />
-            </font>
-            <VBox.margin>
-               <Insets bottom="50.0" />
-            </VBox.margin>
-         </Text>
-         <TextField fx:id="txtUsuario" prefHeight="49.0" prefWidth="347.0" promptText="Usuario">
-            <VBox.margin>
-               <Insets left="50.0" right="50.0" />
-            </VBox.margin>
-            <font>
-               <Font size="19.0" />
-            </font></TextField>
-         <PasswordField fx:id="txtContrasenia" prefHeight="47.0" prefWidth="347.0" promptText="Contraseña">
-            <VBox.margin>
-               <Insets left="50.0" right="50.0" />
-            </VBox.margin>
-            <font>
-               <Font size="20.0" />
-            </font></PasswordField>
-         <Button fx:id="btnInicioSesion" onAction="#iniciarSesion" prefHeight="41.0" prefWidth="234.0" style="-fx-background-color: #ff57cb;" text="Iniciar Sesión" textFill="#fffbfb">
-            <font>
-               <Font name="Cambria" size="19.0" />
-            </font></Button>
+            <Image url="@../../../../imagenes/blancoNegroAzul.png" />
+         </image>
+      </ImageView>
+      <VBox alignment="CENTER" spacing="10" style="-fx-background-color: #ffffff; -fx-border-color: #000000;">
+         <children>
+            <VBox alignment="CENTER" spacing="10" style="-fx-background-color: #ffffff;">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Inicio de Sesión">
+                     <font>
+                        <Font name="Castellar" size="43.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="50.0" />
+                     </VBox.margin>
+                  </Text>
+                  <TextField fx:id="txtUsuario" prefHeight="49.0" prefWidth="347.0" promptText="Usuario">
+                     <VBox.margin>
+                        <Insets left="50.0" right="50.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </TextField>
+                  <PasswordField fx:id="txtContrasenia" prefHeight="47.0" prefWidth="347.0" promptText="Contraseña">
+                     <VBox.margin>
+                        <Insets left="50.0" right="50.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </PasswordField>
+                  <Button fx:id="btnInicioSesion" onAction="#iniciarSesion" prefHeight="41.0" prefWidth="234.0" style="-fx-background-color: #3accdf;" text="Iniciar Sesión" onMouseEntered="#handleMouseIniciarSesion" onMouseExited="#handleMouseIniciarSesion2">
+                     <font>
+                        <Font name="Cambria" size="19.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+            <Button fx:id="btnSalir" mnemonicParsing="false" onMouseEntered="#handleMouseEnterSalir" onMouseExited="#handleMouseExitSalir" prefHeight="35.0" prefWidth="86.0" style="-fx-background-color: #000000; -fx-text-fill: #fffefe;" text="Salir">
+               <font>
+                  <Font name="Arial Black" size="11.0" />
+               </font>
+               <VBox.margin>
+                  <Insets right="250.0" top="50.0" />
+               </VBox.margin>
+            </Button>
+         </children>
          <StackPane.margin>
-            <Insets bottom="50.0" left="150.0" right="150.0" top="50.0" />
+            <Insets bottom="20.0" left="200.0" right="200.0" top="20.0" />
          </StackPane.margin>
       </VBox>
    </children>
