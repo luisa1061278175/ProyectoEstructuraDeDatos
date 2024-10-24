@@ -1,14 +1,13 @@
 package co.edu.uniquindio.proyectoestructura.modelo;
 
-import java.util.LinkedList;
-import java.util.List;
+import co.edu.uniquindio.proyectoestructura.listasEnlazadas.tarea.ListaEnlazadaTarea;
 
 public class Actividad {
 
     private String nombre;
     private String descripcion;
     private boolean esObligatoria;
-    private List<Tarea> listaTareas;
+    private ListaEnlazadaTarea listaTareas;
     private Actividad actividadPrecedente;
 
     // Constructor
@@ -16,7 +15,7 @@ public class Actividad {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.esObligatoria = esObligatoria;
-        this.listaTareas = new LinkedList<>();
+        this.listaTareas = new ListaEnlazadaTarea(); // Inicialización de la lista enlazada
     }
 
     // Getters y setters
@@ -44,12 +43,12 @@ public class Actividad {
         this.esObligatoria = esObligatoria;
     }
 
-    public List<Tarea> getListaTareas() {
-        return listaTareas;
+    public ListaEnlazadaTarea getListaTareas() {
+        return listaTareas;  // Retorna la lista enlazada de tareas
     }
 
-    public void setListaTareas(List<Tarea> listaTareas) {
-        this.listaTareas = listaTareas;
+    public void setListaTareas(ListaEnlazadaTarea listaTareas) {
+        this.listaTareas = listaTareas;  // Permite establecer una nueva lista de tareas
     }
 
     public Actividad getActividadPrecedente() {
@@ -58,5 +57,10 @@ public class Actividad {
 
     public void setActividadPrecedente(Actividad actividadPrecedente) {
         this.actividadPrecedente = actividadPrecedente;
+    }
+
+    // Método para agregar una tarea a la actividad
+    public void agregarTarea(Tarea tarea) {
+        this.listaTareas.agregarTarea(tarea);  // Agrega tarea a la lista enlazada
     }
 }
