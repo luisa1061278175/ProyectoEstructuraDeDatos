@@ -1,5 +1,7 @@
 package co.edu.uniquindio.proyectoestructura.viewController;
 
+import co.edu.uniquindio.proyectoestructura.controller.AdminProcesoController;
+import co.edu.uniquindio.proyectoestructura.modelo.Proceso;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -38,8 +40,16 @@ public class AdminProcesosViewController {
     @FXML
     private TextField txtNombre;
 
+    AdminProcesoController adminProcesoController= new AdminProcesoController();
+
     @FXML
     void crearProceso(ActionEvent event) {
+
+        String nombre= txtNombre.getText();
+        String id= txtId.getText();
+
+        adminProcesoController.guardarProceso(new Proceso(nombre,id));
+        System.out.println("Se ha seleccionado el boton para crear un proceso ");
 
     }
 
@@ -52,5 +62,7 @@ public class AdminProcesosViewController {
     void modificarProceso(ActionEvent event) {
 
     }
+
+
 
 }

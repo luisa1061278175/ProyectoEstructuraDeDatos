@@ -2,11 +2,11 @@ package co.edu.uniquindio.proyectoestructura.listasEnlazadas.actividad;
 
 import co.edu.uniquindio.proyectoestructura.modelo.Actividad;
 
-public class ListaEnlazadaDeActividades {
+public class ListaEnlazadaActividades {
     private NodoActividad cabeza;
 
     // Constructor
-    public ListaEnlazadaDeActividades() {
+    public ListaEnlazadaActividades() {
         this.cabeza = null;
     }
 

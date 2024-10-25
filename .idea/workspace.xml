@@ -4,16 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6aaae5b7-b31a-4ff7-9b60-ab078e52e8ed" name="Changes" comment="Abre ventanas secuenciales">
-      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/listasEnlazadas/actividad/ListaEnlazadaActividades.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/listasEnlazadas/actividad/NodoActividad.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/listasEnlazadas/proceso/ListaEnlazadaProceso.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/listasEnlazadas/proceso/NodoProceso.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/listasEnlazadas/tarea/ListaEnlazadaTarea.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/listasEnlazadas/tarea/NodoTarea.java" afterDir="false" />
+    <list default="true" id="6aaae5b7-b31a-4ff7-9b60-ab078e52e8ed" name="Changes" comment="ListasEnlazadas">
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/controller/AdminProcesoController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/modelo/Actividad.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/modelo/Actividad.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/listasEnlazadas/actividad/ListaEnlazadaActividades.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/listasEnlazadas/actividad/ListaEnlazadaActividades.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/listasEnlazadas/proceso/ListaEnlazadaProceso.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/listasEnlazadas/proceso/ListaEnlazadaProceso.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/modelo/Proceso.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/modelo/Proceso.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/util/ArchivoUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/util/ArchivoUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/viewController/AdminProcesosViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/viewController/AdminProcesosViewController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -183,7 +181,15 @@
       <option name="project" value="LOCAL" />
       <updated>1727381853842</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="ListasEnlazadas">
+      <option name="closed" value="true" />
+      <created>1729746928667</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1729746928667</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -192,6 +198,7 @@
     <MESSAGE value="&#10;cambian de color los botones" />
     <MESSAGE value="&#10;inicia sesion usuario y admin" />
     <MESSAGE value="Abre ventanas secuenciales" />
-    <option name="LAST_COMMIT_MESSAGE" value="Abre ventanas secuenciales" />
+    <MESSAGE value="ListasEnlazadas" />
+    <option name="LAST_COMMIT_MESSAGE" value="ListasEnlazadas" />
   </component>
 </project>
