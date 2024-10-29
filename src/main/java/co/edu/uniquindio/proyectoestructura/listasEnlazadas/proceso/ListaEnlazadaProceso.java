@@ -3,9 +3,9 @@ package co.edu.uniquindio.proyectoestructura.listasEnlazadas.proceso;
 import co.edu.uniquindio.proyectoestructura.modelo.Login;
 import co.edu.uniquindio.proyectoestructura.modelo.Proceso;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ListaEnlazadaProceso  {
@@ -71,6 +71,27 @@ public class ListaEnlazadaProceso  {
             System.err.println("Error al guardar los datos en el archivo: " + e.getMessage());
         }
     }
+
+    public static Proceso[] leerArchivo(String nombreArchivo) {
+        List<Proceso> procesos = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] datos = linea.split(";");
+                if (datos.length == 2) {
+                    String id = (datos[0]);
+                    String nombre = datos[1];
+                    procesos.add(new Proceso(id, nombre));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return procesos.toArray(new Proceso[0]);
+    }
+
 
     // Método para mostrar todos los procesos
     public void mostrarProcesos() {
