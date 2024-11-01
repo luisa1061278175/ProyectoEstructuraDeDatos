@@ -32,7 +32,7 @@ public class Proceso {
 
     @Override
     public String toString() {
-        return id + ";" + nombre +";" ;
+        return nombre + ";" + id +";" ;
     }
 
 

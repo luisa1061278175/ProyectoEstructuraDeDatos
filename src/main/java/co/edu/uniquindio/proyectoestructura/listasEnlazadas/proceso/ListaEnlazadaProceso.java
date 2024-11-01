@@ -62,7 +62,7 @@ public class ListaEnlazadaProceso  {
             NodoProceso temp = cabeza;
             while (temp != null) {
                 Proceso proceso = temp.getProceso();
-                writer.write(proceso.toString());  // Asegúrate de que la clase Proceso tenga un método toString adecuado
+                writer.write(proceso.toString());
                 writer.newLine();
                 temp = temp.getSiguiente();
             }
@@ -82,7 +82,7 @@ public class ListaEnlazadaProceso  {
                 if (datos.length == 2) {
                     String id = (datos[0]);
                     String nombre = datos[1];
-                    procesos.add(new Proceso(id, nombre));
+                    procesos.add(new Proceso(nombre,id));
                 }
             }
         } catch (IOException e) {
