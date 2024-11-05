@@ -2,7 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -11,114 +11,149 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="750.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.proyectoestructura.viewController.AdminActividadViewController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="750.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-image-width: 10px;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.proyectoestructura.viewController.AdminActividadViewController">
     <children>
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ACTIVIDAD" wrappingWidth="278.72595977783203">
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Seleciona un proceso" wrappingWidth="604.0592160224915" VBox.vgrow="ALWAYS">
             <font>
                 <Font name="Arial Black" size="43.0" />
             </font>
          <VBox.margin>
-            <Insets top="20.0" />
+            <Insets bottom="20.0" top="20.0" />
          </VBox.margin>
         </Text>
-        <VBox alignment="CENTER" prefHeight="196.0" prefWidth="550.0" style="-fx-background-color: #ffffff;">
-            <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+      <HBox prefHeight="204.0" prefWidth="750.0">
+         <children>
+            <TableView fx:id="tablaProceso" prefHeight="204.0" prefWidth="319.0" style="-fx-border-color: #000000;">
+               <columns>
+                  <TableColumn fx:id="colId" prefWidth="110.66663873195648" text="Id" />
+                  <TableColumn fx:id="colNombre" minWidth="4.66668701171875" prefWidth="88.66663360595703" text="Nombre" />
+                  <TableColumn fx:id="colTareaAsignada" prefWidth="112.6666259765625" text="Tarea Asignada" />
+               </columns>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </TableView>
+            <VBox prefHeight="204.0" prefWidth="417.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Seleccione la Tarea:">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="El proceso seleccionado será" wrappingWidth="278.05929231643677">
                      <font>
-                        <Font size="17.0" />
+                        <Font name="Arial" size="16.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
                   </Text>
-                  <ComboBox fx:id="jComboTarea" onAction="#llenarConNombres" prefWidth="150.0">
-                     <HBox.margin>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="asignado a la tarea que se creará" wrappingWidth="278.05929231643677">
+                     <font>
+                        <Font name="Arial" size="16.0" />
+                     </font>
+                     <VBox.margin>
                         <Insets left="20.0" />
-                     </HBox.margin>
-                  </ComboBox>
+                     </VBox.margin>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="a continuación" wrappingWidth="278.05929231643677">
+                     <font>
+                        <Font name="Arial" size="16.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                  </Text>
+                  <Button fx:id="btnRefrescar" mnemonicParsing="false" onAction="#crearProceso" prefHeight="21.0" prefWidth="103.0" style="-fx-background-color: #3accdf;" text="Refrescar">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="20.0" top="30.0" />
+                     </VBox.margin>
+                  </Button>
                </children>
-               <VBox.margin>
-                  <Insets bottom="20.0" top="20.0" />
-               </VBox.margin>
-            </HBox>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Id:">
-                    <VBox.margin>
-                        <Insets left="20.0" />
-                    </VBox.margin>
-                    <font>
-                        <Font size="17.0" />
-                    </font>
-                </Text>
-                <TextField fx:id="txtId">
-                    <VBox.margin>
-                        <Insets left="100.0" right="100.0" />
-                    </VBox.margin>
-                </TextField>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:">
-                    <font>
-                        <Font size="17.0" />
-                    </font>
-                    <VBox.margin>
-                        <Insets left="20.0" />
-                    </VBox.margin>
-                </Text>
-                <TextField fx:id="txtNombre">
-                    <VBox.margin>
-                        <Insets left="100.0" right="100.0" />
-                    </VBox.margin>
-                </TextField>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Descripción:">
-                    <font>
-                        <Font size="17.0" />
-                    </font>
-                    <VBox.margin>
-                        <Insets left="20.0" />
-                    </VBox.margin>
-                </Text>
-                <TextField fx:id="txtDescripcion">
-                    <VBox.margin>
-                        <Insets bottom="20.0" left="100.0" right="100.0" />
-                    </VBox.margin>
-                </TextField>
-            </children>
-            <VBox.margin>
-                <Insets left="100.0" right="100.0" />
-            </VBox.margin>
-        </VBox>
-        <HBox alignment="CENTER" prefHeight="73.0" prefWidth="750.0">
-            <children>
-                <Button fx:id="btnCrear" mnemonicParsing="false" onAction="#crearProceso" prefHeight="21.0" prefWidth="103.0" style="-fx-background-color: #3accdf;" text="Crear">
-                    <font>
-                        <Font size="18.0" />
-                    </font>
-                </Button>
-                <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#eliminarProceso" prefHeight="21.0" prefWidth="103.0" style="-fx-background-color: #3accdf;" text="Eliminar">
-                    <font>
-                        <Font size="18.0" />
-                    </font>
-                    <HBox.margin>
-                        <Insets left="20.0" />
-                    </HBox.margin>
-                </Button>
-                <Button fx:id="btnModificar" mnemonicParsing="false" onAction="#modificarProceso" prefHeight="21.0" prefWidth="103.0" style="-fx-background-color: #3accdf;" text="Modificar">
-                    <font>
-                        <Font size="18.0" />
-                    </font>
-                    <HBox.margin>
-                        <Insets left="20.0" />
-                    </HBox.margin>
-                </Button>
-            </children>
-        </HBox>
-        <HBox alignment="CENTER" prefHeight="153.0" prefWidth="750.0">
-            <children>
-                <TableView fx:id="tablaProceso" prefHeight="215.0" prefWidth="320.0" style="-fx-border-color: #000000;">
-                    <columns>
-                        <TableColumn fx:id="colId" prefWidth="110.66663873195648" text="Id" />
-                        <TableColumn fx:id="colNombre" minWidth="4.66668701171875" prefWidth="97.33332061767578" text="Nombre" />
-                        <TableColumn fx:id="colDescripcion" prefWidth="111.33332824707031" text="Descripción" />
-                    </columns>
-                </TableView>
-            </children>
-        </HBox>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+         <children>
+            <VBox alignment="CENTER" prefHeight="275.0" prefWidth="551.0">
+               <children>
+                  <Separator prefWidth="200.0" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CREAR ACTIVIDAD">
+                     <font>
+                        <Font size="37.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="30.0" left="100.0" />
+                     </VBox.margin>
+                  </Text>
+                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Id:">
+                          <VBox.margin>
+                              <Insets left="100.0" />
+                          </VBox.margin>
+                          <font>
+                              <Font size="17.0" />
+                          </font>
+                      </Text>
+                      <TextField fx:id="txtId" prefHeight="25.0" prefWidth="94.0">
+                          <VBox.margin>
+                              <Insets left="100.0" />
+                          </VBox.margin>
+                      </TextField>
+                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:">
+                          <font>
+                              <Font size="17.0" />
+                          </font>
+                          <VBox.margin>
+                              <Insets left="100.0" />
+                          </VBox.margin>
+                      </Text>
+                      <TextField fx:id="txtNombre">
+                          <VBox.margin>
+                              <Insets left="100.0" />
+                          </VBox.margin>
+                      </TextField>
+                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Descripción:">
+                          <font>
+                              <Font size="17.0" />
+                          </font>
+                          <VBox.margin>
+                              <Insets left="100.0" />
+                          </VBox.margin>
+                      </Text>
+                      <TextField fx:id="txtDescripcion">
+                          <VBox.margin>
+                              <Insets bottom="10.0" left="100.0" />
+                          </VBox.margin>
+                      </TextField>
+               </children>
+            </VBox>
+            <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+               <children>
+                      <Button fx:id="btnCrear" mnemonicParsing="false" onAction="#crearProceso" prefHeight="22.0" prefWidth="92.0" style="-fx-background-color: #3accdf;" text="Crear">
+                          <font>
+                              <Font size="16.0" />
+                          </font>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                      </Button>
+                      <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#eliminarProceso" prefHeight="22.0" prefWidth="92.0" style="-fx-background-color: #3accdf;" text="Eliminar">
+                          <font>
+                              <Font size="16.0" />
+                          </font>
+                     <VBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </VBox.margin>
+                      </Button>
+                      <Button fx:id="btnModificar" mnemonicParsing="false" onAction="#modificarProceso" prefHeight="22.0" prefWidth="92.0" style="-fx-background-color: #3accdf;" text="Modificar">
+                          <font>
+                              <Font size="16.0" />
+                          </font>
+                     <VBox.margin>
+                        <Insets bottom="28.0" left="10.0" top="10.0" />
+                     </VBox.margin>
+                      </Button>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
     </children>
 </VBox>
