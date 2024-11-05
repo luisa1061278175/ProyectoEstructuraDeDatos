@@ -6,8 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="6aaae5b7-b31a-4ff7-9b60-ab078e52e8ed" name="Changes" comment="p">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/controller/AdminProcesoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/controller/AdminProcesoController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/listasEnlazadas/proceso/ListaEnlazadaProceso.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/listasEnlazadas/proceso/ListaEnlazadaProceso.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/modelo/Proceso.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/modelo/Proceso.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/util/ArchivoUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/util/ArchivoUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/util/MetodosTxt.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/viewController/AdminActividadViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/viewController/AdminActividadViewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/viewController/AdminProcesosViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/viewController/AdminProcesosViewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/archivosTxt/Procesos.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/archivosTxt/Procesos.txt" afterDir="false" />
@@ -49,24 +51,24 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Principal.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.ProyectoEstructura [org.apache.maven.plugins:maven-clean-plugin:2.5:clean].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/USUARIO/Documents/DatosProgramacion/ProyectoEstructura/src/main/resources/estilos&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Principal.executor": "Run",
+    "Maven.ProyectoEstructura [org.apache.maven.plugins:maven-clean-plugin:2.5:clean].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/USUARIO/Documents/DatosProgramacion/ProyectoEstructura/src/main/resources/estilos",
+    "settings.editor.selected.configurable": "inlay.hints"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
-      &quot;CSS&quot;
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "CSS"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\USUARIO\Documents\DatosProgramacion\ProyectoEstructura\src\main\resources\estilos" />
@@ -213,7 +215,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730167806770</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="p">
+      <option name="closed" value="true" />
+      <created>1730492199038</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1730492199038</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

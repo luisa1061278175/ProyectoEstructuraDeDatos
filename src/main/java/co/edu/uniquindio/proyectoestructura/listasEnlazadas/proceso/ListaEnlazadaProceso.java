@@ -28,6 +28,7 @@ public class ListaEnlazadaProceso  {
             }
             temp.setSiguiente(nuevoNodo);
         }
+        System.out.println("Estamos en la lista enlazada "+proceso);
     }
 
     // Método para eliminar un proceso por ID
@@ -58,11 +59,12 @@ public class ListaEnlazadaProceso  {
             System.out.println("La lista de procesos está vacía. No hay datos para guardar.");
             return;
         }
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(RUTA_ARCHIVO_PROCESOS))) {
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(RUTA_ARCHIVO_PROCESOS, true))) { // Modo append
             NodoProceso temp = cabeza;
             while (temp != null) {
                 Proceso proceso = temp.getProceso();
-                writer.write(proceso.toString());
+                writer.write(proceso.toString()); // Asumiendo que toString está en formato "id;nombre"
                 writer.newLine();
                 temp = temp.getSiguiente();
             }
@@ -71,6 +73,7 @@ public class ListaEnlazadaProceso  {
             System.err.println("Error al guardar los datos en el archivo: " + e.getMessage());
         }
     }
+
 
     public static Proceso[] leerArchivo(String nombreArchivo) {
         List<Proceso> procesos = new ArrayList<>();
@@ -83,6 +86,7 @@ public class ListaEnlazadaProceso  {
                     String id = (datos[0]);
                     String nombre = datos[1];
                     procesos.add(new Proceso(nombre,id));
+
                 }
             }
         } catch (IOException e) {

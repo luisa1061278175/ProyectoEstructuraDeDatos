@@ -30,6 +30,9 @@ public class ArchivoUtil {
      *
      *
      */
+
+
+
     public static ArrayList<String> leerArchivo(String ruta) throws IOException {
         ArrayList<String> contenido = new ArrayList<>();
         FileReader fr = new FileReader(ruta);
@@ -42,28 +45,6 @@ public class ArchivoUtil {
         fr.close();
         return contenido;
     }
-
-    //guardar proceso en txt
-    public void guardarProcesosEnArchivo() {
-        if (cabeza == null) {
-            System.out.println("La lista de procesos está vacía. No hay datos para guardar.");
-            return;
-        }
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(RUTA_ARCHIVO_PROCESOS))) {
-            NodoProceso temp = cabeza;
-            while (temp != null) {
-                Proceso proceso = temp.getProceso();
-                writer.write(proceso.toString());  // Asegúrate de que la clase Proceso tenga un método toString adecuado
-                writer.newLine();
-                temp = temp.getSiguiente();
-            }
-            System.out.println("Datos guardados en " + RUTA_ARCHIVO_PROCESOS);
-        } catch (IOException e) {
-            System.err.println("Error al guardar los datos en el archivo: " + e.getMessage());
-        }
-    }
-
-
 
     public static boolean verificarCredenciales(String rutaArchivo, String id, String contrasenia) {
         try {
