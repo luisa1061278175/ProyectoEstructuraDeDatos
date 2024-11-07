@@ -1,6 +1,7 @@
 package co.edu.uniquindio.proyectoestructura.controller;
 
 import co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.proceso.ListaEnlazadaProceso;
+import co.edu.uniquindio.proyectoestructura.modelo.Actividad;
 import co.edu.uniquindio.proyectoestructura.modelo.Proceso;
 import co.edu.uniquindio.proyectoestructura.util.ArchivoUtil;
 
@@ -36,6 +37,15 @@ public class AdminProcesoController {
 
     public void cargarInicio(String nombreArchivo){
         listaEnlazadaProceso.cargarDesdeArchivo(nombreArchivo);
+    }
+
+    //metodo para guardar las actividades creadas
+    public void agregarActividadAProceso(String id, Actividad actividad){
+        listaEnlazadaProceso.agregarActividadAProceso(id, actividad);
+    }
+
+    public void guardarActividadEnProcesoTxt(){
+        listaEnlazadaProceso.guardarActividadEnProcesoTxt();
     }
 
 

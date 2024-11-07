@@ -1,13 +1,17 @@
 package co.edu.uniquindio.proyectoestructura.controller;
 
 import co.edu.uniquindio.proyectoestructura.estructurasPropias.colas.actividad.ColaActividad;
+import co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.proceso.ListaEnlazadaProceso;
 import co.edu.uniquindio.proyectoestructura.modelo.Actividad;
+import co.edu.uniquindio.proyectoestructura.modelo.Proceso;
 
 import java.util.Queue;
 
 public class AdminActividadController {
 
     ColaActividad colaActividad = new ColaActividad();
+    AdminProcesoController adminProcesoController;
+    ListaEnlazadaProceso listaEnlazadaProceso;
 
     public void guardar(Actividad actividad) {
         colaActividad.guardarActividad(actividad);
@@ -26,6 +30,7 @@ public class AdminActividadController {
 
     public void agregarTxt(Queue<Actividad>actividades){
         colaActividad.agregarActividadAlArchivo(actividades);
+
     }
 
     public void modificarTxt(String nombre, String nuevaDescripcion, boolean esObligatoria){
@@ -34,6 +39,13 @@ public class AdminActividadController {
     public void eliminarTxt(String identificador){
         colaActividad.eliminarLineaDelArchivo(identificador);
     }
+
+    //metodo para añadir al proceso la actividad que se le creo
+    //Hacer: leer el proceso seleccionado
+    //llamar a crear proceso y enviarle la nueva actividad
+    //actualizar la tabla
+
+
 
 
 }

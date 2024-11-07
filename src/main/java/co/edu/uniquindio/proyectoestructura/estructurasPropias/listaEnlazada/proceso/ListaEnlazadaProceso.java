@@ -1,5 +1,7 @@
 package co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.proceso;
 
+import co.edu.uniquindio.proyectoestructura.controller.AdminActividadController;
+import co.edu.uniquindio.proyectoestructura.modelo.Actividad;
 import co.edu.uniquindio.proyectoestructura.modelo.Proceso;
 
 import java.io.*;
@@ -9,6 +11,7 @@ public class ListaEnlazadaProceso {
     private NodoProceso cabeza;
     private static final String RUTA_ARCHIVO_PROCESOS = "src/main/resources/archivosTxt/Procesos.txt";
 
+    AdminActividadController adminActividadController;
 
     public ListaEnlazadaProceso() {
         this.cabeza = null;
@@ -55,6 +58,7 @@ public class ListaEnlazadaProceso {
         if (actual != null) {
             anterior.setSiguiente(actual.getSiguiente());
         }
+
     }
 
     public boolean modificarProceso(String id, String nuevoNombre) {
@@ -67,6 +71,28 @@ public class ListaEnlazadaProceso {
             }
             actual = actual.getSiguiente();
         }
+        return false;
+    }
+    public Proceso buscarProceso(String id) {
+        NodoProceso actual = cabeza;
+        while (actual != null) {
+            if (actual.getProceso().getId().equals(id)) {
+                return actual.getProceso();
+            }
+            actual = actual.getSiguiente();
+        }
+        System.out.println("Proceso no encontrado con ID: " + id);
+        return null;
+    }
+
+    // Método para agregar una actividad a un proceso específico
+    public boolean agregarActividadAProceso(String idProceso, Actividad actividad) {
+        Proceso proceso = buscarProceso(idProceso);
+        if (proceso != null) {
+            adminActividadController.guardar(actividad);
+            return true;
+        }
+        System.out.println("No se pudo agregar la actividad. Proceso no encontrado.");
         return false;
     }
 
@@ -190,6 +216,38 @@ public class ListaEnlazadaProceso {
             temp = temp.getSiguiente();
         }
     }
+
+    //metodo para guardar las actividades en cada proceso:
+    public void guardarActividadEnProcesoTxt() {
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(RUTA_ARCHIVO_PROCESOS, true))) { // Modo append
+            NodoProceso temp = cabeza;
+            while (temp != null) {
+                Proceso proceso = temp.getProceso();
+
+                // Construir la representación de la cola de actividades como un string
+                StringBuilder actividadesStr = new StringBuilder();
+                Queue<Actividad> actividades = proceso.getListaActividades();
+                for (Actividad actividad : actividades) {
+                    actividadesStr.append(actividad.getNombre()).append(","); // Separador para actividades
+                }
+
+                // Remover la última coma si hay actividades
+                if (actividadesStr.length() > 0) {
+                    actividadesStr.setLength(actividadesStr.length() - 1);
+                }
+
+                // Guardar el proceso con el formato "id;nombre;actividad1,actividad2,..."
+                writer.write(proceso.getId() + ";" + proceso.getNombre() + ";" + actividadesStr);
+                writer.newLine();
+                temp = temp.getSiguiente();
+            }
+            System.out.println("Datos guardados en " + RUTA_ARCHIVO_PROCESOS);
+        } catch (IOException e) {
+            System.err.println("Error al guardar los datos en el archivo: " + e.getMessage());
+        }
+    }
+
 
     public NodoProceso getCabeza() {
         return cabeza;

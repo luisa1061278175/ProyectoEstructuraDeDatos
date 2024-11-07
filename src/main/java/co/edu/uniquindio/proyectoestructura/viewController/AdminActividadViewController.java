@@ -1,6 +1,7 @@
 package co.edu.uniquindio.proyectoestructura.viewController;
 
 import co.edu.uniquindio.proyectoestructura.controller.AdminActividadController;
+import co.edu.uniquindio.proyectoestructura.controller.AdminProcesoController;
 import co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.proceso.ListaEnlazadaProceso;
 import co.edu.uniquindio.proyectoestructura.modelo.Actividad;
 import co.edu.uniquindio.proyectoestructura.modelo.Proceso;
@@ -60,15 +61,22 @@ public class AdminActividadViewController {
     private Queue<String> colaAuxProcesos = new LinkedList<>();
 
     AdminActividadController adminActividadController = new AdminActividadController();
+    AdminProcesoController adminProcesoController = new AdminProcesoController();
 
     private static final String RUTA_ARCHIVO_ACTIVIDADES = "src/main/resources/archivosTxt/actividades.txt";
 
-    @FXML
     public void initialize() {
         initDataBinding();
         cargarProcesosDesdeArchivo();
-
         jComboObligatoria.getItems().addAll("No", "Si");
+
+        // Detecta el proceso seleccionado en la tabla y lo asigna a `procesoSeleccionado`
+        tablaProceso.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                procesoSeleccionado = newSelection;
+                System.out.println("Proceso seleccionado: " + procesoSeleccionado.getNombre());
+            }
+        });
     }
 
     private void initDataBinding() {
@@ -80,13 +88,14 @@ public class AdminActividadViewController {
 
             {
                 comboBox.getItems().addAll("Opción 1", "Opción 2", "Opción 3");
-
                 comboBox.setOnAction(event -> {
                     Proceso proceso = getTableView().getItems().get(getIndex());
-                    procesoSeleccionado = proceso;  // Actualizar la selección actual
-                    colaAuxProcesos.offer(comboBox.getValue());
-                    System.out.println("proceso seleccionado: " + colaAuxProcesos);
-                    procesoSeleccionado.setListaActividades(colaAuxProcesos); // Suponiendo que `Proceso` tiene el método `setTareaAsignada`
+                    if (proceso != null) {
+                        procesoSeleccionado = proceso;
+                        System.out.println("Proceso seleccionado desde ComboBox: " + procesoSeleccionado.getNombre());
+                        colaAuxProcesos.offer(comboBox.getValue());
+                        procesoSeleccionado.setListaActividades(colaAuxProcesos); // Suponiendo que Proceso tiene este método
+                    }
                 });
             }
 
@@ -139,18 +148,26 @@ public class AdminActividadViewController {
 
     @FXML
     void crearActividad(ActionEvent event) {
+        if (procesoSeleccionado == null) {
+            System.out.println("Error: No se ha seleccionado ningún proceso.");
+            return;
+        }
 
         String nombre = txtNombre.getText();
         String descripcion = txtDescripcion.getText();
-        listaActividades.add(new Actividad(nombre, descripcion, isObligatoria(), null));
+        Actividad nuevaActividad = new Actividad(nombre, descripcion, isObligatoria(), null);
+        listaActividades.add(nuevaActividad);
 
         Queue<Actividad> listaAux = new LinkedList<>();
-        listaAux.add(new Actividad(nombre, descripcion, isObligatoria(), null));
+        listaAux.add(nuevaActividad);
 
         adminActividadController.agregarTxt(listaAux);
 
-        System.out.println("Lista Actividades" + listaActividades);
 
+        adminProcesoController.agregarActividadAProceso(procesoSeleccionado.getId(), nuevaActividad);
+        adminProcesoController.guardarActividadEnProcesoTxt();
+
+        System.out.println("Lista de actividades: " + listaActividades);
         limpiarCampos();
     }
 
