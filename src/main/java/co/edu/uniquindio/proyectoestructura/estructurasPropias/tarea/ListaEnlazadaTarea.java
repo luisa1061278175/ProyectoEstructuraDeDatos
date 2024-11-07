@@ -1,4 +1,4 @@
-package co.edu.uniquindio.proyectoestructura.listasEnlazadas.tarea;
+package co.edu.uniquindio.proyectoestructura.estructurasPropias.tarea;
 
 import co.edu.uniquindio.proyectoestructura.modelo.Tarea;
 

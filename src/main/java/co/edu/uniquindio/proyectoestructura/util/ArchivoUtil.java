@@ -1,8 +1,7 @@
 package co.edu.uniquindio.proyectoestructura.util;
 
-import co.edu.uniquindio.proyectoestructura.listasEnlazadas.proceso.NodoProceso;
+import co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.proceso.NodoProceso;
 import co.edu.uniquindio.proyectoestructura.modelo.Login;
-import co.edu.uniquindio.proyectoestructura.modelo.Proceso;
 
 import java.io.*;
 import java.util.ArrayList;

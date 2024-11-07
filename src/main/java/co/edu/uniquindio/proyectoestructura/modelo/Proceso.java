@@ -1,17 +1,16 @@
 package co.edu.uniquindio.proyectoestructura.modelo;
 
-import co.edu.uniquindio.proyectoestructura.listasEnlazadas.actividad.ListaEnlazadaActividades;
-import co.edu.uniquindio.proyectoestructura.modelo.Actividad;
+import java.util.Queue;
 
 public class Proceso {
     private String nombre;
     private String id;
-    private ListaEnlazadaActividades listaActividades;
+    private Queue listaActividades;
 
-    public Proceso(String nombre, String id) {
+    public Proceso(String nombre, String id, Queue listaActividades) {
         this.nombre = nombre;
         this.id = id;
-        this.listaActividades = new ListaEnlazadaActividades();
+        this.listaActividades = listaActividades;
     }
 
     public String getNombre() {
@@ -30,21 +29,11 @@ public class Proceso {
         this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return nombre + ";" + id +";" ;
-    }
-
-
-    public ListaEnlazadaActividades getListaActividades() {
+    public Queue getListaActividades() {
         return listaActividades;
     }
 
-    public void agregarActividad(Actividad actividad) {
-        listaActividades.agregarActividad(actividad);
-    }
-
-    public void mostrarActividades() {
-        listaActividades.mostrarActividades();
+    public void setListaActividades(Queue listaActividades) {
+        this.listaActividades = listaActividades;
     }
 }

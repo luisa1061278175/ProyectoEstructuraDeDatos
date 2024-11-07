@@ -1,7 +1,7 @@
 package co.edu.uniquindio.proyectoestructura.viewController;
 
 import co.edu.uniquindio.proyectoestructura.controller.AdminProcesoController;
-import co.edu.uniquindio.proyectoestructura.listasEnlazadas.proceso.ListaEnlazadaProceso;
+import co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.proceso.ListaEnlazadaProceso;
 import co.edu.uniquindio.proyectoestructura.modelo.Proceso;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -11,7 +11,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,10 +41,13 @@ public class AdminProcesosViewController {
 
     @FXML
     private TextField txtNombre;
-    private List<Proceso> listaProcesos = new ArrayList<>();
-    AdminProcesoController adminProcesoController= new AdminProcesoController();
+
+    private AdminProcesoController adminProcesoController = new AdminProcesoController();
+    private ListaEnlazadaProceso listaEnlazadaProceso = new ListaEnlazadaProceso();
     private Proceso procesoSeleccionado;
 
+    //estamos usando la lista para poder cargar los datos en la tabla
+    private List<Proceso> listaProcesos = new ArrayList<>();
 
 
     @FXML
@@ -53,6 +55,7 @@ public class AdminProcesosViewController {
         initDataBindig();
         cargarProcesosDesdeArchivo();
         listenerSelection();
+        adminProcesoController.cargarInicio("src/main/resources/archivosTxt/Procesos.txt");
     }
 
     private void initDataBindig() {
@@ -60,10 +63,12 @@ public class AdminProcesosViewController {
         colNombre.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getNombre()));
     }
 
+    //ESTE METODO SE ENCARGA DE CARGAR PROCESOS PERO EN LA INTERFAZ
+
     private void cargarProcesosDesdeArchivo() {
         String rutaArchivo = "src/main/resources/archivosTxt/Procesos.txt";
         listaProcesos.clear();
-        Proceso[] procesosArray = ListaEnlazadaProceso.leerArchivo(rutaArchivo);
+        Proceso[] procesosArray = ListaEnlazadaProceso.leerTxt(rutaArchivo);
 
         if (procesosArray != null) {
             for (Proceso proceso : procesosArray) {
@@ -79,114 +84,70 @@ public class AdminProcesosViewController {
         tablaProceso.getItems().addAll(listaProcesos);
     }
 
-
     private void listenerSelection() {
         tablaProceso.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             procesoSeleccionado = newSelection;
-            mostrarInformacion(procesoSeleccionado);
+            if (procesoSeleccionado != null) {
+                txtId.setText(procesoSeleccionado.getId());
+                txtNombre.setText(procesoSeleccionado.getNombre());
+            }
         });
     }
 
-    private void mostrarInformacion(Proceso procesoSeleccionado) {
-        if (procesoSeleccionado != null) {
-            txtId.setText(procesoSeleccionado.getId());
-            txtNombre.setText(procesoSeleccionado.getNombre());
-        }
-    }
-
     public void limpiarCampos() {
-        txtNombre.setText("");
-        txtId.setText("");
-    }
-
-
-    public void borrarLineaEnArchivo(String rutaArchivo, String id) {
-        File archivo = new File(rutaArchivo);
-        List<String> lineas = new ArrayList<>();
-
-        // Leer el archivo y almacenar las líneas que no coinciden con el ID
-        try (BufferedReader reader = new BufferedReader(new FileReader(archivo))) {
-            String linea;
-            while ((linea = reader.readLine()) != null) {
-                if (!linea.startsWith(id + ";")) { // Comprueba si la línea comienza con el ID
-                    lineas.add(linea); // Guarda solo las líneas que no coinciden con el ID
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        // Escribir las líneas actualizadas de vuelta en el archivo
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(archivo))) {
-            for (String linea : lineas) {
-                writer.write(linea);
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    public void modificarLineaEnArchivo(String rutaArchivo, String id, String nuevaLinea) {
-        File archivo = new File(rutaArchivo);
-
-               try (BufferedWriter writer = new BufferedWriter(new FileWriter(archivo))) {
-            for (int i=0;i<listaProcesos.size();i++) {
-                String linea=listaProcesos.get(i).getNombre()+";"+listaProcesos.get(i).getId();
-                writer.write(linea);
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        txtNombre.clear();
+        txtId.clear();
+        procesoSeleccionado = null;
     }
 
     @FXML
     void modificarProceso(ActionEvent event) {
+        if (procesoSeleccionado != null) {
+            String nombre = txtNombre.getText();
+            String id = txtId.getText();
 
-        String nombre = txtNombre.getText();
-        String id = txtId.getText();
+            adminProcesoController.modificarProceso(id, nombre);
 
-        procesoSeleccionado.setId(id);
-        procesoSeleccionado.setNombre(nombre);
-        String nuevaLinea = procesoSeleccionado.getId() + ";" + procesoSeleccionado.getNombre();
+            procesoSeleccionado.setId(id);
+            procesoSeleccionado.setNombre(nombre);
 
-        modificarLineaEnArchivo("src/main/resources/archivosTxt/Procesos.txt",procesoSeleccionado.getId(),nuevaLinea);
-        System.out.println("proceso modificado ");
+            String nuevaLinea = procesoSeleccionado.getId() + ";" + procesoSeleccionado.getNombre();
+            adminProcesoController.modificarTxt("src/main/resources/archivosTxt/Procesos.txt", procesoSeleccionado.getId(), nuevaLinea);
+            System.out.println("Proceso modificado: " + procesoSeleccionado);
 
-        System.out.println(listaProcesos);
-
-        limpiarCampos();
-
+            // Recarga la lista en la vista
+            cargarProcesosDesdeArchivo();
+            limpiarCampos();
+        } else {
+            System.out.println("Seleccione un proceso para modificar.");
+        }
     }
 
     @FXML
     void crearProceso(ActionEvent event) {
-
         String nombre = txtNombre.getText();
         String id = txtId.getText();
 
-        adminProcesoController.guardarProceso(new Proceso(nombre, id));
+        Proceso nuevoProceso = new Proceso(nombre, id, null);
+        adminProcesoController.guardarProceso(nuevoProceso);
+        adminProcesoController.guardarTxt();
         cargarProcesosDesdeArchivo();
         limpiarCampos();
-
-
     }
 
     @FXML
     void eliminarProceso(ActionEvent event) {
-        cargarProcesosDesdeArchivo();
-        String id = txtId.getText();
-        for (int i = 0; i < listaProcesos.size(); i++) {
+        if (procesoSeleccionado != null) {
+            String id = procesoSeleccionado.getId();
+            adminProcesoController.eliminarProceso(id);
+            adminProcesoController.eliminarTxt(id);
 
-            if (listaProcesos.get(i).getId().equals(id)) {
-                listaProcesos.remove(i);
-            }
+            cargarProcesosDesdeArchivo();
+            limpiarCampos();
+            System.out.println("Proceso eliminado: " + id);
+        } else {
+            System.out.println("Seleccione un proceso para eliminar.");
         }
-        tablaProceso.getSelectionModel().clearSelection();
-        borrarLineaEnArchivo("src/main/resources/archivosTxt/Procesos.txt", id);
-
-
-        limpiarCampos();
-
     }
 
 

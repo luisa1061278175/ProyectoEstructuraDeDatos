@@ -1,4 +1,4 @@
-package co.edu.uniquindio.proyectoestructura.listasEnlazadas.proceso;
+package co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.proceso;
 
 import co.edu.uniquindio.proyectoestructura.modelo.Proceso;
 

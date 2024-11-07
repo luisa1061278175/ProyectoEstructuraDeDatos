@@ -10,59 +10,62 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<VBox alignment="TOP_CENTER" fx:controller="co.edu.uniquindio.proyectoestructura.viewController.AdminProcesosViewController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="750.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="750.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.proyectoestructura.viewController.AdminProcesosViewController">
    <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Procesos" wrappingWidth="222.05927276611328">
          <font>
             <Font name="Arial Black" size="43.0" />
          </font>
-      </Text>
-      <VBox alignment="CENTER" prefHeight="176.0" prefWidth="550.0" style="-fx-background-color: #ffffff;">
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Id:">
-               <VBox.margin>
-                  <Insets left="20.0" />
-               </VBox.margin>
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Text>
-            <TextField fx:id="txtId">
-               <VBox.margin>
-                  <Insets left="100.0" right="100.0" />
-               </VBox.margin>
-            </TextField>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:">
-               <font>
-                  <Font size="17.0" />
-               </font>
-               <VBox.margin>
-                  <Insets left="20.0" />
-               </VBox.margin>
-            </Text>
-            <TextField fx:id="txtNombre">
-               <VBox.margin>
-                  <Insets left="100.0" right="100.0" />
-               </VBox.margin>
-            </TextField>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Descripción:">
-               <font>
-                  <Font size="17.0" />
-               </font>
-               <VBox.margin>
-                  <Insets left="20.0" />
-               </VBox.margin>
-            </Text>
-            <TextField fx:id="txtDescripcion">
-               <VBox.margin>
-                  <Insets left="100.0" right="100.0" />
-               </VBox.margin>
-            </TextField>
-         </children>
          <VBox.margin>
-            <Insets left="100.0" right="100.0" />
+            <Insets top="50.0" />
          </VBox.margin>
+      </Text>
+      <VBox prefHeight="349.0" prefWidth="750.0">
+         <children>
+            <HBox prefHeight="325.0" prefWidth="750.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="267.0" prefWidth="355.0" style="-fx-background-color: #ffffff;">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Id:">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="txtId" prefHeight="25.0" prefWidth="288.0">
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Text>
+                        <TextField fx:id="txtNombre">
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </TextField>
+                     </children>
+                  </VBox>
+                  <TableView fx:id="tablaProceso" prefHeight="225.0" prefWidth="339.0" style="-fx-border-color: #000000;">
+                    <columns>
+                      <TableColumn fx:id="colId" prefWidth="171.3332874774933" text="Id" />
+                      <TableColumn fx:id="colNombre" minWidth="4.66668701171875" prefWidth="165.99998474121094" text="Nombre" />
+                    </columns>
+                     <HBox.margin>
+                        <Insets top="100.0" />
+                     </HBox.margin>
+                  </TableView>
+               </children>
+            </HBox>
+         </children>
       </VBox>
       <HBox alignment="CENTER" prefHeight="60.0" prefWidth="750.0">
          <children>
@@ -87,17 +90,6 @@
                   <Insets left="20.0" />
                </HBox.margin>
             </Button>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="215.0" prefWidth="750.0">
-         <children>
-            <TableView fx:id="tablaProceso" prefHeight="215.0" prefWidth="320.0" style="-fx-border-color: #000000;">
-              <columns>
-                <TableColumn fx:id="colId" prefWidth="110.66663873195648" text="Id" />
-                <TableColumn fx:id="colNombre" minWidth="4.66668701171875" prefWidth="97.33332061767578" text="Nombre" />
-                  <TableColumn fx:id="colDescripcion" prefWidth="111.33332824707031" text="Descripción" />
-              </columns>
-            </TableView>
          </children>
       </HBox>
    </children>
