@@ -84,17 +84,28 @@ public class AdminActividadViewController {
         colId.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getId()));
 
         colTareaAsignada.setCellFactory(col -> new TableCell<Proceso, String>() {
-            private final ComboBox<String> comboBox = new ComboBox<>();
+            private final ComboBox<Actividad> comboBox = new ComboBox<>();
 
             {
-                comboBox.getItems().addAll("Opción 1", "Opción 2", "Opción 3");
-                comboBox.setOnAction(event -> {
+                // Agregar las actividades correspondientes al ComboBox de cada proceso
+                comboBox.setOnShowing(event -> {
                     Proceso proceso = getTableView().getItems().get(getIndex());
                     if (proceso != null) {
-                        procesoSeleccionado = proceso;
-                        System.out.println("Proceso seleccionado desde ComboBox: " + procesoSeleccionado.getNombre());
-                        colaAuxProcesos.offer(comboBox.getValue());
-                        procesoSeleccionado.setListaActividades(colaAuxProcesos); // Suponiendo que Proceso tiene este método
+                        // Limpiar las actividades anteriores y agregar las del proceso actual
+                        comboBox.getItems().clear();
+                        comboBox.getItems().addAll(proceso.getListaActividades());
+                    }
+                });
+
+
+                comboBox.setOnAction(event -> {
+                    String nombreactividadSeleccionada = String.valueOf(comboBox.getValue());
+                    if (nombreactividadSeleccionada != null) {
+                        Actividad actividad= adminActividadController.buscarActividad(nombreactividadSeleccionada);
+
+                        txtNombre.setText(actividad.getNombre());
+                        txtDescripcion.setText(actividad.getDescripcion());
+
                     }
                 });
             }
@@ -105,12 +116,13 @@ public class AdminActividadViewController {
                 if (empty) {
                     setGraphic(null);
                 } else {
-                    comboBox.setValue(item);
                     setGraphic(comboBox);
                 }
             }
         });
     }
+
+
 
     private void cargarProcesosDesdeArchivo() {
         String rutaArchivo = "src/main/resources/archivosTxt/Procesos.txt";
@@ -125,10 +137,16 @@ public class AdminActividadViewController {
         construirProcesos();
         System.out.println("Procesos cargados desde archivo: " + listaProcesos);
     }
+    private  void cargarCamposTexto(){
+        txtNombre.setText(colaAuxProcesos.peek());
+    }
 
     private void construirProcesos() {
         tablaProceso.getItems().clear();
         tablaProceso.getItems().addAll(listaProcesos);
+    }
+    private void construirActividad(){
+
     }
 
     public void limpiarCampos() {
@@ -155,6 +173,7 @@ public class AdminActividadViewController {
 
         String nombre = txtNombre.getText();
         String descripcion = txtDescripcion.getText();
+
         Actividad nuevaActividad = new Actividad(nombre, descripcion, isObligatoria(), null);
         listaActividades.add(nuevaActividad);
 
@@ -165,7 +184,8 @@ public class AdminActividadViewController {
 
 
         adminProcesoController.agregarActividadAProceso(procesoSeleccionado.getId(), nuevaActividad);
-        adminProcesoController.guardarActividadEnProcesoTxt();
+
+        adminProcesoController.guardarActividadEnProcesoTxt(procesoSeleccionado.getId(), nuevaActividad);
 
         System.out.println("Lista de actividades: " + listaActividades);
         limpiarCampos();

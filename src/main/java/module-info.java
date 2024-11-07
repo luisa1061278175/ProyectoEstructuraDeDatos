@@ -11,4 +11,6 @@ module co.edu.uniquindio.proyectoestructura {
     opens co.edu.uniquindio.proyectoestructura.viewController;
     exports co.edu.uniquindio.proyectoestructura.controller;
     opens co.edu.uniquindio.proyectoestructura.controller to javafx.fxml;
+
+
 }

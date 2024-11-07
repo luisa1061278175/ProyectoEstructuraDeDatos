@@ -11,10 +11,11 @@ public class ListaEnlazadaProceso {
     private NodoProceso cabeza;
     private static final String RUTA_ARCHIVO_PROCESOS = "src/main/resources/archivosTxt/Procesos.txt";
 
-    AdminActividadController adminActividadController;
+    AdminActividadController adminActividadController = new AdminActividadController();
 
     public ListaEnlazadaProceso() {
         this.cabeza = null;
+        cargarDesdeArchivo(RUTA_ARCHIVO_PROCESOS);
     }
     /*
      *
@@ -74,6 +75,7 @@ public class ListaEnlazadaProceso {
         return false;
     }
     public Proceso buscarProceso(String id) {
+
         NodoProceso actual = cabeza;
         while (actual != null) {
             if (actual.getProceso().getId().equals(id)) {
@@ -218,35 +220,59 @@ public class ListaEnlazadaProceso {
     }
 
     //metodo para guardar las actividades en cada proceso:
-    public void guardarActividadEnProcesoTxt() {
+    public void guardarActividadEnProcesoTxt(String idProceso, Actividad nuevaActividad) {
+        List<String> lineasActualizadas = new ArrayList<>();
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(RUTA_ARCHIVO_PROCESOS, true))) { // Modo append
-            NodoProceso temp = cabeza;
-            while (temp != null) {
-                Proceso proceso = temp.getProceso();
+        try (BufferedReader reader = new BufferedReader(new FileReader(RUTA_ARCHIVO_PROCESOS))) {
+            String linea;
+            boolean actividadAgregada = false;
 
-                // Construir la representación de la cola de actividades como un string
-                StringBuilder actividadesStr = new StringBuilder();
-                Queue<Actividad> actividades = proceso.getListaActividades();
-                for (Actividad actividad : actividades) {
-                    actividadesStr.append(actividad.getNombre()).append(","); // Separador para actividades
+            // Leer cada línea del archivo actual
+            while ((linea = reader.readLine()) != null) {
+                String[] datos = linea.split(";");
+
+                // Si encontramos el proceso con el ID deseado, agregamos la nueva actividad
+                if (datos[0].equals(idProceso)) {
+                    StringBuilder nuevaLinea = new StringBuilder();
+                    nuevaLinea.append(datos[0]).append(";").append(datos[1]).append(";");
+
+                    // Si ya hay actividades, las añadimos a la nueva línea
+                    if (datos.length > 2) {
+                        nuevaLinea.append(datos[2]).append(",");
+                    }
+                    // Añadir la nueva actividad al final de la línea
+                    nuevaLinea.append(nuevaActividad.getNombre());
+
+                    lineasActualizadas.add(nuevaLinea.toString());
+                    actividadAgregada = true;
+                    System.out.println("Se añadió la actividad '" + nuevaActividad.getNombre() + "' al proceso: " + idProceso);
+                } else {
+                    // Si no es el proceso buscado, añadir la línea sin modificaciones
+                    lineasActualizadas.add(linea);
                 }
+            }
 
-                // Remover la última coma si hay actividades
-                if (actividadesStr.length() > 0) {
-                    actividadesStr.setLength(actividadesStr.length() - 1);
-                }
+            // Si no se encontró el proceso en el archivo, mostramos un mensaje
+            if (!actividadAgregada) {
+                System.out.println("Proceso no encontrado con ID: " + idProceso);
+            }
+        } catch (IOException e) {
+            System.err.println("Error al leer el archivo: " + e.getMessage());
+        }
 
-                // Guardar el proceso con el formato "id;nombre;actividad1,actividad2,..."
-                writer.write(proceso.getId() + ";" + proceso.getNombre() + ";" + actividadesStr);
+        // Escribir todas las líneas actualizadas de vuelta al archivo
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(RUTA_ARCHIVO_PROCESOS, false))) {
+            for (String lineaActualizada : lineasActualizadas) {
+                writer.write(lineaActualizada);
                 writer.newLine();
-                temp = temp.getSiguiente();
             }
             System.out.println("Datos guardados en " + RUTA_ARCHIVO_PROCESOS);
         } catch (IOException e) {
-            System.err.println("Error al guardar los datos en el archivo: " + e.getMessage());
+            System.err.println("Error al escribir en el archivo: " + e.getMessage());
         }
     }
+
+
 
 
     public NodoProceso getCabeza() {

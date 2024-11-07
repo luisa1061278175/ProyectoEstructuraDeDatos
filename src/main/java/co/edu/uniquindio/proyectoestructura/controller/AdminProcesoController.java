@@ -42,10 +42,11 @@ public class AdminProcesoController {
     //metodo para guardar las actividades creadas
     public void agregarActividadAProceso(String id, Actividad actividad){
         listaEnlazadaProceso.agregarActividadAProceso(id, actividad);
+
     }
 
-    public void guardarActividadEnProcesoTxt(){
-        listaEnlazadaProceso.guardarActividadEnProcesoTxt();
+    public void guardarActividadEnProcesoTxt(String idProceso, Actividad nuevaActividad){
+        listaEnlazadaProceso.guardarActividadEnProcesoTxt(idProceso,nuevaActividad);
     }
 
 

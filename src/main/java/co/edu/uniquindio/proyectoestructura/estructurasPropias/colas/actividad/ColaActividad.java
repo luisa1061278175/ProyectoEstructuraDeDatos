@@ -15,6 +15,7 @@ public class ColaActividad {
 
     public ColaActividad() {
         actividades = new LinkedList<>();
+        cargarActividadesDesdeArchivo(RUTA_ARCHIVO_ACTIVIDADES);
     }
 
     public void guardarActividad(Actividad actividad) {
@@ -50,16 +51,6 @@ public class ColaActividad {
     }
 
 
-    public void mostrarActividades() {
-        if (actividades.isEmpty()) {
-            System.out.println("La cola de actividades está vacía.");
-        } else {
-            for (Actividad actividad : actividades) {
-                System.out.println(actividad);
-            }
-        }
-    }
-
 
     /*
      *
@@ -86,7 +77,46 @@ public class ColaActividad {
         }
     }
 
-    public  boolean modificarActividadEnArchivo(String nombre, String nuevaDescripcion, boolean esObligatoria) {
+    public Actividad buscarActividadPorNombre(String nombreActividad) {
+        for (Actividad actividad : actividades) {
+            if (actividad.getNombre().equalsIgnoreCase(nombreActividad)) {
+                return actividad;
+            }
+        }
+        return null;
+    }
+
+    public Queue<Actividad> cargarActividadesDesdeArchivo(String rutaArchivo) {
+
+
+        try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+
+                String[] partes = linea.split(";");
+
+                // Verificamos que la línea tenga los tres elementos necesarios
+                if (partes.length == 3) {
+                    String nombre = partes[0].trim();
+                    String descripcion = partes[1].trim();
+                    boolean isObligatoria = Boolean.parseBoolean(partes[2].trim());
+
+                    // Creamos una nueva actividad con los datos de la línea
+                    Actividad actividad = new Actividad(nombre, descripcion, isObligatoria,null);
+
+                    // Agregamos la actividad a la cola
+                    actividades.add(actividad);
+                } else {
+                    System.out.println("Formato incorrecto en línea: " + linea);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error al leer el archivo: " + e.getMessage());
+        }
+
+        return actividades;
+    }
+    public boolean modificarActividadEnArchivo(String nombre, String nuevaDescripcion, boolean esObligatoria) {
         File archivo = new File(RUTA_ARCHIVO_ACTIVIDADES);
         List<String> lineas = new ArrayList<>();
 
@@ -119,7 +149,8 @@ public class ColaActividad {
             return false;
         }
     }
-    public  boolean eliminarLineaDelArchivo(String identificador) {
+
+    public boolean eliminarLineaDelArchivo(String identificador) {
         File archivo = new File(RUTA_ARCHIVO_ACTIVIDADES);
         List<String> lineas = new ArrayList<>();
         boolean eliminado = false;
