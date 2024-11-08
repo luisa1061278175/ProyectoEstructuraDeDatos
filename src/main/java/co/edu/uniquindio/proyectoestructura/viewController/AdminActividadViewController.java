@@ -208,8 +208,9 @@ public class AdminActividadViewController {
     void modificarActividad(ActionEvent event) {
         String nombre = txtNombre.getText();
         String descripcion = txtDescripcion.getText();
+
         adminActividadController.modificar(nombre, descripcion, isObligatoria());
-        adminActividadController.modificar(nombre, descripcion, isObligatoria());
+        adminActividadController.modificarTxt(nombre, descripcion, isObligatoria());
         cargarProcesosDesdeArchivo();
         construirProcesos();
     }

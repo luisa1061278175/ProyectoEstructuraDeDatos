@@ -9,6 +9,19 @@
     <children>
         <TabPane layoutX="8.0" layoutY="8.0" prefHeight="580.0" prefWidth="750.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
+            <Tab text="Bienvenido">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" >
+                    <children>
+                        <SplitPane layoutX="6.0" layoutY="6.0" orientation="VERTICAL" prefHeight="580.0" prefWidth="750.0" style="-fx-background-color: ffffff;">
+                            <items>
+                                <fx:include source="adminInicio.fxml" />
+                            </items>
+                        </SplitPane>
+                    </children>
+                </AnchorPane>
+              </content>
+            </Tab>
                 <Tab text="Proceso">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">

@@ -4,16 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6aaae5b7-b31a-4ff7-9b60-ab078e52e8ed" name="Changes" comment="Metodos de colas Actividad listos">
+    <list default="true" id="6aaae5b7-b31a-4ff7-9b60-ab078e52e8ed" name="Changes" comment="Se vincularon las actividades con los procesos">
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/estructurasPropias/cola/tarea/ColaTarea.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/imagenes/Bienvenido A la gestios.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/controller/AdminActividadController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/controller/AdminActividadController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/controller/AdminProcesoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/controller/AdminProcesoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/estructurasPropias/colas/actividad/ColaActividad.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/estructurasPropias/colas/actividad/ColaActividad.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/estructurasPropias/listaEnlazada/proceso/ListaEnlazadaProceso.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/estructurasPropias/listaEnlazada/proceso/ListaEnlazadaProceso.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/estructurasPropias/tarea/ListaEnlazadaTarea.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/estructurasPropias/tarea/NodoTarea.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/viewController/AdminActividadViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/viewController/AdminActividadViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/archivosTxt/Procesos.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/archivosTxt/Procesos.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/adminActividad.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/adminActividad.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/adminTab.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/adminTab.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -255,7 +254,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730955988710</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Se vincularon las actividades con los procesos">
+      <option name="closed" value="true" />
+      <created>1731011760088</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1731011760088</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -270,6 +277,7 @@
     <MESSAGE value="CRUD de proceso" />
     <MESSAGE value="Lista enlazada procesos con archivos txt" />
     <MESSAGE value="Metodos de colas Actividad listos" />
-    <option name="LAST_COMMIT_MESSAGE" value="Metodos de colas Actividad listos" />
+    <MESSAGE value="Se vincularon las actividades con los procesos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se vincularon las actividades con los procesos" />
   </component>
 </project>

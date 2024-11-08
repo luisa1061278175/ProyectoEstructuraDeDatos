@@ -28,22 +28,26 @@ public class AdminActividadController {
 
     //METODOS AL TXT
 
-    public void agregarTxt(Queue<Actividad> actividades) {
+    public void agregarTxt(Queue<Actividad>actividades){
         colaActividad.agregarActividadAlArchivo(actividades);
 
     }
 
-    public void modificarTxt(String nombre, String nuevaDescripcion, boolean esObligatoria) {
-        colaActividad.modificarActividadEnArchivo(nombre, nuevaDescripcion, esObligatoria);
+    public void modificarTxt(String nombre, String nuevaDescripcion, boolean esObligatoria){
+        colaActividad.modificarActividadEnArchivo(nombre, nuevaDescripcion,esObligatoria);
     }
-
-    public void eliminarTxt(String identificador) {
+    public void eliminarTxt(String identificador){
         colaActividad.eliminarLineaDelArchivo(identificador);
     }
 
-    public Actividad buscarActividad(String nombre) {
-        return colaActividad.buscarActividadPorNombre(nombre);
-    }
+    //metodo para añadir al proceso la actividad que se le creo
+    //Hacer: leer el proceso seleccionado
+    //llamar a crear proceso y enviarle la nueva actividad
+    //actualizar la tabla
+public Actividad buscarActividad(String nombre){
+       return colaActividad.buscarActividadPorNombre(nombre);
+}
+
 
 
 }
