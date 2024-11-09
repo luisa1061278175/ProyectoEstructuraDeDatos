@@ -13,7 +13,7 @@
 
 <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="750.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.proyectoestructura.viewController.AdminTareasViewController">
     <children>
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TAREAS" wrappingWidth="222.05927276611328">
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Selecciona la actividad" wrappingWidth="616.725959777832">
             <font>
                 <Font name="Arial Black" size="43.0" />
             </font>
@@ -21,49 +21,46 @@
             <Insets top="20.0" />
          </VBox.margin>
         </Text>
+        <HBox alignment="CENTER" prefHeight="185.0" prefWidth="750.0">
+            <children>
+                <TableView fx:id="tablaActividad" prefHeight="120.0" prefWidth="471.0" style="-fx-border-color: #000000;">
+                    <columns>
+                        <TableColumn fx:id="colNombre" prefWidth="110.66663873195648" text="Nombre" />
+                        <TableColumn fx:id="colDescripcion" minWidth="4.66668701171875" prefWidth="97.33332061767578" text="Descripción" />
+                        <TableColumn fx:id="colObligatoria" prefWidth="111.33332824707031" text="¿Obligatoria?" />
+                  <TableColumn fx:id="colActividades" prefWidth="75.0" text="Actividades" />
+                  <TableColumn fx:id="colDuración" prefWidth="75.0" text="Duración" />
+                    </columns>
+               <padding>
+                  <Insets top="20.0" />
+               </padding>
+                </TableView>
+            </children>
+        </HBox>
         <VBox alignment="CENTER" prefHeight="206.0" prefWidth="550.0" style="-fx-background-color: #ffffff;">
             <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Seleccione la actividad:">
-                     <font>
-                        <Font size="17.0" />
-                     </font>
-                  </Text>
-                  <ComboBox fx:id="jComboActividad" prefWidth="150.0">
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </ComboBox>
-               </children>
-            </HBox>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Id:">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="DATOS PARA TAREAS">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin>
+            </Text>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre">
                     <VBox.margin>
                         <Insets left="20.0" />
                     </VBox.margin>
                     <font>
                         <Font size="17.0" />
                     </font>
-                </Text>
-                <TextField fx:id="txtId">
-                    <VBox.margin>
-                        <Insets left="100.0" right="100.0" />
-                    </VBox.margin>
-                </TextField>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:">
-                    <font>
-                        <Font size="17.0" />
-                    </font>
-                    <VBox.margin>
-                        <Insets left="20.0" />
-                    </VBox.margin>
                 </Text>
                 <TextField fx:id="txtNombre">
                     <VBox.margin>
                         <Insets left="100.0" right="100.0" />
                     </VBox.margin>
                 </TextField>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Descripción:">
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Descripción">
                     <font>
                         <Font size="17.0" />
                     </font>
@@ -71,11 +68,37 @@
                         <Insets left="20.0" />
                     </VBox.margin>
                 </Text>
-                <TextField fx:id="txtDescripcion" prefHeight="49.0" prefWidth="350.0">
+                <TextField fx:id="txtDescripcion">
                     <VBox.margin>
                         <Insets left="100.0" right="100.0" />
                     </VBox.margin>
                 </TextField>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Duración">
+                    <font>
+                        <Font size="17.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets left="20.0" />
+                    </VBox.margin>
+                </Text>
+                <TextField fx:id="txtDuracion" prefHeight="49.0" prefWidth="350.0">
+                    <VBox.margin>
+                        <Insets left="100.0" right="100.0" />
+                    </VBox.margin>
+                </TextField>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="¿Obligatoria?">
+               <font>
+                  <Font size="17.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="20.0" />
+               </VBox.margin>
+            </Text>
+            <ComboBox fx:id="jcomboObligatoria" prefHeight="25.0" prefWidth="123.0">
+               <VBox.margin>
+                  <Insets left="20.0" />
+               </VBox.margin>
+            </ComboBox>
             </children>
             <VBox.margin>
                 <Insets left="100.0" right="100.0" />
@@ -104,17 +127,6 @@
                         <Insets left="20.0" />
                     </HBox.margin>
                 </Button>
-            </children>
-        </HBox>
-        <HBox alignment="CENTER" prefHeight="120.0" prefWidth="750.0">
-            <children>
-                <TableView fx:id="tablaProceso" prefHeight="125.0" prefWidth="320.0" style="-fx-border-color: #000000;">
-                    <columns>
-                        <TableColumn fx:id="colId" prefWidth="110.66663873195648" text="Id" />
-                        <TableColumn fx:id="colNombre" minWidth="4.66668701171875" prefWidth="97.33332061767578" text="Nombre" />
-                        <TableColumn fx:id="colDescripcion" prefWidth="111.33332824707031" text="Descripción" />
-                    </columns>
-                </TableView>
             </children>
         </HBox>
     </children>

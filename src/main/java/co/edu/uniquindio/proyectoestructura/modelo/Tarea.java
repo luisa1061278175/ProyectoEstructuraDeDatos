@@ -1,15 +1,24 @@
 package co.edu.uniquindio.proyectoestructura.modelo;
 
 public class Tarea {
+    private String nombre;
     private String descripcion;
     private boolean obligatoria;
     private int duracion;
 
-
-    public Tarea(java.lang.String descripcion, boolean obligatoria, int duracion) {
+    public Tarea(String nombre, String descripcion, boolean obligatoria, int duracion) {
+        this.nombre = nombre;
         this.descripcion = descripcion;
         this.obligatoria = obligatoria;
         this.duracion = duracion;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getDescripcion() {
