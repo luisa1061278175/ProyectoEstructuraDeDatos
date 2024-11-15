@@ -23,13 +23,12 @@
         </Text>
         <HBox alignment="CENTER" prefHeight="185.0" prefWidth="750.0">
             <children>
-                <TableView fx:id="tablaActividad" prefHeight="120.0" prefWidth="471.0" style="-fx-border-color: #000000;">
+                <TableView fx:id="tablaActividad" prefHeight="177.0" prefWidth="399.0" style="-fx-border-color: #000000;">
                     <columns>
                         <TableColumn fx:id="colNombre" prefWidth="110.66663873195648" text="Nombre" />
                         <TableColumn fx:id="colDescripcion" minWidth="4.66668701171875" prefWidth="97.33332061767578" text="Descripción" />
                         <TableColumn fx:id="colObligatoria" prefWidth="111.33332824707031" text="¿Obligatoria?" />
-                  <TableColumn fx:id="colActividades" prefWidth="75.0" text="Actividades" />
-                  <TableColumn fx:id="colDuración" prefWidth="75.0" text="Duración" />
+                  <TableColumn fx:id="colTareas" prefWidth="75.0" text="Tareas" />
                     </columns>
                <padding>
                   <Insets top="20.0" />

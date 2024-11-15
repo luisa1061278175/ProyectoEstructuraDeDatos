@@ -8,7 +8,7 @@ public class Actividad {
     private String descripcion;
     private boolean esObligatoria;
 
-    public Queue<Tarea>tareas;
+    public Queue tareas;
 
     public Actividad(String nombre, String descripcion, boolean esObligatoria, Queue<Tarea> tareas) {
         this.nombre = nombre;
@@ -41,11 +41,11 @@ public class Actividad {
         this.esObligatoria = esObligatoria;
     }
 
-    public Queue<Tarea> getTareas() {
+    public Queue getTareas() {
         return tareas;
     }
 
-    public void setTareas(Queue<Tarea> tareas) {
+    public void setTareas(Queue tareas) {
         this.tareas = tareas;
     }
 

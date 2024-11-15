@@ -1,3 +1,3 @@
-84;Comida;Huevos
-01;Baile23;Salsa
+84;Comida;Carne
+01;Bailar;baile
 72;Deporte;

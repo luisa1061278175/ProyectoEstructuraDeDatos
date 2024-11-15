@@ -122,8 +122,6 @@ public class AdminActividadViewController {
         });
     }
 
-
-
     private void cargarProcesosDesdeArchivo() {
         String rutaArchivo = "src/main/resources/archivosTxt/Procesos.txt";
         listaProcesos.clear();

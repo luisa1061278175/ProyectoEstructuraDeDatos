@@ -116,6 +116,33 @@ public class ColaActividad {
 
         return actividades;
     }
+
+    public  Actividad[] leerArchivo(String rutaArchivo) {
+        List<Actividad> actividades = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
+            String linea;
+
+            while ((linea = br.readLine()) != null) {
+                String[] datos = linea.split(";");
+
+                // Asegurarse de que la línea tiene todos los datos necesarios
+
+                    String nombre = datos[0];
+                    String descripcion = datos[1];
+                    boolean obligatoria = Boolean.parseBoolean(datos[2]);
+
+                    Actividad actividad = new Actividad(nombre, descripcion, obligatoria, null);
+                    actividades.add(actividad);
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        return actividades.toArray(new Actividad[0]);
+    }
     public boolean modificarActividadEnArchivo(String nombre, String nuevaDescripcion, boolean esObligatoria) {
         File archivo = new File(RUTA_ARCHIVO_ACTIVIDADES);
         List<String> lineas = new ArrayList<>();

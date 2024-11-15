@@ -1,0 +1,2 @@
+tarea09;tr;false;32
+tarea321;rr;false;32

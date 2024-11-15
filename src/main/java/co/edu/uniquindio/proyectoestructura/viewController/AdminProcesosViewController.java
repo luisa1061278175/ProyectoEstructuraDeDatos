@@ -129,6 +129,7 @@ public class AdminProcesosViewController {
         String id = txtId.getText();
 
         Proceso nuevoProceso = new Proceso(nombre, id, null);
+
         adminProcesoController.guardarProceso(nuevoProceso);
         adminProcesoController.guardarTxt();
         cargarProcesosDesdeArchivo();

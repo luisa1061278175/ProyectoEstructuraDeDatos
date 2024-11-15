@@ -3,7 +3,6 @@ package co.edu.uniquindio.proyectoestructura.controller;
 import co.edu.uniquindio.proyectoestructura.estructurasPropias.colas.actividad.ColaActividad;
 import co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.proceso.ListaEnlazadaProceso;
 import co.edu.uniquindio.proyectoestructura.modelo.Actividad;
-import co.edu.uniquindio.proyectoestructura.modelo.Proceso;
 
 import java.util.Queue;
 
@@ -28,15 +27,16 @@ public class AdminActividadController {
 
     //METODOS AL TXT
 
-    public void agregarTxt(Queue<Actividad>actividades){
+    public void agregarTxt(Queue<Actividad> actividades) {
         colaActividad.agregarActividadAlArchivo(actividades);
 
     }
 
-    public void modificarTxt(String nombre, String nuevaDescripcion, boolean esObligatoria){
-        colaActividad.modificarActividadEnArchivo(nombre, nuevaDescripcion,esObligatoria);
+    public void modificarTxt(String nombre, String nuevaDescripcion, boolean esObligatoria) {
+        colaActividad.modificarActividadEnArchivo(nombre, nuevaDescripcion, esObligatoria);
     }
-    public void eliminarTxt(String identificador){
+
+    public void eliminarTxt(String identificador) {
         colaActividad.eliminarLineaDelArchivo(identificador);
     }
 
@@ -44,10 +44,16 @@ public class AdminActividadController {
     //Hacer: leer el proceso seleccionado
     //llamar a crear proceso y enviarle la nueva actividad
     //actualizar la tabla
-public Actividad buscarActividad(String nombre){
-       return colaActividad.buscarActividadPorNombre(nombre);
-}
+    public Actividad buscarActividad(String nombre) {
+        return colaActividad.buscarActividadPorNombre(nombre);
+    }
 
+    public Queue<Actividad> cargarActividadesDesdeArchivo(String ruta){
+        return  colaActividad.cargarActividadesDesdeArchivo(ruta);
+    }
+    public Actividad[] leerArchivo(String ruta){
+        return colaActividad.leerArchivo(ruta);
+    }
 
 
 }

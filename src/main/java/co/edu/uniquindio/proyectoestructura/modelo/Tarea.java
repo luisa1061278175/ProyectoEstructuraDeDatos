@@ -41,6 +41,16 @@ public class Tarea {
         return duracion;
     }
 
+    @Override
+    public String toString() {
+        return "Tarea{" +
+                "nombre='" + nombre + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", obligatoria=" + obligatoria +
+                ", duracion=" + duracion +
+                '}';
+    }
+
     public void setDuracion(int duracion) {
         this.duracion = duracion;
     }
