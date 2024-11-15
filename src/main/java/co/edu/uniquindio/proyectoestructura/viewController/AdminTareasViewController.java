@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.util.StringConverter;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -68,6 +69,8 @@ public class AdminTareasViewController {
 
         initDataBinding();
         cargarActividadesDesdeArchivo();
+        cargarTareasDesdeArchivo();
+
         jcomboObligatoria.getItems().addAll("No", "Si");
 
         // Detecta el proceso seleccionado en la tabla y lo asigna a `procesoSeleccionado`
@@ -80,28 +83,45 @@ public class AdminTareasViewController {
     }
 
     private void initDataBinding() {
+
         colNombre.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getNombre()));
         colDescripcion.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getDescripcion()));
-        colObligatoria.setCellValueFactory(cell -> new SimpleBooleanProperty(cell.getValue().isEsObligatoria()).asString());
+        colObligatoria.setCellValueFactory(cell ->
+                new SimpleBooleanProperty(cell.getValue().isEsObligatoria()).asString()
+        );
 
         colTareas.setCellFactory(col -> new TableCell<Actividad, String>() {
-            private final ComboBox<Tarea> comboBox = new ComboBox<>(); // Cambié el tipo a Tarea para evitar errores de tipo
+            private final ComboBox<Tarea> comboBox = new ComboBox<>();
 
             {
+                comboBox.setConverter(new StringConverter<>() {
+                    @Override
+                    public String toString(Tarea tarea) {
+                        return tarea != null ? tarea.getNombre() : ""; // Mostrar solo el nombre de la tarea
+                    }
 
+                    @Override
+                    public Tarea fromString(String string) {
+                        // Este método no es necesario para esta implementación, pero debe estar definido
+                        return null;
+                    }
+                });
+                // Listener para cargar las tareas al abrir el ComboBox
                 comboBox.setOnShowing(event -> {
                     Actividad actividad = getTableView().getItems().get(getIndex());
                     if (actividad != null && actividad.getTareas() != null) {
                         comboBox.getItems().clear();
-                        comboBox.getItems().addAll(actividad.getTareas());
+                        comboBox.getItems().addAll(new ArrayList<>(actividad.getTareas()));
                     }
                 });
 
+                // Listener para manejar la selección de una atarea
                 comboBox.setOnAction(event -> {
                     Tarea tareaSeleccionada = comboBox.getValue();
-                    if (tareaSeleccionada != null) {
-                        Tarea tarea = adminTareaController.buscarTarea(tareaSeleccionada.getNombre());
 
+                    if (tareaSeleccionada != null) {
+
+                        Tarea tarea = adminTareaController.buscarTarea(tareaSeleccionada.getNombre());
                         if (tarea != null) {
                             txtNombre.setText(tarea.getNombre());
                             txtDescripcion.setText(tarea.getDescripcion());
@@ -118,14 +138,22 @@ public class AdminTareasViewController {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
-                if (empty) {
+                if (empty || getIndex() >= getTableView().getItems().size()) {
                     setGraphic(null);
                 } else {
-                    setGraphic(comboBox);
+                    // Obtener la actividad asociada a esta fila
+                    Actividad actividad = getTableView().getItems().get(getIndex());
+                    if (actividad != null && actividad.getTareas() != null) {
+                        comboBox.getItems().clear();
+                        comboBox.getItems().addAll(new ArrayList<>(actividad.getTareas())); // Convertir cola a lista y cargar tareas
+                    }
+                    setGraphic(comboBox); // Establecer el ComboBox como elemento gráfico
                 }
             }
         });
     }
+
+
 
 
     private void cargarActividadesDesdeArchivo() {
@@ -136,6 +164,20 @@ public class AdminTareasViewController {
         if (actividadArray != null) {
             for (Actividad actividad : actividadArray) {
                 listaActividades.add(actividad);
+            }
+        }
+        construirActividad();
+
+    }
+    private void cargarTareasDesdeArchivo() {
+        String rutaArchivo = "src/main/resources/archivosTxt/Tareas.txt";
+        listaTareas.clear();
+
+        Tarea[] tareasArray = adminTareaController.cargarTareaArchivo(rutaArchivo);
+
+        if (tareasArray != null) {
+            for (Tarea tarea : tareasArray) {
+                listaTareas.add(tarea);
             }
         }
         construirActividad();

@@ -1,6 +1,7 @@
 package co.edu.uniquindio.proyectoestructura.estructurasPropias.colas.actividad;
 
 import co.edu.uniquindio.proyectoestructura.modelo.Actividad;
+import co.edu.uniquindio.proyectoestructura.modelo.Tarea;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -88,7 +89,6 @@ public class ColaActividad {
 
     public Queue<Actividad> cargarActividadesDesdeArchivo(String rutaArchivo) {
 
-
         try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
             String linea;
             while ((linea = br.readLine()) != null) {
@@ -96,7 +96,7 @@ public class ColaActividad {
                 String[] partes = linea.split(";");
 
                 // Verificamos que la línea tenga los tres elementos necesarios
-                if (partes.length == 3) {
+
                     String nombre = partes[0].trim();
                     String descripcion = partes[1].trim();
                     boolean isObligatoria = Boolean.parseBoolean(partes[2].trim());
@@ -106,9 +106,7 @@ public class ColaActividad {
 
                     // Agregamos la actividad a la cola
                     actividades.add(actividad);
-                } else {
-                    System.out.println("Formato incorrecto en línea: " + linea);
-                }
+
             }
         } catch (IOException e) {
             System.err.println("Error al leer el archivo: " + e.getMessage());
@@ -117,7 +115,7 @@ public class ColaActividad {
         return actividades;
     }
 
-    public  Actividad[] leerArchivo(String rutaArchivo) {
+    public Actividad[] leerArchivo(String rutaArchivo) {
         List<Actividad> actividades = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
@@ -126,23 +124,35 @@ public class ColaActividad {
             while ((linea = br.readLine()) != null) {
                 String[] datos = linea.split(";");
 
-                // Asegurarse de que la línea tiene todos los datos necesarios
+                // Verificar que la línea tenga al menos 3 elementos
+                if (datos.length >= 3) {
+                    String nombre = datos[0].trim();
+                    String descripcion = datos[1].trim();
+                    boolean obligatoria = Boolean.parseBoolean(datos[2].trim());
 
-                    String nombre = datos[0];
-                    String descripcion = datos[1];
-                    boolean obligatoria = Boolean.parseBoolean(datos[2]);
+                    // Procesar tareas si existen
+                    Queue<Tarea> tareas = new LinkedList<>();
+                    if (datos.length > 3) {
+                        String[] nombresTareas = datos[3].split(",");
+                        for (String nombreTarea : nombresTareas) {
+                            tareas.add(new Tarea(nombreTarea.trim(), "Descripción pendiente", false, 0)); // Crear tareas genéricas
+                        }
+                    }
 
-                    Actividad actividad = new Actividad(nombre, descripcion, obligatoria, null);
+                    // Crear la actividad con o sin tareas
+                    Actividad actividad = new Actividad(nombre, descripcion, obligatoria, tareas);
                     actividades.add(actividad);
-
+                } else {
+                    System.err.println("Formato incorrecto en línea: " + linea);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-
         return actividades.toArray(new Actividad[0]);
     }
+
     public boolean modificarActividadEnArchivo(String nombre, String nuevaDescripcion, boolean esObligatoria) {
         File archivo = new File(RUTA_ARCHIVO_ACTIVIDADES);
         List<String> lineas = new ArrayList<>();

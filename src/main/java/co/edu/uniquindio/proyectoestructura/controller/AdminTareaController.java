@@ -5,6 +5,7 @@ import co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.pro
 import co.edu.uniquindio.proyectoestructura.modelo.Actividad;
 import co.edu.uniquindio.proyectoestructura.modelo.Tarea;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 
@@ -53,8 +54,26 @@ public class AdminTareaController {
     public Queue<Tarea> cargarTareasDesdeArchivo(String ruta) {
         return colaTarea.cargarTareasDesdeArchivo(ruta);
     }
+    public Tarea[]cargarTareaArchivo(String ruta){
+        return colaTarea.cargarTareasArchivo(ruta);
+    }
 
-public void guardarTareaEnActividad(String nombreActividad, Tarea nuevaTarea){
+    public List<Tarea> generarTareasDesdeNombres(String nombresTareas) {
+        List<Tarea> listaTareas = new ArrayList<>();
+        String[] nombres = nombresTareas.split(","); // Dividir nombres de tareas por comas
+        for (String nombre : nombres) {
+            Tarea tarea = this.buscarTarea(nombre.trim()); // Buscar tarea por nombre
+            if (tarea != null) {
+                listaTareas.add(tarea);
+            } else {
+                System.out.println("Tarea no encontrada: " + nombre.trim());
+            }
+        }
+        return listaTareas;
+    }
+
+
+    public void guardarTareaEnActividad(String nombreActividad, Tarea nuevaTarea){
         colaTarea.guardarTareaEnActividad(nombreActividad, nuevaTarea);
 }
 }

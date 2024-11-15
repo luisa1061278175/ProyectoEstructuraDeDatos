@@ -16,6 +16,7 @@ public class ColaTarea {
     public ColaTarea() {
         tareas = new LinkedList<>();
         cargarTareasDesdeArchivo(RUTA_ARCHIVO_TAREAS);
+
     }
 
 
@@ -148,9 +149,14 @@ public class ColaTarea {
     }
 
     public Tarea buscarTareaPorNombre(String nombreActividad) {
+
+        System.out.println("tareas disponibles en buscar tarea:"+ tareas);
         for (Tarea tarea : tareas) {
             if (tarea.getNombre().equalsIgnoreCase(nombreActividad)) {
                 return tarea;
+            }
+            else {
+                System.out.println("En buscar Tarea, no se encuentra la tarea");
             }
         }
         return null;
@@ -158,14 +164,13 @@ public class ColaTarea {
 
     public Queue<Tarea> cargarTareasDesdeArchivo(String rutaArchivo) {
 
-
         try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
             String linea;
             while ((linea = br.readLine()) != null) {
 
                 String[] partes = linea.split(";");
 
-                if (partes.length == 4) {
+
                     String nombre = partes[0].trim();
                     String descripcion = partes[1].trim();
                     boolean isObligatoria = Boolean.parseBoolean(partes[2].trim());
@@ -174,8 +179,35 @@ public class ColaTarea {
                     // Creamos una nueva actividad con los datos de la línea
                     Tarea tarea = new Tarea(nombre, descripcion, isObligatoria,duracion);
 
-                    // Agregamos la actividad a la cola
                     tareas.add(tarea);
+            }
+        } catch (IOException e) {
+            System.err.println("Error al leer el archivo: " + e.getMessage());
+        }
+
+        return tareas;
+    }
+
+    public Tarea[] cargarTareasArchivo(String rutaArchivo) {
+        // Usamos una lista para almacenar temporalmente las tareas
+        List<Tarea> listaTareas = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] partes = linea.split(";");
+
+                if (partes.length == 4) {
+                    String nombre = partes[0].trim();
+                    String descripcion = partes[1].trim();
+                    boolean isObligatoria = Boolean.parseBoolean(partes[2].trim());
+                    int duracion = Integer.parseInt(partes[3].trim());
+
+                    // Creamos una nueva tarea con los datos de la línea
+                    Tarea tarea = new Tarea(nombre, descripcion, isObligatoria, duracion);
+
+                    // Agregamos la tarea a la lista
+                    listaTareas.add(tarea);
                 } else {
                     System.out.println("Formato incorrecto en línea: " + linea);
                 }
@@ -184,13 +216,14 @@ public class ColaTarea {
             System.err.println("Error al leer el archivo: " + e.getMessage());
         }
 
-        return tareas;
+        // Convertimos la lista a un arreglo y lo retornamos
+        return listaTareas.toArray(new Tarea[0]);
     }
     //para usar en la interfaz
 
     public static <T> T[] colaAArreglo(Queue<T> cola) {
         // Crear un arreglo con el tamaño de la cola y del mismo tipo que los elementos de la cola
-        @SuppressWarnings("unchecked")
+
         T[] arreglo = (T[]) new Object[cola.size()];
 
         int index = 0;
