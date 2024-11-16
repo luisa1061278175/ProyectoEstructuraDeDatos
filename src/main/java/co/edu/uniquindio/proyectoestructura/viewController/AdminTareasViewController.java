@@ -26,6 +26,8 @@ public class AdminTareasViewController {
 
     @FXML
     private Button btnModificar;
+    @FXML
+    private Button btnBuscarTarea;
 
     @FXML
     private TableColumn<Actividad, String> colTareas;
@@ -55,6 +57,9 @@ public class AdminTareasViewController {
     @FXML
     private TextField txtNombre;
 
+    @FXML
+    private TextField txtTareaABuscar;
+
     private Actividad actividadSeleccionada;
     private Queue<String> colaAuxActividades = new LinkedList<>();
 
@@ -63,6 +68,7 @@ public class AdminTareasViewController {
     Tarea tareaSeleccionada;
     List<Tarea> listaTareas = new ArrayList<>();
     private List<Actividad> listaActividades = new ArrayList<>();
+    private boolean esObligatoria;
 
 
     public void initialize() {
@@ -73,7 +79,15 @@ public class AdminTareasViewController {
 
         jcomboObligatoria.getItems().addAll("No", "Si");
 
-        // Detecta el proceso seleccionado en la tabla y lo asigna a `procesoSeleccionado`
+
+        jcomboObligatoria.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                System.out.println("Valor seleccionado en ComboBox: " + newValue);
+                esObligatoria = newValue.equals("Si");
+            }
+        });
+
+        // Detecta el proceso seleccionado en la tabla y lo asigna a `actividadSeleccionada`
         tablaActividad.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 actividadSeleccionada = newSelection;
@@ -81,6 +95,7 @@ public class AdminTareasViewController {
             }
         });
     }
+
 
     private void initDataBinding() {
 
@@ -154,8 +169,6 @@ public class AdminTareasViewController {
     }
 
 
-
-
     private void cargarActividadesDesdeArchivo() {
         String rutaArchivo = "src/main/resources/archivosTxt/Actividades.txt";
         listaActividades.clear();
@@ -169,6 +182,7 @@ public class AdminTareasViewController {
         construirActividad();
 
     }
+
     private void cargarTareasDesdeArchivo() {
         String rutaArchivo = "src/main/resources/archivosTxt/Tareas.txt";
         listaTareas.clear();
@@ -197,17 +211,6 @@ public class AdminTareasViewController {
         txtDuracion.setText("");
     }
 
-
-    public boolean isObligatoria() {
-        if (jcomboObligatoria.getValue().equals("Si")) {
-            return true;
-        }
-        System.out.println("Estado del JCombo" + jcomboObligatoria.getValue());
-        return false;
-
-    }
-
-
     @FXML
     void crearProceso(ActionEvent event) {
         if (actividadSeleccionada == null) {
@@ -219,11 +222,11 @@ public class AdminTareasViewController {
         String descripcion = txtDescripcion.getText();
         int duracion = Integer.parseInt(txtDuracion.getText());
 
-        Tarea nuevaTarea = new Tarea(nombre, descripcion, isObligatoria(), duracion);
+        Tarea nuevaTarea = new Tarea(nombre, descripcion, esObligatoria, duracion);
         listaTareas.add(nuevaTarea);
 
-        adminTareaController.agregarTxt(listaTareas,"src/main/resources/archivosTxt/Tareas.txt");
-        adminTareaController.guardarTareaEnActividad(actividadSeleccionada.getNombre(),nuevaTarea);
+        adminTareaController.agregarTxt(listaTareas, "src/main/resources/archivosTxt/Tareas.txt");
+        adminTareaController.guardarTareaEnActividad(actividadSeleccionada.getNombre(), nuevaTarea);
         adminTareaController.guardar(nuevaTarea);
 
         System.out.println("Lista de tareas: " + listaTareas);
@@ -250,10 +253,26 @@ public class AdminTareasViewController {
         String descripcion = txtDescripcion.getText();
         int duracion = Integer.parseInt(txtDuracion.getText());
 
-        adminTareaController.modificar(nombre, descripcion, isObligatoria(), duracion);
-        adminTareaController.modificarTxt(nombre, descripcion, isObligatoria(), duracion);
+        adminTareaController.modificar(nombre, descripcion, esObligatoria, duracion);
+        adminTareaController.modificarTxt(nombre, descripcion, esObligatoria, duracion);
         cargarActividadesDesdeArchivo();
         construirActividad();
     }
 
+    private void buscarTarea(String nombre){
+
+       Tarea tarea = adminTareaController.buscarTarea(nombre);
+       txtNombre.setText(tarea.getNombre());
+       txtDuracion.setText(String.valueOf(tarea.getDuracion()));
+       txtDescripcion.setText(String.valueOf(tarea.getDuracion()));
+
+
+    }
+
+    public void buscarTarea(ActionEvent event) {
+
+       String nombre= txtTareaABuscar.getText();
+        buscarTarea(nombre);
+
+    }
 }

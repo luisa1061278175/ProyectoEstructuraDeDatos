@@ -1,3 +1,2 @@
 84;Comida;Carne
 01;Bailar;baile
-72;Deporte;

@@ -32,7 +32,7 @@ public class AdminProcesoController {
     }
 
     public void eliminarTxt(String id) {
-        listaEnlazadaProceso.eliminarProceso(id);
+        listaEnlazadaProceso.eliminarProcesoDeArchivo(id);
     }
 
     public void cargarInicio(String nombreArchivo){

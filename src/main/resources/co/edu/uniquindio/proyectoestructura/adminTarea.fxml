@@ -11,122 +11,150 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="750.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.proyectoestructura.viewController.AdminTareasViewController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="750.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.proyectoestructura.viewController.AdminTareasViewController">
     <children>
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Selecciona la actividad" wrappingWidth="616.725959777832">
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Seleccionar una actividad" wrappingWidth="363.3927049636841">
             <font>
-                <Font name="Arial Black" size="43.0" />
+                <Font name="Arial Black" size="24.0" />
             </font>
          <VBox.margin>
             <Insets top="20.0" />
          </VBox.margin>
         </Text>
-        <HBox alignment="CENTER" prefHeight="185.0" prefWidth="750.0">
+        <HBox alignment="BOTTOM_LEFT" prefHeight="188.0" prefWidth="750.0">
             <children>
-                <TableView fx:id="tablaActividad" prefHeight="177.0" prefWidth="399.0" style="-fx-border-color: #000000;">
-                    <columns>
-                        <TableColumn fx:id="colNombre" prefWidth="110.66663873195648" text="Nombre" />
-                        <TableColumn fx:id="colDescripcion" minWidth="4.66668701171875" prefWidth="97.33332061767578" text="Descripción" />
-                        <TableColumn fx:id="colObligatoria" prefWidth="111.33332824707031" text="¿Obligatoria?" />
-                  <TableColumn fx:id="colTareas" prefWidth="75.0" text="Tareas" />
-                    </columns>
-               <padding>
-                  <Insets top="20.0" />
-               </padding>
-                </TableView>
+              <VBox alignment="CENTER" prefHeight="191.0" prefWidth="362.0" style="-fx-background-color: #ffffff; -fx-border-color: #ffffff; -fx-border-image-width: 3px;">
+                  <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Buscar Tarea">
+                     <font>
+                        <Font size="32.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ingresa el nombre">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="txtTareaABuscar">
+                     <VBox.margin>
+                        <Insets left="15.0" right="15.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Button fx:id="btnBuscarTarea" mnemonicParsing="false" onAction="#buscarTarea" prefHeight="8.0" prefWidth="85.0" style="-fx-background-color: #3accdf;" text="Buscar">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  </children>
+              </VBox>
+            <TableView fx:id="tablaActividad" prefHeight="193.0" prefWidth="361.0">
+              <columns>
+                <TableColumn fx:id="colNombre" prefWidth="99.33331298828125" text="Nombre" />
+                <TableColumn fx:id="colDescripcion" prefWidth="87.33328247070312" text="Descripción" />
+                  <TableColumn fx:id="colObligatoria" prefWidth="99.33331298828125" text="¿Obligatoria?" />
+                  <TableColumn fx:id="colTareas" prefWidth="74.00002034505206" text="Tarea(s)" />
+              </columns>
+            </TableView>
             </children>
         </HBox>
-        <VBox alignment="CENTER" prefHeight="206.0" prefWidth="550.0" style="-fx-background-color: #ffffff;">
-            <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="DATOS PARA TAREAS">
-               <font>
-                  <Font size="24.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" top="10.0" />
-               </VBox.margin>
-            </Text>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre">
-                    <VBox.margin>
-                        <Insets left="20.0" />
-                    </VBox.margin>
-                    <font>
+      <HBox alignment="CENTER" prefHeight="203.0" prefWidth="750.0">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="252.0" prefWidth="563.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="DATOS PARA TAREAS">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Text>
+                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre">
+                          <VBox.margin>
+                              <Insets left="20.0" />
+                          </VBox.margin>
+                          <font>
+                              <Font size="17.0" />
+                          </font>
+                      </Text>
+                      <TextField fx:id="txtNombre">
+                          <VBox.margin>
+                              <Insets left="100.0" right="100.0" />
+                          </VBox.margin>
+                      </TextField>
+                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Descripción">
+                          <font>
+                              <Font size="17.0" />
+                          </font>
+                          <VBox.margin>
+                              <Insets left="20.0" />
+                          </VBox.margin>
+                      </Text>
+                      <TextField fx:id="txtDescripcion">
+                          <VBox.margin>
+                              <Insets left="100.0" right="100.0" />
+                          </VBox.margin>
+                      </TextField>
+                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Duración (minutos)">
+                          <font>
+                              <Font size="17.0" />
+                          </font>
+                          <VBox.margin>
+                              <Insets left="20.0" />
+                          </VBox.margin>
+                      </Text>
+                      <TextField fx:id="txtDuracion" prefHeight="19.0" prefWidth="363.0">
+                          <VBox.margin>
+                              <Insets left="100.0" right="100.0" />
+                          </VBox.margin>
+                      </TextField>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="¿Obligatoria?">
+                     <font>
                         <Font size="17.0" />
-                    </font>
-                </Text>
-                <TextField fx:id="txtNombre">
-                    <VBox.margin>
-                        <Insets left="100.0" right="100.0" />
-                    </VBox.margin>
-                </TextField>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Descripción">
-                    <font>
-                        <Font size="17.0" />
-                    </font>
-                    <VBox.margin>
+                     </font>
+                     <VBox.margin>
                         <Insets left="20.0" />
-                    </VBox.margin>
-                </Text>
-                <TextField fx:id="txtDescripcion">
-                    <VBox.margin>
-                        <Insets left="100.0" right="100.0" />
-                    </VBox.margin>
-                </TextField>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Duración">
-                    <font>
-                        <Font size="17.0" />
-                    </font>
-                    <VBox.margin>
+                     </VBox.margin>
+                  </Text>
+                  <ComboBox fx:id="jcomboObligatoria" prefHeight="25.0" prefWidth="123.0">
+                     <VBox.margin>
                         <Insets left="20.0" />
-                    </VBox.margin>
-                </Text>
-                <TextField fx:id="txtDuracion" prefHeight="49.0" prefWidth="350.0">
-                    <VBox.margin>
-                        <Insets left="100.0" right="100.0" />
-                    </VBox.margin>
-                </TextField>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="¿Obligatoria?">
-               <font>
-                  <Font size="17.0" />
-               </font>
-               <VBox.margin>
-                  <Insets left="20.0" />
-               </VBox.margin>
-            </Text>
-            <ComboBox fx:id="jcomboObligatoria" prefHeight="25.0" prefWidth="123.0">
-               <VBox.margin>
-                  <Insets left="20.0" />
-               </VBox.margin>
-            </ComboBox>
-            </children>
-            <VBox.margin>
-                <Insets left="100.0" right="100.0" />
-            </VBox.margin>
-        </VBox>
-        <HBox alignment="CENTER" prefHeight="87.0" prefWidth="750.0">
-            <children>
+                     </VBox.margin>
+                  </ComboBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="63.0" prefWidth="750.0">
+         <children>
                 <Button fx:id="btnCrear" mnemonicParsing="false" onAction="#crearProceso" prefHeight="21.0" prefWidth="103.0" style="-fx-background-color: #3accdf;" text="Crear">
                     <font>
                         <Font size="18.0" />
                     </font>
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
                 </Button>
                 <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#eliminarProceso" prefHeight="21.0" prefWidth="103.0" style="-fx-background-color: #3accdf;" text="Eliminar">
                     <font>
                         <Font size="18.0" />
                     </font>
-                    <HBox.margin>
-                        <Insets left="20.0" />
-                    </HBox.margin>
                 </Button>
                 <Button fx:id="btnModificar" mnemonicParsing="false" onAction="#modificarProceso" prefHeight="21.0" prefWidth="103.0" style="-fx-background-color: #3accdf;" text="Modificar">
                     <font>
                         <Font size="18.0" />
                     </font>
-                    <HBox.margin>
-                        <Insets left="20.0" />
-                    </HBox.margin>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
                 </Button>
-            </children>
-        </HBox>
+         </children>
+      </HBox>
     </children>
 </VBox>

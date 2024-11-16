@@ -218,6 +218,38 @@ public class ListaEnlazadaProceso {
             temp = temp.getSiguiente();
         }
     }
+    public void eliminarProcesoDeArchivo(String idProceso) {
+        File archivo = new File(RUTA_ARCHIVO_PROCESOS);
+        List<String> lineasActualizadas = new ArrayList<>();
+
+        // Leer el archivo y excluir la línea del proceso a eliminar
+        try (BufferedReader reader = new BufferedReader(new FileReader(archivo))) {
+            String linea;
+            while ((linea = reader.readLine()) != null) {
+                String[] datos = linea.split(";");
+                // Si el ID no coincide con el del proceso a eliminar, se guarda la línea
+                if (!datos[0].equals(idProceso)) {
+                    lineasActualizadas.add(linea);
+                } else {
+                    System.out.println("Proceso con ID " + idProceso + " eliminado del archivo.");
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error al leer el archivo: " + e.getMessage());
+            return;
+        }
+
+        // Reescribir el archivo con las líneas actualizadas
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(archivo, false))) {
+            for (String lineaActualizada : lineasActualizadas) {
+                writer.write(lineaActualizada);
+                writer.newLine();
+            }
+            System.out.println("Archivo actualizado correctamente.");
+        } catch (IOException e) {
+            System.err.println("Error al escribir en el archivo: " + e.getMessage());
+        }
+    }
 
     //metodo para guardar las actividades en cada proceso:
     public void guardarActividadEnProcesoTxt(String idProceso, Actividad nuevaActividad) {
@@ -247,12 +279,12 @@ public class ListaEnlazadaProceso {
                     actividadAgregada = true;
                     System.out.println("Se añadió la actividad '" + nuevaActividad.getNombre() + "' al proceso: " + idProceso);
                 } else {
-                    // Si no es el proceso buscado, añadir la línea sin modificaciones
+
                     lineasActualizadas.add(linea);
                 }
             }
 
-            // Si no se encontró el proceso en el archivo, mostramos un mensaje
+
             if (!actividadAgregada) {
                 System.out.println("Proceso no encontrado con ID: " + idProceso);
             }
@@ -260,7 +292,7 @@ public class ListaEnlazadaProceso {
             System.err.println("Error al leer el archivo: " + e.getMessage());
         }
 
-        // Escribir todas las líneas actualizadas de vuelta al archivo
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(RUTA_ARCHIVO_PROCESOS, false))) {
             for (String lineaActualizada : lineasActualizadas) {
                 writer.write(lineaActualizada);

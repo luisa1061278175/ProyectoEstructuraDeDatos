@@ -31,7 +31,17 @@ public class AdminActividadViewController {
     private Button btnModificar;
 
     @FXML
+    private Button btnBuscarActividad;
+
+    @FXML
     private ComboBox<String> jComboObligatoria;
+    @FXML
+
+    private ComboBox<String>JComboTareasDeActividadBuscada;
+    @FXML
+    private TextField txtBuscarActividad;
+
+
 
     @FXML
     private TableColumn<Proceso, String> colDescripcion;
@@ -55,10 +65,15 @@ public class AdminActividadViewController {
     @FXML
     private TextField txtNombre;
 
+    @FXML
+    private TextField txtActividadObligatoria;
+
     private List<Proceso> listaProcesos = new ArrayList<>();
     private List<Actividad> listaActividades = new ArrayList<>();
     private Proceso procesoSeleccionado;
     private Queue<String> colaAuxProcesos = new LinkedList<>();
+
+    private boolean esObligatoria;
 
     AdminActividadController adminActividadController = new AdminActividadController();
     AdminProcesoController adminProcesoController = new AdminProcesoController();
@@ -70,11 +85,19 @@ public class AdminActividadViewController {
         cargarProcesosDesdeArchivo();
         jComboObligatoria.getItems().addAll("No", "Si");
 
+        jComboObligatoria.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                System.out.println("Valor seleccionado en ComboBox: " + newValue);
+                esObligatoria = newValue.equals("Si");
+            }
+        });
+
         // Detecta el proceso seleccionado en la tabla y lo asigna a `procesoSeleccionado`
         tablaProceso.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 procesoSeleccionado = newSelection;
                 System.out.println("Proceso seleccionado: " + procesoSeleccionado.getNombre());
+
             }
         });
     }
@@ -215,6 +238,18 @@ public class AdminActividadViewController {
 
     @FXML
     void refrescar(ActionEvent event) {
+
+
+    }
+
+    public void BuscarActividad(ActionEvent event) {
+
+        String nombre=txtBuscarActividad.getText();
+        Actividad actividad= adminActividadController.buscarActividad(nombre);
+
+        txtNombre.setText(actividad.getNombre());
+        txtDescripcion.setText(actividad.getDescripcion());
+        txtActividadObligatoria.setText(esObligatoria+"");
 
 
     }

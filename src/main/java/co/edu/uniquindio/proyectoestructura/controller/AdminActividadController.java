@@ -20,7 +20,6 @@ public class AdminActividadController {
         colaActividad.eliminarActividad(nombre);
     }
 
-    //se ingresa el nombre anterior pero con nueva descripcion
     public void modificar(String nombre, String descripcion, boolean obligatorio) {
         colaActividad.modificarActividad(nombre, descripcion, obligatorio);
     }
@@ -40,10 +39,6 @@ public class AdminActividadController {
         colaActividad.eliminarLineaDelArchivo(identificador);
     }
 
-    //metodo para añadir al proceso la actividad que se le creo
-    //Hacer: leer el proceso seleccionado
-    //llamar a crear proceso y enviarle la nueva actividad
-    //actualizar la tabla
     public Actividad buscarActividad(String nombre) {
         return colaActividad.buscarActividadPorNombre(nombre);
     }
