@@ -7,6 +7,7 @@ import co.edu.uniquindio.proyectoestructura.util.ExportadorCSV;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -36,6 +37,11 @@ public class UsuarioTareasViewController {
 
     @FXML
     private TableView<Tarea> tablaTareas;
+
+    @FXML
+    private Button btnTodosProcesos;
+    @FXML
+    private Button btnHacerTarea;
 
     AdminTareaController adminTareaController = new AdminTareaController();
     ExportadorCSV exportadorCSV = new ExportadorCSV();
@@ -109,5 +115,15 @@ public class UsuarioTareasViewController {
     public void exportarProceso(ActionEvent event) {
         exportadorCSV.exportarTarea(listaTareas, new Stage());
         alerta.mensajeExportado();
+    }
+
+    @FXML
+    private void todosProcesos() {
+        construirTarea();
+        txtBuscarTarea.setText("");
+    }
+    @FXML
+    public void hacerTarea(){
+
     }
 }
