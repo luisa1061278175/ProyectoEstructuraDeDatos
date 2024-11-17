@@ -11,12 +11,14 @@ import java.util.Queue;
 
 public class ColaActividad {
     private Queue<Actividad> actividades;
-    private static final String RUTA_ARCHIVO_ACTIVIDADES = "src/main/resources/archivosTxt/actividades.txt";
+    private static final String RUTA_ARCHIVO_ACTIVIDADES = "src/main/resources/archivosTxt/Actividades.txt";
 
 
     public ColaActividad() {
-        actividades = new LinkedList<>();
-        cargarActividadesDesdeArchivo(RUTA_ARCHIVO_ACTIVIDADES);
+        actividades = cargarActividadesDesdeArchivo(RUTA_ARCHIVO_ACTIVIDADES);
+        if (actividades == null) {
+            actividades = new LinkedList<>();
+        }
     }
 
     public void guardarActividad(Actividad actividad) {
@@ -81,6 +83,9 @@ public class ColaActividad {
     }
 
     public Actividad buscarActividadPorNombre(String nombreActividad) {
+        System.out.println("listaActividaes: "+ actividades);
+        cargarActividadesDesdeArchivo(RUTA_ARCHIVO_ACTIVIDADES);
+
         for (Actividad actividad : actividades) {
             if (actividad.getNombre().equalsIgnoreCase(nombreActividad)) {
                 return actividad;
@@ -88,27 +93,29 @@ public class ColaActividad {
         }
         return null;
     }
-
     public Queue<Actividad> cargarActividadesDesdeArchivo(String rutaArchivo) {
+        Queue<Actividad> actividades = new LinkedList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
             String linea;
             while ((linea = br.readLine()) != null) {
+                String[] partes = linea.split(";", 4);
+                String nombre = partes[0].trim();
+                String descripcion = partes[1].trim();
+                boolean isObligatoria = Boolean.parseBoolean(partes[2].trim());
 
-                String[] partes = linea.split(";");
+                // Lista para las tareas, si existen
+                Queue<Tarea> tareas = null;
+                if (partes.length == 4) {
+                    String[] tareasArray = partes[3].split(",");
+                    tareas = new LinkedList<>();
+                    for (String tarea : tareasArray) {
+                        tareas.add(new Tarea(tarea.trim(),null,false,0));
+                    }
+                }
 
-                // Verificamos que la línea tenga los tres elementos necesarios
-
-                    String nombre = partes[0].trim();
-                    String descripcion = partes[1].trim();
-                    boolean isObligatoria = Boolean.parseBoolean(partes[2].trim());
-
-                    // Creamos una nueva actividad con los datos de la línea
-                    Actividad actividad = new Actividad(nombre, descripcion, isObligatoria,null);
-
-                    // Agregamos la actividad a la cola
-                    actividades.add(actividad);
-
+                Actividad actividad = new Actividad(nombre, descripcion, isObligatoria, tareas);
+                actividades.add(actividad);
             }
         } catch (IOException e) {
             System.err.println("Error al leer el archivo: " + e.getMessage());

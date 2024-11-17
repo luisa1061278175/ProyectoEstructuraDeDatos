@@ -2,6 +2,7 @@ package co.edu.uniquindio.proyectoestructura.viewController;
 
 import co.edu.uniquindio.proyectoestructura.controller.AdminProcesoController;
 import co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.proceso.ListaEnlazadaProceso;
+import co.edu.uniquindio.proyectoestructura.modelo.Actividad;
 import co.edu.uniquindio.proyectoestructura.modelo.Proceso;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -29,6 +30,8 @@ public class AdminProcesosViewController {
 
     @FXML
     private TableColumn<Proceso, String> colId;
+    @FXML
+    private  TableColumn<Actividad,String> colActividades;
 
     @FXML
     private TableColumn<Proceso, String> colNombre;
@@ -62,8 +65,6 @@ public class AdminProcesosViewController {
         colId.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getId()));
         colNombre.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getNombre()));
     }
-
-    //ESTE METODO SE ENCARGA DE CARGAR PROCESOS PERO EN LA INTERFAZ
 
     private void cargarProcesosDesdeArchivo() {
         String rutaArchivo = "src/main/resources/archivosTxt/Procesos.txt";
@@ -115,7 +116,7 @@ public class AdminProcesosViewController {
             adminProcesoController.modificarTxt("src/main/resources/archivosTxt/Procesos.txt", procesoSeleccionado.getId(), nuevaLinea);
             System.out.println("Proceso modificado: " + procesoSeleccionado);
 
-            // Recarga la lista en la vista
+           construirProcesos();
             cargarProcesosDesdeArchivo();
             limpiarCampos();
         } else {
@@ -131,7 +132,8 @@ public class AdminProcesosViewController {
         Proceso nuevoProceso = new Proceso(nombre, id, null);
 
         adminProcesoController.guardarProceso(nuevoProceso);
-        adminProcesoController.guardarTxt();
+        adminProcesoController.guardarTxt(id, nombre);
+        construirProcesos();
         cargarProcesosDesdeArchivo();
         limpiarCampos();
     }
@@ -143,6 +145,7 @@ public class AdminProcesosViewController {
             adminProcesoController.eliminarProceso(id);
             adminProcesoController.eliminarTxt(id);
 
+            construirProcesos();
             cargarProcesosDesdeArchivo();
             limpiarCampos();
             System.out.println("Proceso eliminado: " + id);

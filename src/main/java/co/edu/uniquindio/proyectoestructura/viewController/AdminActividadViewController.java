@@ -120,7 +120,6 @@ public class AdminActividadViewController {
                     }
                 });
 
-
                 comboBox.setOnAction(event -> {
                     String nombreactividadSeleccionada = String.valueOf(comboBox.getValue());
                     if (nombreactividadSeleccionada != null) {
@@ -128,7 +127,6 @@ public class AdminActividadViewController {
 
                         txtNombre.setText(actividad.getNombre());
                         txtDescripcion.setText(actividad.getDescripcion());
-
                     }
                 });
             }
@@ -245,11 +243,12 @@ public class AdminActividadViewController {
     public void BuscarActividad(ActionEvent event) {
 
         String nombre=txtBuscarActividad.getText();
+
         Actividad actividad= adminActividadController.buscarActividad(nombre);
 
         txtNombre.setText(actividad.getNombre());
         txtDescripcion.setText(actividad.getDescripcion());
-        txtActividadObligatoria.setText(esObligatoria+"");
+        txtActividadObligatoria.setText(actividad.isEsObligatoria()+"");
 
 
     }

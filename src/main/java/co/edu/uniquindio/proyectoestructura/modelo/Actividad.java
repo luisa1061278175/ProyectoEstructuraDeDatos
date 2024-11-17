@@ -55,6 +55,7 @@ public class Actividad {
                 "nombre='" + nombre + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", esObligatoria=" + esObligatoria +
+                ", tareas=" + tareas +
                 '}';
     }
 }

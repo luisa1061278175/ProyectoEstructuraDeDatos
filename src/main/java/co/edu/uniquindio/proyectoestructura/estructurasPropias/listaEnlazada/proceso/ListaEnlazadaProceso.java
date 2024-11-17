@@ -36,7 +36,7 @@ public class ListaEnlazadaProceso {
             }
             temp.setSiguiente(nuevoNodo);
         }
-        System.out.println("Estamos en la lista enlazada " + proceso);
+
     }
 
 
@@ -111,23 +111,15 @@ public class ListaEnlazadaProceso {
      *
      *
      * */
-    public void guardarTxt() {
-        if (cabeza == null) {
-            System.out.println("La lista de procesos está vacía. No hay datos para guardar.");
-            return;
-        }
+    public void agregarProcesoAlArchivo(String id,String nombre) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(RUTA_ARCHIVO_PROCESOS, true))) {
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(RUTA_ARCHIVO_PROCESOS, true))) { // Modo append
-            NodoProceso temp = cabeza;
-            while (temp != null) {
-                Proceso proceso = temp.getProceso();
-                writer.write(proceso.toString()); // Asumiendo que toString está en formato "id;nombre"
+                writer.write(id + ";" + nombre);
                 writer.newLine();
-                temp = temp.getSiguiente();
-            }
-            System.out.println("Datos guardados en " + RUTA_ARCHIVO_PROCESOS);
+
+
         } catch (IOException e) {
-            System.err.println("Error al guardar los datos en el archivo: " + e.getMessage());
+            System.err.println("Error al guardar el proceso en el archivo: " + e.getMessage());
         }
     }
 

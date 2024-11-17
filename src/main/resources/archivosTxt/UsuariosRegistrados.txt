@@ -1,3 +1,4 @@
-0,0,dillan,dillan@buitrago,estudiante
-1,1,luisa,luisa@osorio,estudiante
-id,contrasenia,nom,correo,rol
+1061278175;luisa;luisafe@gmail;luisa10612
+1005090616;dillan;dillan@gmail;dillan100
+0102;Maria;maria@gmail;maria
+8731;fer;fer@gmail;fer87

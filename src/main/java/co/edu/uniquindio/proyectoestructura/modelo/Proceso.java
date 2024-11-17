@@ -36,4 +36,12 @@ public class Proceso {
     public void setListaActividades(Queue listaActividades) {
         this.listaActividades = listaActividades;
     }
+
+    @Override
+    public String toString() {
+        return "Proceso{" +
+                "nombre='" + nombre + '\'' +
+                ", id='" + id + '\'' +
+                '}';
+    }
 }

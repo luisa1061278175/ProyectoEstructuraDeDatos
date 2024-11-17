@@ -27,8 +27,8 @@ public class AdminProcesoController {
         listaEnlazadaProceso.modificarTxt(ruta, id, linea);
     }
 
-    public void guardarTxt() {
-        listaEnlazadaProceso.guardarTxt();
+    public void guardarTxt(String id, String nombre) {
+        listaEnlazadaProceso.agregarProcesoAlArchivo(id, nombre);
     }
 
     public void eliminarTxt(String id) {

@@ -1,2 +1,3 @@
-tarea09;tr;false;28
-tarea321;rr;false;32
+tareaAlgebra;hacerEcuaciones;true;60
+tareaCalculo;hacerIntegrales;true;120
+PasarBalon;HacerPases;true;30
