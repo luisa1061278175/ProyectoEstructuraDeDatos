@@ -1,12 +1,15 @@
 package co.edu.uniquindio.proyectoestructura.viewController.usuarios;
 
+import co.edu.uniquindio.proyectoestructura.alerta.Alerta;
 import co.edu.uniquindio.proyectoestructura.controller.AdminActividadController;
 import co.edu.uniquindio.proyectoestructura.modelo.Actividad;
 import co.edu.uniquindio.proyectoestructura.modelo.Tarea;
+import co.edu.uniquindio.proyectoestructura.util.ExportadorCSV;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 import java.util.ArrayList;
@@ -19,6 +22,9 @@ public class UsuarioActividadesViewController {
 
     @FXML
     private Button btnExportar;
+
+    @FXML
+    private Button btnTodosProcesos;
 
     @FXML
     private TableColumn<Actividad, String> colDescripcion;
@@ -39,6 +45,9 @@ public class UsuarioActividadesViewController {
     private TextField txtBuscarActividades;
 
     private List<Actividad> listaActividades = new ArrayList<>();
+    private List<Actividad> listaAux = new ArrayList<>();
+    ExportadorCSV exportadorCSV = new ExportadorCSV();
+    Alerta alerta = new Alerta();
 
     private final AdminActividadController adminActividadController = new AdminActividadController();
 
@@ -48,9 +57,6 @@ public class UsuarioActividadesViewController {
         cargarActividadesDesdeArchivo();
     }
 
-    /**
-     * Configura las columnas de la tabla y especifica cómo mostrar los datos.
-     */
     private void initDataBinding() {
         colNombre.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getNombre()));
         colDescripcion.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getDescripcion()));
@@ -93,7 +99,7 @@ public class UsuarioActividadesViewController {
                         comboBox.getItems().clear();
                         comboBox.getItems().addAll(new ArrayList<>(actividad.getTareas())); // Convertir cola a lista y cargar tareas
                     }
-                    setGraphic(comboBox); // Establecer el ComboBox como elemento gráfico
+                    setGraphic(comboBox);
                 }
             }
         });
@@ -120,11 +126,40 @@ public class UsuarioActividadesViewController {
 
     @FXML
     void buscarActividades(ActionEvent event) {
-        // Implementar búsqueda de actividades
+        String nombre = txtBuscarActividades.getText().trim();
+
+        if (nombre.isEmpty()) {
+            alerta.mostrarAlertaError("Campo vacío", "Por favor, ingresa un ID para buscar.");
+            return;
+        }
+
+        boolean actividadEncontrada = false;
+        listaAux.clear();
+
+        for (Actividad actividad : listaActividades) {
+            if (actividad.getNombre().equals(nombre)) {
+                listaAux.add(new Actividad(actividad.getNombre(), actividad.getDescripcion(), actividad.isEsObligatoria(), actividad.getTareas()));
+                actividadEncontrada = true;
+            }
+        }
+
+        if (actividadEncontrada) {
+            tablaActividad.getItems().clear();
+            tablaActividad.getItems().addAll(listaAux);
+            alerta.procesoEncontrado();
+        } else {
+            alerta.procesoNoEncontrado();
+        }
     }
 
     @FXML
     void exportarProceso(ActionEvent event) {
-        // Implementar exportación de datos
+        exportadorCSV.exportarActividad(listaActividades, new Stage());
+    }
+
+    @FXML
+    private void todosProcesos() {
+        construirActividades();
+        txtBuscarActividades.setText("");
     }
 }

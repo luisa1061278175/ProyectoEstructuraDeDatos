@@ -1,5 +1,6 @@
 package co.edu.uniquindio.proyectoestructura.viewController.usuarios;
 
+import co.edu.uniquindio.proyectoestructura.alerta.Alerta;
 import co.edu.uniquindio.proyectoestructura.controller.AdminProcesoController;
 import co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.proceso.ListaEnlazadaProceso;
 import co.edu.uniquindio.proyectoestructura.modelo.Actividad;
@@ -26,17 +27,25 @@ public class UsuarioProcesosViewController {
 
     @FXML
     private TableView<Proceso> tablaProceso;
+    @FXML
+    private TextField txtProcesoABuscar;
 
     @FXML
     private Button btnExportar;
+    @FXML
+    private Button btnBuscar;
+
+    @FXML
+    private Button btnTodosProcesos;
 
     private AdminProcesoController adminProcesoController = new AdminProcesoController();
     private ExportadorCSV exportadorCSV = new ExportadorCSV();
 
     private List<Proceso> listaProcesos = new ArrayList<>();
+    private List<Proceso> listaAux = new ArrayList<>();
+    Alerta alerta = new Alerta();
 
 
-   
     public void initialize() {
         initDataBindig();
         cargarProcesosDesdeArchivo();
@@ -103,10 +112,45 @@ public class UsuarioProcesosViewController {
     public void exportarProceso(Stage stage) {
 
         exportadorCSV.exportToCSV(listaProcesos, stage);
+        alerta.mensajeExportado();
     }
 
-
     public void exportarProceso(ActionEvent event) {
+        exportarProceso(new Stage());
+    }
+
+    @FXML
+    public void buscarProceso() {
+        String id = txtProcesoABuscar.getText().trim();
+
+        if (id.isEmpty()) {
+            alerta.mostrarAlertaError("Campo vacío", "Por favor, ingresa un ID para buscar.");
+            return;
+        }
+
+        boolean procesoEncontrado = false;
+        listaAux.clear();
+
+        for (Proceso proceso : listaProcesos) {
+            if (proceso.getId().equals(id)) {
+                listaAux.add(new Proceso(proceso.getNombre(), proceso.getId(), proceso.getListaActividades()));
+                procesoEncontrado = true;
+            }
+        }
+
+        if (procesoEncontrado) {
+            tablaProceso.getItems().clear();
+            tablaProceso.getItems().addAll(listaAux);
+            alerta.procesoEncontrado();
+        } else {
+            alerta.procesoNoEncontrado();
+        }
+    }
+
+    @FXML
+    private void todosProcesos() {
+        construirProcesos();
+        txtProcesoABuscar.setText("");
     }
 }
 
