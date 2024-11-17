@@ -1,9 +1,9 @@
-package co.edu.uniquindio.proyectoestructura.viewController;
+package co.edu.uniquindio.proyectoestructura.viewController.usuarios;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-public class AdminPrincipalViewController {
+public class PrincipalUsuarioViewController {
 
     @FXML
     private Button btnActividades;
@@ -71,3 +71,5 @@ public class AdminPrincipalViewController {
         btnSalir.setStyle("-fx-background-color: #000000; -fx-text-fill: #fffefe;");
     }
 }
+
+

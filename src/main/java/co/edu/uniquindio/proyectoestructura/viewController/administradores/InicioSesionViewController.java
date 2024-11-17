@@ -1,4 +1,4 @@
-package co.edu.uniquindio.proyectoestructura.viewController;
+package co.edu.uniquindio.proyectoestructura.viewController.administradores;
 
 import co.edu.uniquindio.proyectoestructura.controller.Proyecto;
 import co.edu.uniquindio.proyectoestructura.util.ArchivoUtil;
@@ -68,7 +68,7 @@ public class InicioSesionViewController {
         stage.show();
     }
     public void cargarUsuario(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/proyectoestructura/usuarioPrincipal.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/proyectoestructura/usuarioTab.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Bienvenido Usuario");
         stage.setScene(scene);

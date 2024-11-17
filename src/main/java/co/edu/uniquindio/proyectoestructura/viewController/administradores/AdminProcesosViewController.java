@@ -1,18 +1,15 @@
-package co.edu.uniquindio.proyectoestructura.viewController;
+package co.edu.uniquindio.proyectoestructura.viewController.administradores;
 
+import co.edu.uniquindio.proyectoestructura.alerta.Alerta;
 import co.edu.uniquindio.proyectoestructura.controller.AdminProcesoController;
 import co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.proceso.ListaEnlazadaProceso;
 import co.edu.uniquindio.proyectoestructura.modelo.Actividad;
 import co.edu.uniquindio.proyectoestructura.modelo.Proceso;
-import co.edu.uniquindio.proyectoestructura.util.ArchivoUtil;
 import co.edu.uniquindio.proyectoestructura.util.ExportadorCSV;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -34,7 +31,7 @@ public class AdminProcesosViewController {
     @FXML
     private TableColumn<Proceso, String> colId;
     @FXML
-    private  TableColumn<Actividad,String> colActividades;
+    private TableColumn<Proceso, String> colActividades;
 
     @FXML
     private TableColumn<Proceso, String> colNombre;
@@ -50,10 +47,10 @@ public class AdminProcesosViewController {
 
     private AdminProcesoController adminProcesoController = new AdminProcesoController();
     private ListaEnlazadaProceso listaEnlazadaProceso = new ListaEnlazadaProceso();
-    private ExportadorCSV exportadorCSV= new ExportadorCSV();
+    private ExportadorCSV exportadorCSV = new ExportadorCSV();
+    Alerta alerta = new Alerta();
     private Proceso procesoSeleccionado;
 
-    //estamos usando la lista para poder cargar los datos en la tabla
     private List<Proceso> listaProcesos = new ArrayList<>();
 
 
@@ -68,6 +65,38 @@ public class AdminProcesosViewController {
     private void initDataBindig() {
         colId.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getId()));
         colNombre.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getNombre()));
+
+        colActividades.setCellFactory(col -> new TableCell<Proceso, String>() {
+            private final ComboBox<Actividad> comboBox = new ComboBox<>();
+
+            {
+
+                comboBox.setOnShowing(event -> {
+                    Proceso proceso = getTableView().getItems().get(getIndex());
+                    if (proceso != null && proceso.getListaActividades() != null) {
+                        comboBox.getItems().clear();
+                        comboBox.getItems().addAll(new ArrayList<>(proceso.getListaActividades()));
+                    }
+                });
+
+            }
+
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || getIndex() >= getTableView().getItems().size()) {
+                    setGraphic(null);
+                } else {
+                    // Obtener la actividad asociada a esta fila
+                    Proceso proceso = getTableView().getItems().get(getIndex());
+                    if (proceso != null && proceso.getListaActividades() != null) {
+                        comboBox.getItems().clear();
+                        comboBox.getItems().addAll(new ArrayList<>(proceso.getListaActividades())); // Convertir cola a lista y cargar tareas
+                    }
+                    setGraphic(comboBox); // Establecer el ComboBox como elemento gráfico
+                }
+            }
+        });
     }
 
     private void cargarProcesosDesdeArchivo() {
@@ -79,10 +108,13 @@ public class AdminProcesosViewController {
             for (Proceso proceso : procesosArray) {
                 listaProcesos.add(proceso);
             }
+
         }
         construirProcesos();
         System.out.println("Procesos cargados desde archivo: " + listaProcesos);
     }
+
+    ;
 
     private void construirProcesos() {
         tablaProceso.getItems().clear();
@@ -120,11 +152,10 @@ public class AdminProcesosViewController {
             adminProcesoController.modificarTxt("src/main/resources/archivosTxt/Procesos.txt", procesoSeleccionado.getId(), nuevaLinea);
             System.out.println("Proceso modificado: " + procesoSeleccionado);
 
-           construirProcesos();
+            construirProcesos();
             cargarProcesosDesdeArchivo();
             limpiarCampos();
-        } else {
-            System.out.println("Seleccione un proceso para modificar.");
+            alerta.mensajeModificado();
         }
     }
 
@@ -140,7 +171,7 @@ public class AdminProcesosViewController {
         construirProcesos();
         cargarProcesosDesdeArchivo();
         limpiarCampos();
-        exportarProceso(new Stage());
+        alerta.mensajeCreado();
     }
 
     @FXML
@@ -153,15 +184,13 @@ public class AdminProcesosViewController {
             construirProcesos();
             cargarProcesosDesdeArchivo();
             limpiarCampos();
-            System.out.println("Proceso eliminado: " + id);
-        } else {
-            System.out.println("Seleccione un proceso para eliminar.");
+            alerta.mensajeEliminado();
         }
     }
-    
-    public void exportarProceso(Stage stage){
 
-        exportadorCSV.exportToCSV(listaProcesos,stage);
+    public void exportarProceso(Stage stage) {
+
+        exportadorCSV.exportToCSV(listaProcesos, stage);
     }
 
 

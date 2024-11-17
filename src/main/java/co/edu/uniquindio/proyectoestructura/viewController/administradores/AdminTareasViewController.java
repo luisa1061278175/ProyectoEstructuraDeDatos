@@ -1,4 +1,4 @@
-package co.edu.uniquindio.proyectoestructura.viewController;
+package co.edu.uniquindio.proyectoestructura.viewController.administradores;
 
 import co.edu.uniquindio.proyectoestructura.controller.AdminActividadController;
 import co.edu.uniquindio.proyectoestructura.controller.AdminTareaController;

@@ -144,13 +144,14 @@ public class ColaActividad {
                     if (datos.length > 3) {
                         String[] nombresTareas = datos[3].split(",");
                         for (String nombreTarea : nombresTareas) {
-                            tareas.add(new Tarea(nombreTarea.trim(), "Descripción pendiente", false, 0)); // Crear tareas genéricas
+                            tareas.add(new Tarea(nombreTarea.trim(), "Descripción pendiente", false, 0));
                         }
                     }
 
                     // Crear la actividad con o sin tareas
                     Actividad actividad = new Actividad(nombre, descripcion, obligatoria, tareas);
                     actividades.add(actividad);
+
                 } else {
                     System.err.println("Formato incorrecto en línea: " + linea);
                 }

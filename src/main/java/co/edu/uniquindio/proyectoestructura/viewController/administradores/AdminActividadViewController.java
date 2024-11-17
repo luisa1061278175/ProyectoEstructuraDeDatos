@@ -1,5 +1,6 @@
-package co.edu.uniquindio.proyectoestructura.viewController;
+package co.edu.uniquindio.proyectoestructura.viewController.administradores;
 
+import co.edu.uniquindio.proyectoestructura.alerta.Alerta;
 import co.edu.uniquindio.proyectoestructura.controller.AdminActividadController;
 import co.edu.uniquindio.proyectoestructura.controller.AdminProcesoController;
 import co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.proceso.ListaEnlazadaProceso;
@@ -77,6 +78,8 @@ public class AdminActividadViewController {
 
     AdminActividadController adminActividadController = new AdminActividadController();
     AdminProcesoController adminProcesoController = new AdminProcesoController();
+
+    Alerta alerta= new Alerta();
 
     private static final String RUTA_ARCHIVO_ACTIVIDADES = "src/main/resources/archivosTxt/actividades.txt";
 
@@ -206,7 +209,7 @@ public class AdminActividadViewController {
 
         adminProcesoController.guardarActividadEnProcesoTxt(procesoSeleccionado.getId(), nuevaActividad);
 
-        System.out.println("Lista de actividades: " + listaActividades);
+        alerta.mensajeCreado();
         limpiarCampos();
     }
 
@@ -220,6 +223,7 @@ public class AdminActividadViewController {
         cargarProcesosDesdeArchivo();
         construirProcesos();
 
+        alerta.mensajeEliminado();
 
     }
 
@@ -232,6 +236,7 @@ public class AdminActividadViewController {
         adminActividadController.modificarTxt(nombre, descripcion, isObligatoria());
         cargarProcesosDesdeArchivo();
         construirProcesos();
+        alerta.mensajeModificado();
     }
 
     @FXML

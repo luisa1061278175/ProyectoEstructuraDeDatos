@@ -50,17 +50,15 @@ public class ArchivoUtil {
             ArrayList<String> contenido = leerArchivo(rutaArchivo);
 
             for (String linea : contenido) {
-                String[] partes = linea.split(",");  // Separar cada línea en sus partes
+                String[] partes = linea.split(";");
 
-                // Verificar que la línea tenga al menos dos columnas (id y contrasenia)
-                if (partes.length >= 2) {
                     String idArchivo = partes[0].trim();
-                    String contraseniaArchivo = partes[1].trim();
+                    String contraseniaArchivo = partes[3].trim();
 
                     if (idArchivo.equals(id) && contraseniaArchivo.equals(contrasenia)) {
                         return true;
                     }
-                }
+
             }
         } catch (IOException e) {
             System.err.println("Error al leer el archivo: " + e.getMessage());

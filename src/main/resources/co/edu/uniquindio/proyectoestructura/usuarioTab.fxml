@@ -5,30 +5,17 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="580.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.proyectoestructura.viewController.administradores.AdminTabViewController">
+<AnchorPane prefHeight="580.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.proyectoestructura.viewController.usuarios.UsuarioViewControllerTabuladores">
     <children>
         <TabPane layoutX="8.0" layoutY="8.0" prefHeight="580.0" prefWidth="750.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
-            <Tab text="Bienvenido">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" >
-                    <children>
-                        <SplitPane layoutX="6.0" layoutY="6.0" orientation="VERTICAL" prefHeight="580.0" prefWidth="750.0" style="-fx-background-color: ffffff;">
-                            <items>
-                                <fx:include source="adminInicio.fxml" />
-                            </items>
-                        </SplitPane>
-                    </children>
-                </AnchorPane>
-              </content>
-            </Tab>
-                <Tab text="Usuario">
+                <Tab text="Bienvenido">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" >
                             <children>
                                 <SplitPane layoutX="6.0" layoutY="6.0" orientation="VERTICAL" prefHeight="580.0" prefWidth="750.0" style="-fx-background-color: ffffff;">
                                     <items>
-                                        <fx:include source="gestionDeUsuario.fxml" />
+                                        <fx:include source="adminInicio.fxml" />
                                     </items>
                                 </SplitPane>
                             </children>
@@ -41,7 +28,7 @@
                             <children>
                                 <SplitPane layoutX="6.0" layoutY="6.0" orientation="VERTICAL" prefHeight="580.0" prefWidth="750.0" style="-fx-background-color: ffffff;">
                                     <items>
-                                        <fx:include source="adminProcesos.fxml" />
+                                        <fx:include source="usuarioProcesos.fxml" />
                                     </items>
                                 </SplitPane>
                             </children>
@@ -50,11 +37,11 @@
                 </Tab>
                 <Tab text="Actividades">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" >
                             <children>
-                                <SplitPane layoutX="6.0" layoutY="6.0" orientation="VERTICAL" prefHeight="542.0" prefWidth="650.0" style="-fx-background-color: ffffff;">
+                                <SplitPane layoutX="6.0" layoutY="6.0" orientation="VERTICAL" prefHeight="580.0" prefWidth="750.0" style="-fx-background-color: ffffff;">
                                     <items>
-                                        <fx:include source="adminActividad.fxml" />
+                                        <fx:include source="usuarioActividades.fxml" />
                                     </items>
                                 </SplitPane>
                             </children>
@@ -63,17 +50,18 @@
                 </Tab>
                 <Tab text="Tareas">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" >
                             <children>
-                                <SplitPane layoutX="6.0" layoutY="6.0" orientation="VERTICAL" prefHeight="542.0" prefWidth="650.0" style="-fx-background-color: ffffff;">
+                                <SplitPane layoutX="6.0" layoutY="6.0" orientation="VERTICAL" prefHeight="580.0" prefWidth="750.0" style="-fx-background-color: ffffff;">
                                     <items>
-                                        <fx:include source="adminTarea.fxml" />
+                                        <fx:include source="usuarioTareas.fxml" />
                                     </items>
                                 </SplitPane>
                             </children>
                         </AnchorPane>
                     </content>
                 </Tab>
+
             </tabs>
         </TabPane>
     </children>

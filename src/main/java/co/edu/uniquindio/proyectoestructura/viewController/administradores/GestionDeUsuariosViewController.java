@@ -1,4 +1,4 @@
-package co.edu.uniquindio.proyectoestructura.viewController;
+package co.edu.uniquindio.proyectoestructura.viewController.administradores;
 
 import co.edu.uniquindio.proyectoestructura.alerta.Alerta;
 import co.edu.uniquindio.proyectoestructura.controller.GestionDeUsuariosController;
@@ -82,7 +82,6 @@ public class GestionDeUsuariosViewController {
 
     }
 
-
     @FXML
     void buscarUsuario(){
         String id= txtIdentificacion.getText();
@@ -95,6 +94,8 @@ public class GestionDeUsuariosViewController {
 
     }
 
+    public void exportarProceso(ActionEvent event) {
+    }
 }
 
 
