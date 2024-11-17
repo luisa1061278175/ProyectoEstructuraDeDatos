@@ -1,2 +1,4 @@
 2831;Estudiar;matematicas
 8371;Deporte;Futbol
+3242;er
+43;er

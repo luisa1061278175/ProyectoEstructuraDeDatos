@@ -4,6 +4,8 @@ import co.edu.uniquindio.proyectoestructura.controller.AdminProcesoController;
 import co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.proceso.ListaEnlazadaProceso;
 import co.edu.uniquindio.proyectoestructura.modelo.Actividad;
 import co.edu.uniquindio.proyectoestructura.modelo.Proceso;
+import co.edu.uniquindio.proyectoestructura.util.ArchivoUtil;
+import co.edu.uniquindio.proyectoestructura.util.ExportadorCSV;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +50,7 @@ public class AdminProcesosViewController {
 
     private AdminProcesoController adminProcesoController = new AdminProcesoController();
     private ListaEnlazadaProceso listaEnlazadaProceso = new ListaEnlazadaProceso();
+    private ExportadorCSV exportadorCSV= new ExportadorCSV();
     private Proceso procesoSeleccionado;
 
     //estamos usando la lista para poder cargar los datos en la tabla
@@ -136,6 +140,7 @@ public class AdminProcesosViewController {
         construirProcesos();
         cargarProcesosDesdeArchivo();
         limpiarCampos();
+        exportarProceso(new Stage());
     }
 
     @FXML
@@ -152,6 +157,11 @@ public class AdminProcesosViewController {
         } else {
             System.out.println("Seleccione un proceso para eliminar.");
         }
+    }
+    
+    public void exportarProceso(Stage stage){
+
+        exportadorCSV.exportToCSV(listaProcesos,stage);
     }
 
 

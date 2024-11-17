@@ -14,6 +14,16 @@ public class Alerta {
     }
 
 
+    //EXPORTADO
+    public  void mensajeExportado() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Éxito");
+        alert.setHeaderText(null);
+        alert.setContentText("Exportado Correctamente");
+        alert.showAndWait();
+    }
+
+
 //MODIFICADO
 
     public  void mensajeModificado() {

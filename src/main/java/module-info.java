@@ -1,6 +1,8 @@
 module co.edu.uniquindio.proyectoestructura {
     requires javafx.controls;
     requires javafx.fxml;
+    requires jakarta.mail;
+    requires javax.mail.api;
 
 
     opens co.edu.uniquindio.proyectoestructura to javafx.fxml;

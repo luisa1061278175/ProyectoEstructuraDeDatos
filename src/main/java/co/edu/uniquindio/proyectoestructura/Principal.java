@@ -23,6 +23,5 @@ public class Principal extends Application {
     }
 
     public static void main(String[] args) {
-        launch();  // Esto inicializa el entorno JavaFX y llama al método start()
-    }
+        launch();  }
 }
