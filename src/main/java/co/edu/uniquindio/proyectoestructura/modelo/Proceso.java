@@ -44,4 +44,9 @@ public class Proceso {
                 ", id='" + id + '\'' +
                 '}';
     }
+
+    public void agregarActividad(Actividad actividad) {
+        listaActividades.add(actividad);
+        System.out.println("Actividad agregada: " + actividad.getNombre());
+    }
 }

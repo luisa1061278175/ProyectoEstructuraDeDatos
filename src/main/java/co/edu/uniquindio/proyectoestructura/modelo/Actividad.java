@@ -1,6 +1,5 @@
 package co.edu.uniquindio.proyectoestructura.modelo;
 
-import java.util.LinkedList;
 import java.util.Queue;
 
 public class Actividad {
@@ -9,13 +8,13 @@ public class Actividad {
     private String descripcion;
     private boolean esObligatoria;
 
-    public Queue<Tarea> tareas;
+    public Queue tareas;
 
     public Actividad(String nombre, String descripcion, boolean esObligatoria, Queue<Tarea> tareas) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.esObligatoria = esObligatoria;
-        this.tareas = new LinkedList<>();
+        this.tareas = tareas;
     }
 
     public String getNombre() {
@@ -42,7 +41,7 @@ public class Actividad {
         this.esObligatoria = esObligatoria;
     }
 
-    public Queue<Tarea> getTareas() {
+    public Queue getTareas() {
         return tareas;
     }
 

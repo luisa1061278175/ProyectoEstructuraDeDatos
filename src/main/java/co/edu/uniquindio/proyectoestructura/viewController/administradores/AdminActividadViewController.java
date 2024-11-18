@@ -165,7 +165,7 @@ public class AdminActividadViewController {
     private void cargarProcesosDesdeArchivo() {
         String rutaArchivo = "src/main/resources/archivosTxt/Procesos.txt";
         listaProcesos.clear();
-        Proceso[] procesosArray = ListaEnlazadaProceso.leerTxt(rutaArchivo);
+        Proceso[] procesosArray = adminProcesoController.leerTxt(rutaArchivo);
 
         if (procesosArray != null) {
             for (Proceso proceso : procesosArray) {
@@ -320,7 +320,7 @@ public class AdminActividadViewController {
         String nomAct1=txtAct1.getText();
         String nomAct2=txtAct2.getText();
 
-        adminActividadController.intercambiarActividades(nomAct1,nomAct2,"src/main/resources/archivosTxt/Actividades.txt");
+        //adminActividadController.intercambiarActividades(nomAct1,nomAct2,"src/main/resources/archivosTxt/Actividades.txt");
     }
     public static void mostrarActividades(Proceso proceso) {
         for (Object actividad : proceso.getListaActividades()) {

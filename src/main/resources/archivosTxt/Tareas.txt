@@ -1,15 +1,5 @@
 tareaAlgebra;hacerEcuaciones;true;60
 tareaCalculo;hacerIntegrales;true;120
 PasarBalon;HacerPases;true;30
-tareaAlgebra;hacerEcuaciones;true;60
-tareaCalculo;hacerIntegrales;true;120
-PasarBalon;HacerPases;true;30
-Tarea 1;Descripción de la tarea;true;5
-tareaAlgebra;hacerEcuaciones;true;60
-tareaCalculo;hacerIntegrales;true;120
-PasarBalon;HacerPases;true;30
-tareaAlgebra;hacerEcuaciones;true;60
-tareaCalculo;hacerIntegrales;true;120
-PasarBalon;HacerPases;true;30
-Tarea 1;Descripción de la tarea;true;5
-Tarea 1;Descripción de la tarea;true;5
+
+

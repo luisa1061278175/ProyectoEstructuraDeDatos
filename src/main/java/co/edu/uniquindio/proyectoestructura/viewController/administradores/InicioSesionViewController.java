@@ -2,7 +2,6 @@ package co.edu.uniquindio.proyectoestructura.viewController.administradores;
 
 import co.edu.uniquindio.proyectoestructura.controller.Proyecto;
 import co.edu.uniquindio.proyectoestructura.util.ArchivoUtil;
-import co.edu.uniquindio.proyectoestructura.viewController.usuarios.UsuarioInicialViewController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +12,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.*;
+
+import static co.edu.uniquindio.proyectoestructura.viewController.usuarios.UsuarioInicialViewController.eliminarLinea;
 
 public class InicioSesionViewController {
     Proyecto proyecto = new Proyecto();
@@ -39,7 +40,7 @@ public class InicioSesionViewController {
         Stage newStage = new Stage();
 
         String id = txtUsuario.getText();
-        guardarUsuarioAutenticado(id+";");
+        guardarUsuarioAutenticado(id + ";");
 
         String contrasenia = txtContrasenia.getText();
 
@@ -47,6 +48,7 @@ public class InicioSesionViewController {
 
         if (respuesta) {
             cargarAdmin(newStage);
+
         } else {
             String rutaArchivo = RUTA_ARCHIVO_USUARIO_REGISTRADO;
             System.out.println("Id " + id);
@@ -54,12 +56,14 @@ public class InicioSesionViewController {
 
             if (archivoUtil.verificarCredenciales(rutaArchivo, id, contrasenia)) {
                 cargarUsuario(newStage);
+                eliminarLinea("src/main/resources/archivosTxt/UsuarioAutenticado.txt", id);
             } else {
                 System.out.println("Usuario no encontrado.");
             }
         }
 
     }
+
     public void guardarUsuarioAutenticado(String opcion) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/archivosTxt/UsuarioAutenticado.txt", true))) {
             writer.write(opcion);

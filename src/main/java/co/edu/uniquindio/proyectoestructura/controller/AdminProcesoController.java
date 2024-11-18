@@ -4,10 +4,11 @@ import co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.pro
 import co.edu.uniquindio.proyectoestructura.modelo.Actividad;
 import co.edu.uniquindio.proyectoestructura.modelo.Proceso;
 import co.edu.uniquindio.proyectoestructura.util.ArchivoUtil;
+import co.edu.uniquindio.proyectoestructura.util.ArchivoUtilProcesos;
 
 public class AdminProcesoController {
     ListaEnlazadaProceso listaEnlazadaProceso = new ListaEnlazadaProceso();
-    ArchivoUtil archivoUtil = new ArchivoUtil();
+    ArchivoUtilProcesos archivoUtilProcesos = new ArchivoUtilProcesos();
 
     public void guardarProceso(Proceso proceso) {
         listaEnlazadaProceso.agregarProceso(proceso);
@@ -23,30 +24,40 @@ public class AdminProcesoController {
         listaEnlazadaProceso.modificarProceso(id, nuevoNombre);
     }
 
+    /*
+
+     * METODOS PARA TXT
+     *
+     *
+     * */
+
     public void modificarTxt(String ruta, String id, String linea) {
-        listaEnlazadaProceso.modificarTxt(ruta, id, linea);
+        archivoUtilProcesos.modificarTxt(ruta, id, linea);
     }
 
     public void guardarTxt(String id, String nombre) {
-        listaEnlazadaProceso.agregarProcesoAlArchivo(id, nombre);
+        archivoUtilProcesos.agregarProcesoAlArchivo(id, nombre);
     }
 
     public void eliminarTxt(String id) {
-        listaEnlazadaProceso.eliminarProcesoDeArchivo(id);
+        archivoUtilProcesos.eliminarProcesoDeArchivo(id);
     }
 
-    public void cargarInicio(String nombreArchivo){
-        listaEnlazadaProceso.cargarDesdeArchivo(nombreArchivo);
+    public void cargarInicio(String nombreArchivo) {
+        archivoUtilProcesos.cargarDesdeArchivo(nombreArchivo);
     }
 
-    //metodo para guardar las actividades creadas
-    public void agregarActividadAProceso(String id, Actividad actividad){
+    public void agregarActividadAProceso(String id, Actividad actividad) {
         listaEnlazadaProceso.agregarActividadAProceso(id, actividad);
 
     }
 
-    public void guardarActividadEnProcesoTxt(String idProceso, Actividad nuevaActividad){
-        listaEnlazadaProceso.guardarActividadEnProcesoTxt(idProceso,nuevaActividad);
+    public void guardarActividadEnProcesoTxt(String idProceso, Actividad nuevaActividad) {
+        archivoUtilProcesos.guardarActividadEnProcesoTxt(idProceso, nuevaActividad);
+    }
+
+    public  Proceso[] leerTxt(String ruta){
+        return archivoUtilProcesos.leerTxt(ruta);
     }
 
 

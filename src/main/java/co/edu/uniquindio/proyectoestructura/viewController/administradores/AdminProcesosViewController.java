@@ -111,7 +111,7 @@ public class AdminProcesosViewController {
     private void cargarProcesosDesdeArchivo() {
         String rutaArchivo = "src/main/resources/archivosTxt/Procesos.txt";
         listaProcesos.clear();
-        Proceso[] procesosArray = ListaEnlazadaProceso.leerTxt(rutaArchivo);
+        Proceso[] procesosArray = adminProcesoController.leerTxt(rutaArchivo);
 
         if (procesosArray != null) {
             for (Proceso proceso : procesosArray) {

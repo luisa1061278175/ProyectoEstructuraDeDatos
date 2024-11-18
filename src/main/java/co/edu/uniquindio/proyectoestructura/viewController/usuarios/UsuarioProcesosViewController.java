@@ -41,6 +41,7 @@ public class UsuarioProcesosViewController {
     private AdminProcesoController adminProcesoController = new AdminProcesoController();
     private ExportadorCSV exportadorCSV = new ExportadorCSV();
 
+
     private List<Proceso> listaProcesos = new ArrayList<>();
     private List<Proceso> listaAux = new ArrayList<>();
     Alerta alerta = new Alerta();
@@ -91,7 +92,7 @@ public class UsuarioProcesosViewController {
     private void cargarProcesosDesdeArchivo() {
         String rutaArchivo = "src/main/resources/archivosTxt/Procesos.txt";
         listaProcesos.clear();
-        Proceso[] procesosArray = ListaEnlazadaProceso.leerTxt(rutaArchivo);
+        Proceso[] procesosArray = adminProcesoController.leerTxt(rutaArchivo);
 
         if (procesosArray != null) {
             for (Proceso proceso : procesosArray) {
