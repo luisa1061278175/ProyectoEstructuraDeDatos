@@ -26,6 +26,26 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="325.0" prefWidth="275.0" style="-fx-background-color: #ffffff;">
                      <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Calcular el tiempo del proceso:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Basado en las tareas">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="En minutos">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="txtTiempo" prefHeight="25.0" prefWidth="231.0">
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </TextField>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Id:">
                            <VBox.margin>
                               <Insets left="20.0" />

@@ -95,9 +95,9 @@ public class ColaActividad {
     }
 
     public boolean intercambiarActividades(String nombre1, String nombre2, String archivoDestino) {
-        Actividad actividad1 = null, actividad2 = null;
         Actividad actividad1Temp = null, actividad2Temp = null;
 
+        // Crear una copia temporal de las actividades
         List<Actividad> listaActividades = new ArrayList<>();
 
         while (!actividades.isEmpty()) {
@@ -110,11 +110,14 @@ public class ColaActividad {
             listaActividades.add(actividad);
         }
 
+        // Verificar si ambas actividades existen
         if (actividad1Temp == null || actividad2Temp == null) {
             System.out.println("Una o ambas actividades no se encontraron.");
+            actividades = new LinkedList<>(listaActividades); // Restaurar las actividades
             return false;
         }
 
+        // Intercambiar las actividades en la lista
         for (int i = 0; i < listaActividades.size(); i++) {
             Actividad actividad = listaActividades.get(i);
             if (actividad == actividad1Temp) {
@@ -123,7 +126,11 @@ public class ColaActividad {
                 listaActividades.set(i, actividad1Temp);
             }
         }
+
+        // Actualizar la cola con la nueva lista
         actividades = new LinkedList<>(listaActividades);
+
+        // Actualizar el archivo TXT
         actualizarArchivoConActividades(archivoDestino);
 
         System.out.println("Intercambio realizado exitosamente.");
@@ -136,12 +143,18 @@ public class ColaActividad {
 
                 writer.write(actividad.getNombre() + ";" + actividad.getDescripcion() + ";" + actividad.isEsObligatoria());
                 writer.newLine();
+
+                for (Tarea tarea : actividad.getTareas()) {
+                    writer.write("  " + tarea.getDescripcion() + ";" + tarea.isObligatoria() + ";" + tarea.getDuracion());
+                    writer.newLine();
+                }
             }
             System.out.println("Archivo actualizado correctamente.");
         } catch (IOException e) {
             System.err.println("Error al actualizar el archivo: " + e.getMessage());
         }
     }
+
 
     public Queue<Actividad> cargarActividadesDesdeArchivo(String rutaArchivo) {
         Queue<Actividad> actividades = new LinkedList<>();
