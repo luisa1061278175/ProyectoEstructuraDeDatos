@@ -100,5 +100,5 @@ public class ColaTareaTest {
         assertEquals(1, arreglo.length, "El arreglo no tiene el tamaño correcto.");
         assertEquals("Tarea 1", arreglo[0].getNombre(), "El nombre de la tarea en el arreglo no es correcto.");
     }
-
+//te amo <3
 }
