@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6aaae5b7-b31a-4ff7-9b60-ab078e52e8ed" name="Changes" comment="usuarios listos">
-      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/util/ImportadorCSV.java" afterDir="false" />
+    <list default="true" id="6aaae5b7-b31a-4ff7-9b60-ab078e52e8ed" name="Changes" comment="buscar tarea, actividad y proceso">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/viewController/administradores/AdminProcesosViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/viewController/administradores/AdminProcesosViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/archivosTxt/UsuarioAutenticado.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/archivosTxt/UsuarioAutenticado.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/adminProcesos.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/adminProcesos.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/viewController/usuarios/UsuarioTareasViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/viewController/usuarios/UsuarioTareasViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/usuarioActividades.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/usuarioActividades.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/usuarioTareas.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/usuarioTareas.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -346,35 +344,8 @@
       <option name="project" value="LOCAL" />
       <updated>1731879607856</updated>
     </task>
-    <task id="LOCAL-00027" summary="buscar tarea, actividad y proceso">
-      <option name="closed" value="true" />
-      <created>1731880900761</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1731880900761</updated>
-    </task>
-    <task id="LOCAL-00028" summary="usuarios listos">
-      <option name="closed" value="true" />
-      <created>1731891396179</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1731891396180</updated>
-    </task>
-    <option name="localTasksCounter" value="29" />
+    <option name="localTasksCounter" value="27" />
     <servers />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Estructura del proyecto" />
@@ -393,7 +364,6 @@
     <MESSAGE value="exportar" />
     <MESSAGE value="funciones usuario" />
     <MESSAGE value="buscar tarea, actividad y proceso" />
-    <MESSAGE value="usuarios listos" />
-    <option name="LAST_COMMIT_MESSAGE" value="usuarios listos" />
+    <option name="LAST_COMMIT_MESSAGE" value="buscar tarea, actividad y proceso" />
   </component>
 </project>
