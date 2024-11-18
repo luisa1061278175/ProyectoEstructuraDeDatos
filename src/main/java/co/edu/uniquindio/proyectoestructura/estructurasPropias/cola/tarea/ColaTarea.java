@@ -38,7 +38,9 @@ public class ColaTarea {
         return false;
     }
 
-
+    public Queue<Tarea> getTareas() {
+        return tareas;
+    }
     public boolean modificarTarea(String nombre, String nuevaDescripcion, boolean esObligatoria, int duracion) {
         for (Tarea tarea : tareas) {
             if (tarea.getNombre().equals(nombre)) {
