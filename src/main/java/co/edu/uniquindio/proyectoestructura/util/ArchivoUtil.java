@@ -11,6 +11,7 @@ public class ArchivoUtil {
     private NodoProceso cabeza;
 
     private static final String RUTA_ARCHIVO_PROCESOS = "src/main/resources/archivosTxt/Procesos.txt";
+    private static final String RUTA_ARCHIVO = "src/main/resources/archivosTxt/TareasRealizadas";
 
     public static Login leerArchivos() {
         ResourceBundle resourceBundle;
@@ -64,6 +65,15 @@ public class ArchivoUtil {
             System.err.println("Error al leer el archivo: " + e.getMessage());
         }
         return false;
+    }
+//metodo para agregar quien hizo la tarea
+    public void agregarUsuarioAlArchivo(String id, String tarea) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(RUTA_ARCHIVO, true))) {
+            writer.write(id + ";" + tarea);
+            writer.newLine();
+        } catch (IOException e) {
+            System.err.println("Error al guardar el usuario en el archivo: " + e.getMessage());
+        }
     }
 
 

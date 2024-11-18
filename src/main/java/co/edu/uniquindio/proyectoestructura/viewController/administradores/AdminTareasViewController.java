@@ -1,5 +1,6 @@
 package co.edu.uniquindio.proyectoestructura.viewController.administradores;
 
+import co.edu.uniquindio.proyectoestructura.alerta.Alerta;
 import co.edu.uniquindio.proyectoestructura.controller.AdminActividadController;
 import co.edu.uniquindio.proyectoestructura.controller.AdminTareaController;
 import co.edu.uniquindio.proyectoestructura.modelo.Actividad;
@@ -62,6 +63,7 @@ public class AdminTareasViewController {
 
     private Actividad actividadSeleccionada;
     private Queue<String> colaAuxActividades = new LinkedList<>();
+    Alerta alerta= new Alerta();
 
     AdminTareaController adminTareaController = new AdminTareaController();
     AdminActividadController adminActividadController = new AdminActividadController();
@@ -194,7 +196,7 @@ public class AdminTareasViewController {
                 listaTareas.add(tarea);
             }
         }
-        construirActividad();
+
 
     }
 
@@ -244,7 +246,6 @@ public class AdminTareasViewController {
         cargarActividadesDesdeArchivo();
         construirActividad();
 
-
     }
 
     @FXML
@@ -260,11 +261,33 @@ public class AdminTareasViewController {
     }
 
     private void buscarTarea(String nombre){
+        cargarTareasDesdeArchivo();
+        System.out.println("lista tareas: "+ listaTareas);
 
-       Tarea tarea = adminTareaController.buscarTarea(nombre);
-       txtNombre.setText(tarea.getNombre());
-       txtDuracion.setText(String.valueOf(tarea.getDuracion()));
-       txtDescripcion.setText(String.valueOf(tarea.getDuracion()));
+        if (nombre.isEmpty()) {
+            alerta.mostrarAlertaError("Campo vacío", "Por favor, ingresa un ID para buscar.");
+            return;
+        }
+
+        boolean tareaEncontrada = false;
+
+
+        for (int i = 0; i < listaTareas.size(); i++) {
+
+            if (listaTareas.get(i).getNombre().equals(nombre)) {
+               txtDescripcion.setText(listaTareas.get(i).getDescripcion());
+               txtDuracion.setText(listaTareas.get(i).getDuracion()+"");
+               txtNombre.setText(listaTareas.get(i).getNombre());
+                tareaEncontrada = true;
+            }
+        }
+
+        if (tareaEncontrada) {
+
+            alerta.mostrarAlertaExito("Exitoso","Tarea encontrada");
+        } else {
+            alerta.mostrarAlertaError("No se encuentra la tarea","ingresa nuevamente la tarea");
+        }
 
 
     }

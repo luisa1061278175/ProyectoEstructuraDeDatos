@@ -3,6 +3,7 @@ package co.edu.uniquindio.proyectoestructura.viewController.usuarios;
 import co.edu.uniquindio.proyectoestructura.alerta.Alerta;
 import co.edu.uniquindio.proyectoestructura.controller.AdminTareaController;
 import co.edu.uniquindio.proyectoestructura.modelo.Tarea;
+import co.edu.uniquindio.proyectoestructura.util.ArchivoUtil;
 import co.edu.uniquindio.proyectoestructura.util.ExportadorCSV;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -18,13 +19,17 @@ import java.util.List;
 
 public class UsuarioTareasViewController {
 
-
     @FXML
     private TableColumn<Tarea, String> colTiempo;
 
     @FXML
     private TableColumn<Tarea, String> colDescripcion;
 
+    @FXML
+    private TextField txtNombreTarea;
+
+    @FXML
+    private TextField txtIdUsuario;
 
     @FXML
     private TableColumn<Tarea, String> colNombre;
@@ -45,6 +50,7 @@ public class UsuarioTareasViewController {
 
     AdminTareaController adminTareaController = new AdminTareaController();
     ExportadorCSV exportadorCSV = new ExportadorCSV();
+    ArchivoUtil archivoUtil= new ArchivoUtil();
     Alerta alerta = new Alerta();
     List<Tarea> listaTareas = new ArrayList<>();
     List<Tarea> listaAux = new ArrayList<>();
@@ -125,5 +131,36 @@ public class UsuarioTareasViewController {
     @FXML
     public void hacerTarea(){
 
+        boolean tareaEncontrada=false;
+
+        String usuario=txtIdUsuario.getText();
+        String tarea= txtNombreTarea.getText();
+
+        for (int i = 0; i < listaTareas.size(); i++) {
+
+            if(listaTareas.get(i).getNombre().equals(tarea)){
+                adminTareaController.eliminar(tarea);
+                adminTareaController.eliminarTxt(tarea);
+                tareaEncontrada=true;
+            }
+        }
+
+        if(tareaEncontrada){
+            alerta.mostrarAlertaExito("Exitoso","Tarea realizada con éxito");
+            archivoUtil.agregarUsuarioAlArchivo(usuario,tarea);
+
+        }
+        else {
+            alerta.mostrarAlertaError("Tarea no encontrada","Digita nuevamente el nombre de la tarea a realizar");
+
+        }
+        cargarTareasDesdeArchivo();
+        construirActividad();
     }
+
+    private void construirActividad() {
+        tablaTareas.getItems().clear();
+        tablaTareas.getItems().addAll(listaTareas);
+    }
+
 }

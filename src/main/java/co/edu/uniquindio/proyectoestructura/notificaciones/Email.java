@@ -8,7 +8,7 @@ import java.util.Properties;
 
 public class Email {
 
-    public static void sendEmail(String subject, String content, String toEmail) {
+    public static void enviarEmail(String subject, String content, String toEmail) {
 
         String host = "smtp.gmail.com";
         final String user = "dedatose@gmail.com";
@@ -49,6 +49,6 @@ public class Email {
         String subject = "Premio";
         String content = "Te has ganado un premio, comunicate con este número: 3007276599";
         String toEmail = "dillansnayder@gmail.com";
-        sendEmail(subject, content, toEmail);
+        enviarEmail(subject, content, toEmail);
     }
 }

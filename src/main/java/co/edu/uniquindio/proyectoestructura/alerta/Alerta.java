@@ -68,5 +68,12 @@ public class Alerta {
         alertaError.setContentText(mensaje);
         alertaError.showAndWait(); // Espera a que el usuario cierre la alerta
     }
+    public void mostrarAlertaExito(String titulo, String mensaje) {
+        Alert alertaExito = new Alert(Alert.AlertType.INFORMATION);
+        alertaExito.setTitle(titulo);
+        alertaExito.setHeaderText(null); // Sin encabezado
+        alertaExito.setContentText(mensaje);
+        alertaExito.showAndWait(); // Espera a que el usuario cierre la alerta
+    }
 
 }

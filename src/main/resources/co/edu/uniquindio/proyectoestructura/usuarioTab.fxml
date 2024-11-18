@@ -15,7 +15,7 @@
                             <children>
                                 <SplitPane layoutX="6.0" layoutY="6.0" orientation="VERTICAL" prefHeight="580.0" prefWidth="750.0" style="-fx-background-color: ffffff;">
                                     <items>
-                                        <fx:include source="adminInicio.fxml" />
+                                        <fx:include source="usuarioInicio.fxml" />
                                     </items>
                                 </SplitPane>
                             </children>
