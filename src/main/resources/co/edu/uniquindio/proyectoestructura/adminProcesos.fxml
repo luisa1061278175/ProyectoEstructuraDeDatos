@@ -91,6 +91,22 @@
                   <Insets left="20.0" />
                </HBox.margin>
             </Button>
+            <Button fx:id="btnExportar" mnemonicParsing="false" onAction="#exportar" prefHeight="21.0" prefWidth="103.0" style="-fx-background-color: #3accdf;" text="Exportar">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnImportar" mnemonicParsing="false" onAction="#importar" prefHeight="21.0" prefWidth="103.0" style="-fx-background-color: #3accdf;" text="Importar">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Button>
          </children>
       </HBox>
    </children>

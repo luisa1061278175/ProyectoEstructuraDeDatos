@@ -3,6 +3,7 @@ module co.edu.uniquindio.proyectoestructura {
     requires javafx.fxml;
     requires jakarta.mail;
     requires javax.mail.api;
+    requires java.desktop;
 
 
     opens co.edu.uniquindio.proyectoestructura to javafx.fxml;

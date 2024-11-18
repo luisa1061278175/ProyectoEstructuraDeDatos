@@ -6,11 +6,13 @@ import co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.pro
 import co.edu.uniquindio.proyectoestructura.modelo.Actividad;
 import co.edu.uniquindio.proyectoestructura.modelo.Proceso;
 import co.edu.uniquindio.proyectoestructura.util.ExportadorCSV;
+import co.edu.uniquindio.proyectoestructura.util.ImportadorCSV;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,10 @@ import java.util.List;
 public class AdminProcesosViewController {
     @FXML
     private Button btnCrear;
+    @FXML
+    private Button btnExportar;
+    @FXML
+    private Button btnImportar;
 
     @FXML
     private Button btnEliminar;
@@ -48,6 +54,7 @@ public class AdminProcesosViewController {
     private AdminProcesoController adminProcesoController = new AdminProcesoController();
     private ListaEnlazadaProceso listaEnlazadaProceso = new ListaEnlazadaProceso();
     private ExportadorCSV exportadorCSV = new ExportadorCSV();
+    private ImportadorCSV importadorCSV= new ImportadorCSV();
     Alerta alerta = new Alerta();
     private Proceso procesoSeleccionado;
 
@@ -188,9 +195,23 @@ public class AdminProcesosViewController {
         }
     }
 
-    public void exportarProceso(Stage stage) {
+    @FXML
+    public void exportar() {
 
-        exportadorCSV.exportToCSV(listaProcesos, stage);
+        exportadorCSV.exportToCSV(listaProcesos, new Stage());
+    }
+
+    @FXML
+    public void importar(){
+
+        String ruta = JOptionPane.showInputDialog(null, "Ingresa la ruta del archivo externo:");
+        if (ruta == null || ruta.trim().isEmpty()) {
+            System.out.println("No se ingresó una ruta válida.");
+            return;
+        }
+        String archivoDestino = "src/main/resources/archivosTxt/Procesos.txt";
+
+        importadorCSV.importarDatos(ruta, archivoDestino);
     }
 
 
