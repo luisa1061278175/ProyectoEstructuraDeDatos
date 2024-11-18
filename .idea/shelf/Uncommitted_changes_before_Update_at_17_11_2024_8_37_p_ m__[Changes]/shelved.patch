@@ -1,0 +1,1407 @@
+Index: src/main/resources/archivosTxt/Tareas.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>tareaAlgebra;hacerEcuaciones;true;60\r\ntareaCalculo;hacerIntegrales;true;120\r\nPasarBalon;HacerPases;true;30\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/archivosTxt/Tareas.txt b/src/main/resources/archivosTxt/Tareas.txt
+--- a/src/main/resources/archivosTxt/Tareas.txt	(revision 9205b3ea14a2b89f3dab082debc11ba7ed43c292)
++++ b/src/main/resources/archivosTxt/Tareas.txt	(date 1731892315273)
+@@ -1,3 +1,15 @@
+ tareaAlgebra;hacerEcuaciones;true;60
+ tareaCalculo;hacerIntegrales;true;120
+ PasarBalon;HacerPases;true;30
++tareaAlgebra;hacerEcuaciones;true;60
++tareaCalculo;hacerIntegrales;true;120
++PasarBalon;HacerPases;true;30
++Tarea 1;Descripción de la tarea;true;5
++tareaAlgebra;hacerEcuaciones;true;60
++tareaCalculo;hacerIntegrales;true;120
++PasarBalon;HacerPases;true;30
++tareaAlgebra;hacerEcuaciones;true;60
++tareaCalculo;hacerIntegrales;true;120
++PasarBalon;HacerPases;true;30
++Tarea 1;Descripción de la tarea;true;5
++Tarea 1;Descripción de la tarea;true;5
+Index: src/test/co/edu/uniquindio/proyectoestructura/estructurasPropias/cola/tarea/ColaTareaTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/co/edu/uniquindio/proyectoestructura/estructurasPropias/cola/tarea/ColaTareaTest.java b/src/test/co/edu/uniquindio/proyectoestructura/estructurasPropias/cola/tarea/ColaTareaTest.java
+new file mode 100644
+--- /dev/null	(date 1731892024123)
++++ b/src/test/co/edu/uniquindio/proyectoestructura/estructurasPropias/cola/tarea/ColaTareaTest.java	(date 1731892024123)
+@@ -0,0 +1,104 @@
++package co.edu.uniquindio.proyectoestructura.estructurasPropias.cola.tarea;
++
++import static org.junit.jupiter.api.Assertions.*;
++
++import co.edu.uniquindio.proyectoestructura.modelo.Tarea;
++import org.junit.jupiter.api.Test;
++
++import java.io.File;
++import java.util.LinkedList;
++import java.util.Queue;
++
++public class ColaTareaTest {
++
++    @Test
++    public void testGuardarTarea() {
++        ColaTarea colaTarea = new ColaTarea();
++        Tarea tarea = new Tarea("Tarea 1", "Descripción de la tarea", true, 5);
++
++        // Guardamos la tarea
++        colaTarea.guardarTarea(tarea);
++
++        // Verificamos si la tarea ha sido añadida a la cola
++        assertTrue(colaTarea.getTareas().contains(tarea), "La tarea no fue añadida correctamente.");
++    }
++
++    @Test
++    public void testEliminarTarea() {
++        ColaTarea colaTarea = new ColaTarea();
++        Tarea tarea = new Tarea("Tarea 1", "Descripción de la tarea", true, 5);
++        colaTarea.guardarTarea(tarea);
++
++        // Intentamos eliminar la tarea
++        boolean eliminada = colaTarea.eliminarTarea("Tarea 1");
++
++        // Verificamos que la tarea haya sido eliminada
++        assertTrue(eliminada, "La tarea no fue eliminada.");
++        assertFalse(colaTarea.getTareas().contains(tarea), "La tarea no fue eliminada correctamente.");
++    }
++    @Test
++    public void testModificarTarea() {
++        ColaTarea colaTarea = new ColaTarea();
++        Tarea tarea = new Tarea("Tarea 1", "Descripción de la tarea", true, 5);
++        colaTarea.guardarTarea(tarea);
++
++        // Modificamos la tarea
++        boolean modificada = colaTarea.modificarTarea("Tarea 1", "Nueva descripción", false, 10);
++
++        // Verificamos que la tarea haya sido modificada
++        assertTrue(modificada, "La tarea no fue modificada.");
++        assertEquals("Nueva descripción", tarea.getDescripcion(), "La descripción no fue actualizada.");
++        assertFalse(tarea.isObligatoria(), "La obligatoriedad no fue actualizada.");
++        assertEquals(10, tarea.getDuracion(), "La duración no fue actualizada.");
++    }
++    @Test
++    public void testCargarTareasDesdeArchivo() {
++        ColaTarea colaTarea = new ColaTarea();
++
++        // Simulamos que ya hemos cargado tareas desde el archivo
++        colaTarea.cargarTareasDesdeArchivo("src/main/resources/archivosTxt/Tareas.txt");
++
++        // Verificamos que las tareas estén correctamente cargadas
++        assertNotNull(colaTarea.getTareas(), "Las tareas no fueron cargadas correctamente desde el archivo.");
++    }
++    @Test
++    public void testAgregarTareaAlArchivo() {
++        ColaTarea colaTarea = new ColaTarea();
++        Tarea tarea = new Tarea("Tarea 1", "Descripción de la tarea", true, 5);
++        colaTarea.guardarTarea(tarea);
++
++        // Guardamos las tareas en el archivo
++        colaTarea.agregarTareaAlArchivo(colaTarea.getTareas());
++
++        // Verificamos que el archivo se haya actualizado correctamente (Esto dependerá de las expectativas sobre el archivo)
++        File archivo = new File("src/main/resources/archivosTxt/Tareas.txt");
++        assertTrue(archivo.exists(), "El archivo no fue creado o actualizado.");
++    }
++    @Test
++    public void testBuscarTareaPorNombre() {
++        ColaTarea colaTarea = new ColaTarea();
++        Tarea tarea = new Tarea("Tarea 1", "Descripción de la tarea", true, 5);
++        colaTarea.guardarTarea(tarea);
++
++        // Buscamos la tarea por su nombre
++        Tarea tareaEncontrada = colaTarea.buscarTareaPorNombre("Tarea 1");
++
++        // Verificamos que la tarea sea la correcta
++        assertNotNull(tareaEncontrada, "La tarea no fue encontrada.");
++        assertEquals("Tarea 1", tareaEncontrada.getNombre(), "El nombre de la tarea encontrada no es correcto.");
++    }
++    @Test
++    public void testColaAArreglo() {
++        ColaTarea colaTarea = new ColaTarea();
++        Tarea tarea = new Tarea("Tarea 1", "Descripción de la tarea", true, 5);
++        colaTarea.guardarTarea(tarea);
++
++        // Convertimos la cola en un arreglo
++        Tarea[] arreglo = ColaTarea.colaAArreglo(colaTarea.getTareas());
++
++        // Verificamos que el arreglo contenga la tarea
++        assertEquals(1, arreglo.length, "El arreglo no tiene el tamaño correcto.");
++        assertEquals("Tarea 1", arreglo[0].getNombre(), "El nombre de la tarea en el arreglo no es correcto.");
++    }
++
++}
+Index: src/test/co/edu/uniquindio/proyectoestructura/modelo/TareaTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/co/edu/uniquindio/proyectoestructura/modelo/TareaTest.java b/src/test/co/edu/uniquindio/proyectoestructura/modelo/TareaTest.java
+new file mode 100644
+--- /dev/null	(date 1731888885897)
++++ b/src/test/co/edu/uniquindio/proyectoestructura/modelo/TareaTest.java	(date 1731888885897)
+@@ -0,0 +1,54 @@
++package co.edu.uniquindio.proyectoestructura.modelo;
++
++import org.junit.jupiter.api.Test;
++
++import static org.junit.jupiter.api.Assertions.*;
++
++class TareaTest {
++    @Test
++    public void testConstructor() {
++    // Crear la tarea con valores específicos
++    Tarea tarea = new Tarea("Tarea 1", "Descripción de la tarea", true, 5);
++
++    // Verificar que los valores se asignan correctamente
++    assertEquals("Tarea 1", tarea.getNombre());
++    assertEquals("Descripción de la tarea", tarea.getDescripcion());
++    assertTrue(tarea.isObligatoria());
++    assertEquals(5, tarea.getDuracion());
++}
++    @Test
++    public void testSettersAndGetters() {
++        // Crear la tarea
++        Tarea tarea = new Tarea("Tarea 1", "Descripción de la tarea", true, 5);
++
++        // Verificar los getters iniciales
++        assertEquals("Tarea 1", tarea.getNombre());
++        assertEquals("Descripción de la tarea", tarea.getDescripcion());
++        assertTrue(tarea.isObligatoria());
++        assertEquals(5, tarea.getDuracion());
++
++        // Cambiar los valores usando los setters
++        tarea.setNombre("Tarea 2");
++        tarea.setDescripcion("Descripción actualizada");
++        tarea.setObligatoria(false);
++        tarea.setDuracion(10);
++
++        // Verificar que los valores se han modificado correctamente
++        assertEquals("Tarea 2", tarea.getNombre());
++        assertEquals("Descripción actualizada", tarea.getDescripcion());
++        assertFalse(tarea.isObligatoria());
++        assertEquals(10, tarea.getDuracion());
++    }
++    @Test
++    public void testToString() {
++        // Crear la tarea
++        Tarea tarea = new Tarea("Tarea 1", "Descripción de la tarea", true, 5);
++
++        // Crear el valor esperado de la cadena
++        String expected = "Tarea{nombre='Tarea 1', descripcion='Descripción de la tarea', obligatoria=true, duracion=5}";
++
++        // Verificar que el método toString devuelve la cadena correcta
++        assertEquals(expected, tarea.toString());
++    }
++
++}
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"6aaae5b7-b31a-4ff7-9b60-ab078e52e8ed\" name=\"Changes\" comment=\"buscar tarea, actividad y proceso\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/viewController/usuarios/UsuarioTareasViewController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/viewController/usuarios/UsuarioTareasViewController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/usuarioActividades.fxml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/usuarioActividades.fxml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/usuarioTareas.fxml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/usuarioTareas.fxml\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Interface\" />\r\n        <option value=\"FxmlFile\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MavenImportPreferences\">\r\n    <option name=\"generalSettings\">\r\n      <MavenGeneralSettings>\r\n        <option name=\"mavenHome\" value=\"Use Maven wrapper\" />\r\n      </MavenGeneralSettings>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 5\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2m8VRZxnSX3NimqTAqZDITTfQtQ\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n    <option name=\"showMembers\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;Application.EmailSender.executor&quot;: &quot;Run&quot;,\r\n    &quot;Application.Principal.executor&quot;: &quot;Run&quot;,\r\n    &quot;Maven.ProyectoEstructura [org.apache.maven.plugins:maven-clean-plugin:2.5:clean].executor&quot;: &quot;Run&quot;,\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\r\n    &quot;git-widget-placeholder&quot;: &quot;master&quot;,\r\n    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;C:/Users/USUARIO/Documents/DatosProgramacion/ProyectoEstructura/src/main/resources/estilos&quot;,\r\n    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;\r\n  },\r\n  &quot;keyToStringList&quot;: {\r\n    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [\r\n      &quot;CSS&quot;\r\n    ]\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\USUARIO\\Documents\\DatosProgramacion\\ProyectoEstructura\\src\\main\\resources\\estilos\" />\r\n      <recent name=\"C:\\Users\\USUARIO\\Documents\\DatosProgramacion\\ProyectoEstructura\\src\\main\\java\\co\\edu\\uniquindio\\proyectoestructura\" />\r\n      <recent name=\"C:\\Users\\USUARIO\\Documents\\DatosProgramacion\\ProyectoEstructura\\src\\main\\resources\" />\r\n    </key>\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\USUARIO\\Documents\\DatosProgramacion\\ProyectoEstructura\\src\\main\\resources\\imagenes\" />\r\n      <recent name=\"C:\\Users\\USUARIO\\Documents\\DatosProgramacion\\ProyectoEstructura\\src\\main\\resources\\archivosTxt\" />\r\n      <recent name=\"C:\\Users\\USUARIO\\Documents\\DatosProgramacion\\ProyectoEstructura\\src\\main\\resources\\archivostxt\" />\r\n      <recent name=\"C:\\Users\\USUARIO\\Documents\\DatosProgramacion\\ProyectoEstructura\\src\\main\\java\\co\\edu\\uniquindio\\proyectoestructura\" />\r\n      <recent name=\"C:\\Users\\USUARIO\\Documents\\DatosProgramacion\\ProyectoEstructura\\src\\main\\resources\\estilos\" />\r\n    </key>\r\n    <key name=\"MoveClassesOrPackagesDialog.RECENTS_KEY\">\r\n      <recent name=\"co.edu.uniquindio.proyectoestructura\" />\r\n      <recent name=\"\" />\r\n    </key>\r\n    <key name=\"CopyClassDialog.RECENTS_KEY\">\r\n      <recent name=\"co.edu.uniquindio.proyectoestructura.modelo\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Application.Principal\">\r\n    <configuration name=\"Email\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"co.edu.uniquindio.proyectoestructura.notificaciones.Email\" />\r\n      <module name=\"ProyectoEstructura\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"co.edu.uniquindio.proyectoestructura.notificaciones.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"Principal\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"co.edu.uniquindio.proyectoestructura.Principal\" />\r\n      <module name=\"ProyectoEstructura\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"co.edu.uniquindio.proyectoestructura.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.Principal\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"jdk-17.0.10-corretto-17.0.10-4caba194b151-5cd809f4\" />\r\n        <option value=\"jdk-21.0.1-openjdk-21.0.1-4caba194b151-23eed401\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"6aaae5b7-b31a-4ff7-9b60-ab078e52e8ed\" name=\"Changes\" comment=\"\" />\r\n      <created>1726458185348</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1726458185348</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"Estructura del proyecto\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1727151968904</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1727151968904</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"&#10;Abren ventanas principales\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1727296477775</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1727296477775</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"&#10;cambian de color los botones\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1727297312926</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1727297312926</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"&#10;inicia sesion usuario y admin\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1727311142692</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1727311142692</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"&#10;inicia sesion usuario y admin\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1727327324457</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1727327324457</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"Abre ventanas secuenciales\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1727381423976</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1727381423976</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"Abre ventanas secuenciales\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1727381853842</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1727381853842</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00008\" summary=\"ListasEnlazadas\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1729746928667</created>\r\n      <option name=\"number\" value=\"00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1729746928667</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00009\" summary=\"proceso guardar txt\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1729888993405</created>\r\n      <option name=\"number\" value=\"00009\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1729888993405</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00010\" summary=\"proceso guardar txt\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1729889028321</created>\r\n      <option name=\"number\" value=\"00010\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00010\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1729889028321</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00011\" summary=\"p\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1730167806770</created>\r\n      <option name=\"number\" value=\"00011\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00011\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1730167806770</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00012\" summary=\"p\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1730492199038</created>\r\n      <option name=\"number\" value=\"00012\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00012\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1730492199038</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00013\" summary=\"CRUD de proceso\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1730781308532</created>\r\n      <option name=\"number\" value=\"00013\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00013\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1730781308532</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00014\" summary=\"Lista enlazada procesos con archivos txt\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1730909984183</created>\r\n      <option name=\"number\" value=\"00014\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00014\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1730909984184</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00015\" summary=\"Metodos de colas Actividad listos\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1730947178437</created>\r\n      <option name=\"number\" value=\"00015\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00015\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1730947178437</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00016\" summary=\"Metodos de colas Actividad listos\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1730955988710</created>\r\n      <option name=\"number\" value=\"00016\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00016\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1730955988710</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00017\" summary=\"Se vincularon las actividades con los procesos\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1731011760088</created>\r\n      <option name=\"number\" value=\"00017\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00017\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1731011760088</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00018\" summary=\"Se vincularon las actividades con los procesos\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1731094779047</created>\r\n      <option name=\"number\" value=\"00018\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00018\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1731094779047</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00019\" summary=\"p\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1731110889341</created>\r\n      <option name=\"number\" value=\"00019\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00019\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1731110889341</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00020\" summary=\"p\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1731646962249</created>\r\n      <option name=\"number\" value=\"00020\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00020\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1731646962249</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00021\" summary=\"p\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1731715162421</created>\r\n      <option name=\"number\" value=\"00021\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00021\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1731715162421</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00022\" summary=\"p\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1731783791218</created>\r\n      <option name=\"number\" value=\"00022\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00022\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1731783791219</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00023\" summary=\"usuarios\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1731816185558</created>\r\n      <option name=\"number\" value=\"00023\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00023\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1731816185558</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00024\" summary=\"exportar\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1731821250106</created>\r\n      <option name=\"number\" value=\"00024\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00024\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1731821250106</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00025\" summary=\"funciones usuario\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1731876771312</created>\r\n      <option name=\"number\" value=\"00025\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00025\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1731876771312</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00026\" summary=\"buscar tarea, actividad y proceso\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1731879607856</created>\r\n      <option name=\"number\" value=\"00026\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00026\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1731879607856</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"27\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"Estructura del proyecto\" />\r\n    <MESSAGE value=\"&#10;Abren ventanas principales\" />\r\n    <MESSAGE value=\"&#10;cambian de color los botones\" />\r\n    <MESSAGE value=\"&#10;inicia sesion usuario y admin\" />\r\n    <MESSAGE value=\"Abre ventanas secuenciales\" />\r\n    <MESSAGE value=\"ListasEnlazadas\" />\r\n    <MESSAGE value=\"proceso guardar txt\" />\r\n    <MESSAGE value=\"CRUD de proceso\" />\r\n    <MESSAGE value=\"Lista enlazada procesos con archivos txt\" />\r\n    <MESSAGE value=\"Metodos de colas Actividad listos\" />\r\n    <MESSAGE value=\"Se vincularon las actividades con los procesos\" />\r\n    <MESSAGE value=\"p\" />\r\n    <MESSAGE value=\"usuarios\" />\r\n    <MESSAGE value=\"exportar\" />\r\n    <MESSAGE value=\"funciones usuario\" />\r\n    <MESSAGE value=\"buscar tarea, actividad y proceso\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"buscar tarea, actividad y proceso\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 9205b3ea14a2b89f3dab082debc11ba7ed43c292)
++++ b/.idea/workspace.xml	(date 1731893794402)
+@@ -5,10 +5,22 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="6aaae5b7-b31a-4ff7-9b60-ab078e52e8ed" name="Changes" comment="buscar tarea, actividad y proceso">
++      <change afterPath="$PROJECT_DIR$/src/test/co/edu/uniquindio/proyectoestructura/estructurasPropias/cola/tarea/ColaTareaTest.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/test/co/edu/uniquindio/proyectoestructura/estructurasPropias/colas/actividad/ColaActividadTest.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/test/co/edu/uniquindio/proyectoestructura/estructurasPropias/listaEnlazada/Usuarios/ListaEnlazadaUsuarioTest.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/test/co/edu/uniquindio/proyectoestructura/estructurasPropias/listaEnlazada/Usuarios/NodoTest.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/test/co/edu/uniquindio/proyectoestructura/estructurasPropias/listaEnlazada/proceso/ListaEnlazadaProcesoTest.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/test/co/edu/uniquindio/proyectoestructura/estructurasPropias/listaEnlazada/proceso/NodoProcesoTest.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/test/co/edu/uniquindio/proyectoestructura/modelo/ActividadTest.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/test/co/edu/uniquindio/proyectoestructura/modelo/ProcesoTest.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/test/co/edu/uniquindio/proyectoestructura/modelo/TareaTest.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/viewController/usuarios/UsuarioTareasViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/viewController/usuarios/UsuarioTareasViewController.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/usuarioActividades.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/usuarioActividades.fxml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/usuarioTareas.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/usuarioTareas.fxml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/estructurasPropias/cola/tarea/ColaTarea.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/estructurasPropias/cola/tarea/ColaTarea.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/modelo/Tarea.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/modelo/Tarea.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/resources/archivosTxt/Tareas.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/archivosTxt/Tareas.txt" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/resources/archivosTxt/UsuariosRegistrados.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/archivosTxt/UsuariosRegistrados.txt" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -21,16 +33,29 @@
+         <option value="Interface" />
+         <option value="FxmlFile" />
+         <option value="Class" />
++        <option value="JUnit5 Test Class" />
+       </list>
+     </option>
+   </component>
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
++  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
++  "lastFilter": {
++    "state": "OPEN",
++    "assignee": "DillanSnayder"
++  }
++}]]></component>
++  <component name="GithubPullRequestsUISettings"><![CDATA[{
++  "selectedUrlAndAccountId": {
++    "url": "https://github.com/luisa1061278175/ProyectoEstructuraDeDatos.git",
++    "accountId": "8375f61a-e8bf-4a47-82ac-f3826160833c"
++  }
++}]]></component>
+   <component name="MavenImportPreferences">
+     <option name="generalSettings">
+       <MavenGeneralSettings>
+-        <option name="mavenHome" value="Use Maven wrapper" />
++        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+       </MavenGeneralSettings>
+     </option>
+   </component>
+@@ -46,25 +71,45 @@
+     <option name="showLibraryContents" value="true" />
+     <option name="showMembers" value="true" />
+   </component>
+-  <component name="PropertiesComponent">{
+-  &quot;keyToString&quot;: {
+-    &quot;Application.EmailSender.executor&quot;: &quot;Run&quot;,
+-    &quot;Application.Principal.executor&quot;: &quot;Run&quot;,
+-    &quot;Maven.ProyectoEstructura [org.apache.maven.plugins:maven-clean-plugin:2.5:clean].executor&quot;: &quot;Run&quot;,
+-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+-    &quot;last_opened_file_path&quot;: &quot;C:/Users/USUARIO/Documents/DatosProgramacion/ProyectoEstructura/src/main/resources/estilos&quot;,
+-    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "Application.EmailSender.executor": "Run",
++    "Application.Principal.executor": "Run",
++    "JUnit.ActividadTest.executor": "Run",
++    "JUnit.ColaActividadTest.executor": "Run",
++    "JUnit.ColaTareaTest.executor": "Run",
++    "JUnit.ColaTareaTest.guardarTarea.executor": "Run",
++    "JUnit.ColaTareaTest.testEliminarTarea.executor": "Run",
++    "JUnit.ColaTareaTest.testGuardarTarea.executor": "Run",
++    "JUnit.ListaEnlazadaUsuarioTest.executor": "Run",
++    "JUnit.NodoProcesoTest.executor": "Run",
++    "JUnit.NodoTest.executor": "Run",
++    "JUnit.ProcesoTest.executor": "Run",
++    "JUnit.TareaTest.executor": "Run",
++    "JUnit.TareaTest.testConstructor.executor": "Run",
++    "JUnit.TareaTest.testSettersAndGetters.executor": "Run",
++    "JUnit.TareaTest.testToString.executor": "Run",
++    "Maven.ProyectoEstructura [org.apache.maven.plugins:maven-clean-plugin:2.5:clean].executor": "Run",
++    "RunOnceActivity.OpenProjectViewOnStart": "true",
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
++    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
++    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
++    "git-widget-placeholder": "master",
++    "jdk.selected.JAVA_MODULE": "openjdk-21",
++    "kotlin-language-version-configured": "true",
++    "last_opened_file_path": "C:/Users/USUARIO/Documents/DatosProgramacion/ProyectoEstructura/src/main/resources/estilos",
++    "project.structure.last.edited": "Modules",
++    "project.structure.proportion": "0.15",
++    "project.structure.side.proportion": "0.2",
++    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
+   },
+-  &quot;keyToStringList&quot;: {
+-    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+-      &quot;CSS&quot;
++  "keyToStringList": {
++    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
++      "CSS"
+     ]
+   }
+-}</component>
++}]]></component>
+   <component name="RecentsManager">
+     <key name="CopyFile.RECENT_KEYS">
+       <recent name="C:\Users\USUARIO\Documents\DatosProgramacion\ProyectoEstructura\src\main\resources\estilos" />
+@@ -78,54 +123,109 @@
+       <recent name="C:\Users\USUARIO\Documents\DatosProgramacion\ProyectoEstructura\src\main\java\co\edu\uniquindio\proyectoestructura" />
+       <recent name="C:\Users\USUARIO\Documents\DatosProgramacion\ProyectoEstructura\src\main\resources\estilos" />
+     </key>
++    <key name="CreateTestDialog.Recents.Supers">
++      <recent name="" />
++    </key>
+     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+       <recent name="co.edu.uniquindio.proyectoestructura" />
+       <recent name="" />
+     </key>
++    <key name="CreateTestDialog.RecentsKey">
++      <recent name="co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.proceso" />
++      <recent name="co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.Usuarios" />
++      <recent name="co.edu.uniquindio.proyectoestructura.estructurasPropias.colas.actividad" />
++      <recent name="co.edu.uniquindio.proyectoestructura.estructurasPropias.cola.tarea" />
++      <recent name="co.edu.uniquindio.proyectoestructura.modelo" />
++    </key>
+     <key name="CopyClassDialog.RECENTS_KEY">
+       <recent name="co.edu.uniquindio.proyectoestructura.modelo" />
+     </key>
+   </component>
+-  <component name="RunManager" selected="Application.Principal">
+-    <configuration name="Email" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+-      <option name="MAIN_CLASS_NAME" value="co.edu.uniquindio.proyectoestructura.notificaciones.Email" />
++  <component name="RunManager" selected="JUnit.NodoProcesoTest">
++    <configuration name="ColaActividadTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
++      <module name="ProyectoEstructura" />
++      <extension name="coverage">
++        <pattern>
++          <option name="PATTERN" value="co.edu.uniquindio.proyectoestructura.estructurasPropias.colas.actividad.*" />
++          <option name="ENABLED" value="true" />
++        </pattern>
++      </extension>
++      <option name="PACKAGE_NAME" value="co.edu.uniquindio.proyectoestructura.estructurasPropias.colas.actividad" />
++      <option name="MAIN_CLASS_NAME" value="co.edu.uniquindio.proyectoestructura.estructurasPropias.colas.actividad.ColaActividadTest" />
++      <option name="TEST_OBJECT" value="class" />
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
++    <configuration name="ColaTareaTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
++      <module name="ProyectoEstructura" />
++      <extension name="coverage">
++        <pattern>
++          <option name="PATTERN" value="co.edu.uniquindio.proyectoestructura.estructurasPropias.cola.tarea.*" />
++          <option name="ENABLED" value="true" />
++        </pattern>
++      </extension>
++      <option name="PACKAGE_NAME" value="co.edu.uniquindio.proyectoestructura.estructurasPropias.cola.tarea" />
++      <option name="MAIN_CLASS_NAME" value="co.edu.uniquindio.proyectoestructura.estructurasPropias.cola.tarea.ColaTareaTest" />
++      <option name="TEST_OBJECT" value="class" />
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
++    <configuration name="ListaEnlazadaUsuarioTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
++      <module name="ProyectoEstructura" />
++      <extension name="coverage">
++        <pattern>
++          <option name="PATTERN" value="co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.Usuarios.*" />
++          <option name="ENABLED" value="true" />
++        </pattern>
++      </extension>
++      <option name="PACKAGE_NAME" value="co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.Usuarios" />
++      <option name="MAIN_CLASS_NAME" value="co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.Usuarios.ListaEnlazadaUsuarioTest" />
++      <option name="TEST_OBJECT" value="class" />
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
++    <configuration name="NodoProcesoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+       <module name="ProyectoEstructura" />
+       <extension name="coverage">
+         <pattern>
+-          <option name="PATTERN" value="co.edu.uniquindio.proyectoestructura.notificaciones.*" />
++          <option name="PATTERN" value="co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.proceso.*" />
+           <option name="ENABLED" value="true" />
+         </pattern>
+       </extension>
++      <option name="PACKAGE_NAME" value="co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.proceso" />
++      <option name="MAIN_CLASS_NAME" value="co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.proceso.NodoProcesoTest" />
++      <option name="TEST_OBJECT" value="class" />
+       <method v="2">
+         <option name="Make" enabled="true" />
+       </method>
+     </configuration>
+-    <configuration name="Principal" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+-      <option name="MAIN_CLASS_NAME" value="co.edu.uniquindio.proyectoestructura.Principal" />
++    <configuration name="NodoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+       <module name="ProyectoEstructura" />
+       <extension name="coverage">
+         <pattern>
+-          <option name="PATTERN" value="co.edu.uniquindio.proyectoestructura.*" />
++          <option name="PATTERN" value="co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.Usuarios.*" />
+           <option name="ENABLED" value="true" />
+         </pattern>
+       </extension>
++      <option name="PACKAGE_NAME" value="co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.Usuarios" />
++      <option name="MAIN_CLASS_NAME" value="co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.Usuarios.NodoTest" />
++      <option name="TEST_OBJECT" value="class" />
+       <method v="2">
+         <option name="Make" enabled="true" />
+       </method>
+     </configuration>
+     <recent_temporary>
+       <list>
+-        <item itemvalue="Application.Principal" />
++        <item itemvalue="JUnit.NodoProcesoTest" />
++        <item itemvalue="JUnit.ListaEnlazadaUsuarioTest" />
++        <item itemvalue="JUnit.NodoTest" />
++        <item itemvalue="JUnit.ColaActividadTest" />
++        <item itemvalue="JUnit.ColaTareaTest" />
+       </list>
+     </recent_temporary>
+-  </component>
+-  <component name="SharedIndexes">
+-    <attachedChunks>
+-      <set>
+-        <option value="jdk-17.0.10-corretto-17.0.10-4caba194b151-5cd809f4" />
+-        <option value="jdk-21.0.1-openjdk-21.0.1-4caba194b151-23eed401" />
+-      </set>
+-    </attachedChunks>
+   </component>
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="TaskManager">
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\r\n  <component name=\"MavenProjectsManager\">\r\n    <option name=\"originalFiles\">\r\n      <list>\r\n        <option value=\"$PROJECT_DIR$/pom.xml\" />\r\n      </list>\r\n    </option>\r\n    <option name=\"workspaceImportForciblyTurnedOn\" value=\"true\" />\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_21\" default=\"true\" project-jdk-name=\"openjdk-21\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/out\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 9205b3ea14a2b89f3dab082debc11ba7ed43c292)
++++ b/.idea/misc.xml	(date 1731884987942)
+@@ -7,9 +7,8 @@
+         <option value="$PROJECT_DIR$/pom.xml" />
+       </list>
+     </option>
+-    <option name="workspaceImportForciblyTurnedOn" value="true" />
+   </component>
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="openjdk-21" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_23" default="true" project-jdk-name="openjdk-21" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/out" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: src/test/co/edu/uniquindio/proyectoestructura/modelo/ActividadTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/co/edu/uniquindio/proyectoestructura/modelo/ActividadTest.java b/src/test/co/edu/uniquindio/proyectoestructura/modelo/ActividadTest.java
+new file mode 100644
+--- /dev/null	(date 1731889091108)
++++ b/src/test/co/edu/uniquindio/proyectoestructura/modelo/ActividadTest.java	(date 1731889091108)
+@@ -0,0 +1,74 @@
++package co.edu.uniquindio.proyectoestructura.modelo;
++
++import static org.junit.jupiter.api.Assertions.*;
++
++
++import org.junit.jupiter.api.Test;
++import java.util.LinkedList;
++import java.util.Queue;
++
++public class ActividadTest {
++
++    @Test
++    public void testConstructor() {
++        // Crear una cola de tareas (para este ejemplo, usaremos LinkedList como implementación de Queue)
++        Queue<Tarea> tareas = new LinkedList<>();
++        tareas.add(new Tarea("Tarea 1", "Descripción tarea 1", true, 5));
++
++        // Crear la actividad con valores específicos
++        Actividad actividad = new Actividad("Actividad 1", "Descripción de la actividad", true, tareas);
++
++        // Verificar que los valores se asignan correctamente
++        assertEquals("Actividad 1", actividad.getNombre());
++        assertEquals("Descripción de la actividad", actividad.getDescripcion());
++        assertTrue(actividad.isEsObligatoria());
++        assertEquals(tareas, actividad.getTareas());
++    }
++    @Test
++    public void testSettersAndGetters() {
++        // Crear una cola de tareas
++        Queue<Tarea> tareas = new LinkedList<>();
++        tareas.add(new Tarea("Tarea 1", "Descripción tarea 1", true, 5));
++
++        // Crear la actividad
++        Actividad actividad = new Actividad("Actividad 1", "Descripción de la actividad", true, tareas);
++
++        // Verificar los valores iniciales
++        assertEquals("Actividad 1", actividad.getNombre());
++        assertEquals("Descripción de la actividad", actividad.getDescripcion());
++        assertTrue(actividad.isEsObligatoria());
++        assertEquals(tareas, actividad.getTareas());
++
++        // Modificar los valores usando los setters
++        actividad.setNombre("Actividad 2");
++        actividad.setDescripcion("Descripción actualizada");
++        actividad.setEsObligatoria(false);
++
++        // Crear una nueva cola de tareas y actualizarla
++        Queue<Tarea> nuevasTareas = new LinkedList<>();
++        nuevasTareas.add(new Tarea("Tarea 2", "Descripción tarea 2", false, 10));
++        actividad.setTareas(nuevasTareas);
++
++        // Verificar que los valores se han modificado correctamente
++        assertEquals("Actividad 2", actividad.getNombre());
++        assertEquals("Descripción actualizada", actividad.getDescripcion());
++        assertFalse(actividad.isEsObligatoria());
++        assertEquals(nuevasTareas, actividad.getTareas());
++    }
++    @Test
++    public void testToString() {
++        // Crear una cola de tareas
++        Queue<Tarea> tareas = new LinkedList<>();
++        tareas.add(new Tarea("Tarea 1", "Descripción tarea 1", true, 5));
++
++        // Crear la actividad
++        Actividad actividad = new Actividad("Actividad 1", "Descripción de la actividad", true, tareas);
++
++        // Crear el valor esperado de la cadena
++        String expected = "Actividad{nombre='Actividad 1', descripcion='Descripción de la actividad', esObligatoria=true, tareas=" + tareas + "}";
++
++        // Verificar que el método toString devuelve la cadena correcta
++        assertEquals(expected, actividad.toString());
++    }
++
++}
+Index: src/main/java/co/edu/uniquindio/proyectoestructura/estructurasPropias/cola/tarea/ColaTarea.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package co.edu.uniquindio.proyectoestructura.estructurasPropias.cola.tarea;\r\n\r\nimport co.edu.uniquindio.proyectoestructura.modelo.Actividad;\r\nimport co.edu.uniquindio.proyectoestructura.modelo.Tarea;\r\n\r\nimport java.io.*;\r\nimport java.util.ArrayList;\r\nimport java.util.LinkedList;\r\nimport java.util.List;\r\nimport java.util.Queue;\r\n\r\npublic class ColaTarea {\r\n    private Queue<Tarea> tareas;\r\n    private static final String RUTA_ARCHIVO_TAREAS = \"src/main/resources/archivosTxt/Tareas.txt\";\r\n    private static final String RUTA_ARCHIVO_ACTIVIDADES = \"src/main/resources/archivosTxt/Actividades.txt\";\r\n    public ColaTarea() {\r\n        tareas = new LinkedList<>();\r\n        cargarTareasDesdeArchivo(RUTA_ARCHIVO_TAREAS);\r\n\r\n    }\r\n\r\n\r\n    public void guardarTarea(Tarea tarea) {\r\n        tareas.offer(tarea);\r\n        System.out.println(\"Actividad guardada: \" + tarea);\r\n    }\r\n\r\n\r\n    public boolean eliminarTarea(String nombre) {\r\n        for (Tarea tarea : tareas) {\r\n            if (tarea.getNombre().equals(nombre)) {\r\n                tareas.remove(tarea);\r\n                System.out.println(\"Actividad eliminada: \" + tarea);\r\n                return true;\r\n            }\r\n        }\r\n        System.out.println(\"No se encontró la tarea con nombre: \" + nombre);\r\n        return false;\r\n    }\r\n\r\n\r\n    public boolean modificarTarea(String nombre, String nuevaDescripcion, boolean esObligatoria, int duracion) {\r\n        for (Tarea tarea : tareas) {\r\n            if (tarea.getNombre().equals(nombre)) {\r\n                tarea.setDescripcion(nuevaDescripcion);\r\n                tarea.setObligatoria(esObligatoria);\r\n                tarea.setDuracion(duracion);\r\n                System.out.println(\"Actividad modificada: \" + tarea);\r\n                return true;\r\n            }\r\n        }\r\n        System.out.println(\"No se encontró la tarea con nombre: \" + nombre);\r\n        return false;\r\n    }\r\n\r\n\r\n\r\n    /*\r\n     *\r\n     *\r\n     *\r\n     *\r\n     * METODOS PARA GUARDAR EN TXT\r\n     *\r\n     *\r\n     *\r\n     * */\r\n\r\n\r\n    public void agregarTareaAlArchivo(Queue<Tarea> tarea) {\r\n        try (BufferedWriter writer = new BufferedWriter(new FileWriter(RUTA_ARCHIVO_TAREAS, true))) {\r\n            for (Tarea tarea1 : tareas) {\r\n\r\n                writer.write(tarea1.getNombre() + \";\" + tarea1.getDescripcion() + \";\" + tarea1.isObligatoria()+\";\"+tarea1.getDuracion());\r\n                writer.newLine();\r\n            }\r\n            System.out.println(\"Tareas guardadas en el archivo.\");\r\n        } catch (IOException e) {\r\n            System.err.println(\"Error al guardar las TAreas en el archivo: \" + e.getMessage());\r\n        }\r\n    }\r\n\r\n    public static void guardarListaEnArchivo(List<Tarea> tareas, String rutaArchivo) {\r\n        try (BufferedWriter writer = new BufferedWriter(new FileWriter(rutaArchivo, true))) { // true para abrir en modo append\r\n            for (Tarea tarea : tareas) {\r\n                // Escribir los atributos de la tarea en una línea, separados por ';'\r\n                writer.write(tarea.getNombre() + \";\" +\r\n                        tarea.getDescripcion() + \";\" +\r\n                        tarea.isObligatoria() + \";\" +\r\n                        tarea.getDuracion());\r\n                writer.newLine(); // Salto de línea después de cada tarea\r\n            }\r\n            System.out.println(\"Las tareas han sido guardadas en el archivo con éxito.\");\r\n        } catch (IOException e) {\r\n            System.out.println(\"Error al guardar las tareas en el archivo.\");\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n    public void guardarTareaEnActividad(String nombreActividad, Tarea nuevaTarea) {\r\n        List<String> lineasActualizadas = new ArrayList<>();\r\n        boolean actividadEncontrada = false;\r\n\r\n        // Leer el archivo de actividades y actualizar la lista de líneas\r\n        try (BufferedReader reader = new BufferedReader(new FileReader(RUTA_ARCHIVO_ACTIVIDADES))) {\r\n            String linea;\r\n\r\n            while ((linea = reader.readLine()) != null) {\r\n                String[] datos = linea.split(\";\");\r\n\r\n                // Si encontramos la actividad con el nombre indicado\r\n                if (datos[0].equalsIgnoreCase(nombreActividad)) {\r\n                    StringBuilder nuevaLinea = new StringBuilder();\r\n                    nuevaLinea.append(datos[0]).append(\";\").append(datos[1]).append(\";\").append(datos[2]);\r\n\r\n                    // Añadir tarea existente y nueva tarea\r\n                    if (datos.length > 3) {\r\n                        nuevaLinea.append(\";\").append(datos[3]).append(\",\").append(nuevaTarea.getNombre());\r\n                    } else {\r\n                        nuevaLinea.append(\";\").append(nuevaTarea.getNombre());\r\n                    }\r\n\r\n                    lineasActualizadas.add(nuevaLinea.toString());\r\n                    actividadEncontrada = true;\r\n                    System.out.println(\"Se añadió la tarea '\" + nuevaTarea.getNombre() + \"' a la actividad: \" + nombreActividad);\r\n                } else {\r\n                    // Añadir la línea original si no es la actividad buscada\r\n                    lineasActualizadas.add(linea);\r\n                }\r\n            }\r\n\r\n            if (!actividadEncontrada) {\r\n                System.out.println(\"Actividad no encontrada con nombre: \" + nombreActividad);\r\n            }\r\n        } catch (IOException e) {\r\n            System.err.println(\"Error al leer el archivo: \" + e.getMessage());\r\n        }\r\n\r\n        // Escribir las líneas actualizadas de vuelta al archivo\r\n        try (BufferedWriter writer = new BufferedWriter(new FileWriter(RUTA_ARCHIVO_ACTIVIDADES, false))) {\r\n            for (String lineaActualizada : lineasActualizadas) {\r\n                writer.write(lineaActualizada);\r\n                writer.newLine();\r\n            }\r\n            System.out.println(\"Datos guardados en \" + RUTA_ARCHIVO_ACTIVIDADES);\r\n        } catch (IOException e) {\r\n            System.err.println(\"Error al escribir en el archivo: \" + e.getMessage());\r\n        }\r\n    }\r\n\r\n    public Tarea buscarTareaPorNombre(String nombreActividad) {\r\n\r\n        System.out.println(\"tareas disponibles en buscar tarea:\"+ tareas);\r\n        for (Tarea tarea : tareas) {\r\n            if (tarea.getNombre().equalsIgnoreCase(nombreActividad)) {\r\n                return tarea;\r\n            }\r\n            else {\r\n                System.out.println(\"En buscar Tarea, no se encuentra la tarea\");\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n\r\n    public Queue<Tarea> cargarTareasDesdeArchivo(String rutaArchivo) {\r\n\r\n        try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {\r\n            String linea;\r\n            while ((linea = br.readLine()) != null) {\r\n\r\n                String[] partes = linea.split(\";\");\r\n\r\n\r\n                    String nombre = partes[0].trim();\r\n                    String descripcion = partes[1].trim();\r\n                    boolean isObligatoria = Boolean.parseBoolean(partes[2].trim());\r\n                    int duracion = Integer.parseInt(partes[3].trim());\r\n\r\n                    // Creamos una nueva actividad con los datos de la línea\r\n                    Tarea tarea = new Tarea(nombre, descripcion, isObligatoria,duracion);\r\n\r\n                    tareas.add(tarea);\r\n            }\r\n        } catch (IOException e) {\r\n            System.err.println(\"Error al leer el archivo: \" + e.getMessage());\r\n        }\r\n\r\n        return tareas;\r\n    }\r\n\r\n    public Tarea[] cargarTareasArchivo(String rutaArchivo) {\r\n        // Usamos una lista para almacenar temporalmente las tareas\r\n        List<Tarea> listaTareas = new ArrayList<>();\r\n\r\n        try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {\r\n            String linea;\r\n            while ((linea = br.readLine()) != null) {\r\n                String[] partes = linea.split(\";\");\r\n\r\n                if (partes.length == 4) {\r\n                    String nombre = partes[0].trim();\r\n                    String descripcion = partes[1].trim();\r\n                    boolean isObligatoria = Boolean.parseBoolean(partes[2].trim());\r\n                    int duracion = Integer.parseInt(partes[3].trim());\r\n\r\n                    // Creamos una nueva tarea con los datos de la línea\r\n                    Tarea tarea = new Tarea(nombre, descripcion, isObligatoria, duracion);\r\n\r\n                    // Agregamos la tarea a la lista\r\n                    listaTareas.add(tarea);\r\n                } else {\r\n                    System.out.println(\"Formato incorrecto en línea: \" + linea);\r\n                }\r\n            }\r\n        } catch (IOException e) {\r\n            System.err.println(\"Error al leer el archivo: \" + e.getMessage());\r\n        }\r\n\r\n        // Convertimos la lista a un arreglo y lo retornamos\r\n        return listaTareas.toArray(new Tarea[0]);\r\n    }\r\n    //para usar en la interfaz\r\n\r\n    public static <T> T[] colaAArreglo(Queue<T> cola) {\r\n        // Crear un arreglo con el tamaño de la cola y del mismo tipo que los elementos de la cola\r\n\r\n        T[] arreglo = (T[]) new Object[cola.size()];\r\n\r\n        int index = 0;\r\n        for (T elemento : cola) {\r\n            arreglo[index++] = elemento;\r\n        }\r\n\r\n        return arreglo;\r\n    }\r\n    public boolean modificarTareasEnArchivo(String nombre, String nuevaDescripcion, boolean esObligatoria, int duracion) {\r\n        File archivo = new File(RUTA_ARCHIVO_TAREAS);\r\n        List<String> lineas = new ArrayList<>();\r\n\r\n        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {\r\n            String linea;\r\n            while ((linea = br.readLine()) != null) {\r\n                String[] datos = linea.split(\";\");\r\n                if (datos[0].equals(nombre)) {\r\n                    // Modificar la actividad con la nueva descripción y obligatoriedad\r\n                    lineas.add(nombre + \";\" + nuevaDescripcion + \";\" + esObligatoria +\";\"+duracion);\r\n                } else {\r\n                    lineas.add(linea);\r\n                }\r\n            }\r\n        } catch (IOException e) {\r\n            System.err.println(\"Error al leer el archivo: \" + e.getMessage());\r\n            return false;\r\n        }\r\n\r\n        // Reescribir el archivo con la actividad modificada\r\n        try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo, false))) {\r\n            for (String linea : lineas) {\r\n                bw.write(linea);\r\n                bw.newLine();\r\n            }\r\n            System.out.println(\"Tarea modificada en el archivo.\");\r\n            return true;\r\n        } catch (IOException e) {\r\n            System.err.println(\"Error al escribir en el archivo: \" + e.getMessage());\r\n            return false;\r\n        }\r\n    }\r\n\r\n    public boolean eliminarLineaDelArchivo(String identificador) {\r\n        File archivo = new File(RUTA_ARCHIVO_TAREAS);\r\n        List<String> lineas = new ArrayList<>();\r\n        boolean eliminado = false;\r\n\r\n\r\n        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {\r\n            String linea;\r\n            while ((linea = br.readLine()) != null) {\r\n\r\n                if (!linea.startsWith(identificador + \";\")) {\r\n                    lineas.add(linea);\r\n                } else {\r\n                    eliminado = true;\r\n                }\r\n            }\r\n        } catch (IOException e) {\r\n            System.err.println(\"Error al leer el archivo: \" + e.getMessage());\r\n            return false;\r\n        }\r\n\r\n\r\n        if (eliminado) {\r\n            try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo, false))) {\r\n                for (String linea : lineas) {\r\n                    bw.write(linea);\r\n                    bw.newLine();\r\n                }\r\n                System.out.println(\"Línea eliminada del archivo.\");\r\n                return true;\r\n            } catch (IOException e) {\r\n                System.err.println(\"Error al escribir en el archivo: \" + e.getMessage());\r\n                return false;\r\n            }\r\n        } else {\r\n            System.out.println(\"No se encontró ninguna línea con el identificador: \" + identificador);\r\n            return false;\r\n        }\r\n    }\r\n}\r\n\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/co/edu/uniquindio/proyectoestructura/estructurasPropias/cola/tarea/ColaTarea.java b/src/main/java/co/edu/uniquindio/proyectoestructura/estructurasPropias/cola/tarea/ColaTarea.java
+--- a/src/main/java/co/edu/uniquindio/proyectoestructura/estructurasPropias/cola/tarea/ColaTarea.java	(revision 9205b3ea14a2b89f3dab082debc11ba7ed43c292)
++++ b/src/main/java/co/edu/uniquindio/proyectoestructura/estructurasPropias/cola/tarea/ColaTarea.java	(date 1731892312860)
+@@ -38,7 +38,9 @@
+         return false;
+     }
+ 
+-
++    public Queue<Tarea> getTareas() {
++        return tareas;
++    }
+     public boolean modificarTarea(String nombre, String nuevaDescripcion, boolean esObligatoria, int duracion) {
+         for (Tarea tarea : tareas) {
+             if (tarea.getNombre().equals(nombre)) {
+Index: src/test/co/edu/uniquindio/proyectoestructura/modelo/ProcesoTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/co/edu/uniquindio/proyectoestructura/modelo/ProcesoTest.java b/src/test/co/edu/uniquindio/proyectoestructura/modelo/ProcesoTest.java
+new file mode 100644
+--- /dev/null	(date 1731889398043)
++++ b/src/test/co/edu/uniquindio/proyectoestructura/modelo/ProcesoTest.java	(date 1731889398043)
+@@ -0,0 +1,68 @@
++package co.edu.uniquindio.proyectoestructura.modelo;
++
++import static org.junit.jupiter.api.Assertions.*;
++import org.junit.jupiter.api.Test;
++import java.util.LinkedList;
++import java.util.Queue;
++
++public class ProcesoTest {
++
++    @Test
++    public void testConstructor() {
++        // Crear una cola de actividades
++        Queue<Actividad> listaActividades = new LinkedList<>();
++        listaActividades.add(new Actividad("Actividad 1", "Descripción de la actividad", true, new LinkedList<>()));
++
++        // Crear el proceso con valores específicos
++        Proceso proceso = new Proceso("Proceso 1", "ID123", listaActividades);
++
++        // Verificar que los valores se asignan correctamente
++        assertEquals("Proceso 1", proceso.getNombre());
++        assertEquals("ID123", proceso.getId());
++        assertEquals(listaActividades, proceso.getListaActividades());
++    }
++    @Test
++    public void testSettersAndGetters() {
++        // Crear una cola de actividades
++        Queue<Actividad> listaActividades = new LinkedList<>();
++        listaActividades.add(new Actividad("Actividad 1", "Descripción de la actividad", true, new LinkedList<>()));
++
++        // Crear el proceso
++        Proceso proceso = new Proceso("Proceso 1", "ID123", listaActividades);
++
++        // Verificar los valores iniciales
++        assertEquals("Proceso 1", proceso.getNombre());
++        assertEquals("ID123", proceso.getId());
++        assertEquals(listaActividades, proceso.getListaActividades());
++
++        // Modificar los valores usando los setters
++        proceso.setNombre("Proceso 2");
++        proceso.setId("ID456");
++
++        // Crear una nueva lista de actividades y actualizarla
++        Queue<Actividad> nuevasActividades = new LinkedList<>();
++        nuevasActividades.add(new Actividad("Actividad 2", "Descripción actividad 2", false, new LinkedList<>()));
++        proceso.setListaActividades(nuevasActividades);
++
++        // Verificar que los valores se han modificado correctamente
++        assertEquals("Proceso 2", proceso.getNombre());
++        assertEquals("ID456", proceso.getId());
++        assertEquals(nuevasActividades, proceso.getListaActividades());
++    }
++    @Test
++    public void testToString() {
++        // Crear una cola de actividades
++        Queue<Actividad> listaActividades = new LinkedList<>();
++        listaActividades.add(new Actividad("Actividad 1", "Descripción de la actividad", true, new LinkedList<>()));
++
++        // Crear el proceso
++        Proceso proceso = new Proceso("Proceso 1", "ID123", listaActividades);
++
++        // Crear el valor esperado de la cadena
++        String expected = "Proceso{nombre='Proceso 1', id='ID123'}";
++
++        // Verificar que el método toString devuelve la cadena correcta
++        assertEquals(expected, proceso.toString());
++    }
++
++}
+Index: src/test/co/edu/uniquindio/proyectoestructura/estructurasPropias/colas/actividad/ColaActividadTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/co/edu/uniquindio/proyectoestructura/estructurasPropias/colas/actividad/ColaActividadTest.java b/src/test/co/edu/uniquindio/proyectoestructura/estructurasPropias/colas/actividad/ColaActividadTest.java
+new file mode 100644
+--- /dev/null	(date 1731892509693)
++++ b/src/test/co/edu/uniquindio/proyectoestructura/estructurasPropias/colas/actividad/ColaActividadTest.java	(date 1731892509693)
+@@ -0,0 +1,96 @@
++package co.edu.uniquindio.proyectoestructura.estructurasPropias.colas.actividad;
++
++import co.edu.uniquindio.proyectoestructura.modelo.Actividad;
++import org.junit.jupiter.api.*;
++
++import java.io.File;
++import java.util.LinkedList;
++import java.util.Queue;
++
++import static org.junit.jupiter.api.Assertions.*;
++
++@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
++public class ColaActividadTest {
++
++    private static ColaActividad colaActividad;
++
++    @BeforeAll
++    static void setUp() {
++        // Inicializar la instancia de ColaActividad
++        colaActividad = new ColaActividad();
++
++        // Limpiar o crear el archivo antes de comenzar las pruebas
++        File archivo = new File("src/main/resources/archivosTxt/Actividades.txt");
++        if (archivo.exists()) {
++            archivo.delete();
++        }
++    }
++
++    @Test
++    @Order(1)
++    void testGuardarActividad() {
++        Actividad actividad = new Actividad("Actividad 1", "Descripción de la actividad 1", true, null);
++        colaActividad.guardarActividad(actividad);
++
++        Actividad actividadBuscada = colaActividad.buscarActividadPorNombre("Actividad 1");
++        assertNotNull(actividadBuscada, "La actividad debería estar en la cola.");
++        assertEquals("Descripción de la actividad 1", actividadBuscada.getDescripcion());
++    }
++
++    @Test
++    @Order(2)
++    void testEliminarActividad() {
++        Actividad actividad = new Actividad("Actividad 2", "Descripción de la actividad 2", false, null);
++        colaActividad.guardarActividad(actividad);
++
++        boolean eliminado = colaActividad.eliminarActividad("Actividad 2");
++        assertTrue(eliminado, "La actividad debería haberse eliminado correctamente.");
++
++        Actividad actividadBuscada = colaActividad.buscarActividadPorNombre("Actividad 2");
++        assertNull(actividadBuscada, "La actividad no debería estar en la cola.");
++    }
++
++    @Test
++    @Order(3)
++    void testModificarActividad() {
++        Actividad actividad = new Actividad("Actividad 3", "Descripción de la actividad 3", true, null);
++        colaActividad.guardarActividad(actividad);
++
++        boolean modificada = colaActividad.modificarActividad("Actividad 3", "Nueva descripción", false);
++        assertTrue(modificada, "La actividad debería haberse modificado correctamente.");
++
++        Actividad actividadBuscada = colaActividad.buscarActividadPorNombre("Actividad 3");
++        assertNotNull(actividadBuscada, "La actividad debería estar en la cola.");
++        assertEquals("Nueva descripción", actividadBuscada.getDescripcion());
++        assertFalse(actividadBuscada.isEsObligatoria());
++    }
++
++    @Test
++    @Order(4)
++    void testEliminarLineaDelArchivo() {
++        Actividad actividad = new Actividad("Actividad 4", "Descripción de la actividad 4", true, null);
++        colaActividad.guardarActividad(actividad);
++
++        boolean eliminado = colaActividad.eliminarLineaDelArchivo("Actividad 4");
++        assertTrue(eliminado, "La actividad debería haberse eliminado del archivo.");
++
++        Actividad actividadBuscada = colaActividad.buscarActividadPorNombre("Actividad 4");
++        assertNull(actividadBuscada, "La actividad no debería estar en la cola después de eliminarla.");
++    }
++
++    @Test
++    @Order(5)
++        void testCargarActividadesDesdeArchivo() {
++            Actividad actividad1 = new Actividad("Actividad 5", "Descripción de la actividad 5", true, null);
++            Actividad actividad2 = new Actividad("Actividad 6", "Descripción de la actividad 6", false, null);
++            Queue<Actividad> actividades = new LinkedList<>();
++            actividades.add(actividad1);
++            actividades.add(actividad2);
++
++            colaActividad.agregarActividadAlArchivo(actividades);
++
++            Queue<Actividad> actividadesCargadas = colaActividad.cargarActividadesDesdeArchivo("src/main/resources/archivosTxt/Actividades.txt");
++            assertNotNull(actividadesCargadas, "Las actividades deberían haberse cargado desde el archivo.");
++            assertEquals(2, actividadesCargadas.size(), "Deberían haberse cargado 2 actividades.");
++        }
++    }
+\ No newline at end of file
+Index: src/test/co/edu/uniquindio/proyectoestructura/estructurasPropias/listaEnlazada/Usuarios/NodoTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/co/edu/uniquindio/proyectoestructura/estructurasPropias/listaEnlazada/Usuarios/NodoTest.java b/src/test/co/edu/uniquindio/proyectoestructura/estructurasPropias/listaEnlazada/Usuarios/NodoTest.java
+new file mode 100644
+--- /dev/null	(date 1731892854707)
++++ b/src/test/co/edu/uniquindio/proyectoestructura/estructurasPropias/listaEnlazada/Usuarios/NodoTest.java	(date 1731892854707)
+@@ -0,0 +1,56 @@
++package co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.Usuarios;
++
++import co.edu.uniquindio.proyectoestructura.modelo.Usuario;
++import org.junit.jupiter.api.Test;
++
++import static org.junit.jupiter.api.Assertions.*;
++
++public class NodoTest {
++
++    @Test
++    void testConstructorYGetters() {
++        // Crear un usuario de prueba
++        Usuario usuario = new Usuario("Juan", "Perez", "juan.perez@example.com", "1234");
++
++        // Crear un nodo con el usuario
++        Nodo nodo = new Nodo(usuario);
++
++        // Verificar que el nodo contiene el usuario correcto
++        assertEquals(usuario, nodo.getUsuario(), "El usuario del nodo no coincide con el esperado.");
++
++        // Verificar que el siguiente nodo es inicialmente null
++        assertNull(nodo.getSiguiente(), "El siguiente nodo debería ser null por defecto.");
++    }
++
++    @Test
++    void testSetUsuario() {
++        // Crear un usuario inicial y un usuario nuevo
++        Usuario usuarioInicial = new Usuario("Maria", "Lopez", "maria.lopez@example.com", "abcd");
++        Usuario usuarioNuevo = new Usuario("Carlos", "Gomez", "carlos.gomez@example.com", "5678");
++
++        // Crear un nodo con el usuario inicial
++        Nodo nodo = new Nodo(usuarioInicial);
++
++        // Cambiar el usuario del nodo
++        nodo.setUsuario(usuarioNuevo);
++
++        // Verificar que el usuario del nodo se actualizó correctamente
++        assertEquals(usuarioNuevo, nodo.getUsuario(), "El usuario del nodo no se actualizó correctamente.");
++    }
++
++    @Test
++    void testSetSiguiente() {
++        // Crear dos nodos
++        Usuario usuario1 = new Usuario("Pedro", "Martinez", "pedro.martinez@example.com", "0000");
++        Usuario usuario2 = new Usuario("Ana", "Ramirez", "ana.ramirez@example.com", "1111");
++
++        Nodo nodo1 = new Nodo(usuario1);
++        Nodo nodo2 = new Nodo(usuario2);
++
++        // Enlazar nodo1 con nodo2
++        nodo1.setSiguiente(nodo2);
++
++        // Verificar que el siguiente nodo de nodo1 es nodo2
++        assertEquals(nodo2, nodo1.getSiguiente(), "El siguiente nodo no es el esperado.");
++    }
++}
+Index: src/test/co/edu/uniquindio/proyectoestructura/estructurasPropias/listaEnlazada/Usuarios/ListaEnlazadaUsuarioTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/co/edu/uniquindio/proyectoestructura/estructurasPropias/listaEnlazada/Usuarios/ListaEnlazadaUsuarioTest.java b/src/test/co/edu/uniquindio/proyectoestructura/estructurasPropias/listaEnlazada/Usuarios/ListaEnlazadaUsuarioTest.java
+new file mode 100644
+--- /dev/null	(date 1731892971017)
++++ b/src/test/co/edu/uniquindio/proyectoestructura/estructurasPropias/listaEnlazada/Usuarios/ListaEnlazadaUsuarioTest.java	(date 1731892971017)
+@@ -0,0 +1,108 @@
++package co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.Usuarios;
++
++import co.edu.uniquindio.proyectoestructura.modelo.Usuario;
++import org.junit.jupiter.api.*;
++
++import java.io.*;
++import java.nio.file.Files;
++import java.nio.file.Paths;
++
++import static org.junit.jupiter.api.Assertions.*;
++
++public class ListaEnlazadaUsuarioTest {
++
++    private static final String RUTA_TEST_USUARIOS = "src/test/resources/UsuariosRegistradosTest.txt";
++    private ListaEnlazadaUsuario lista;
++
++    @BeforeEach
++    void setUp() throws IOException {
++        // Crear archivo temporal para pruebas
++        Files.createDirectories(Paths.get("src/test/resources"));
++        Files.write(Paths.get(RUTA_TEST_USUARIOS), "".getBytes()); // Archivo vacío
++        lista = new ListaEnlazadaUsuario();
++    }
++
++    @AfterEach
++    void tearDown() throws IOException {
++        // Eliminar archivo de prueba
++        Files.deleteIfExists(Paths.get(RUTA_TEST_USUARIOS));
++    }
++
++    @Test
++    void testAgregarUsuario() {
++        Usuario usuario = new Usuario("1", "Juan", "juan@example.com", "1234");
++        lista.agregarUsuario(usuario);
++
++        assertNotNull(lista.getCabeza(), "La cabeza no debería ser null.");
++        assertEquals(usuario, lista.getCabeza().getUsuario(), "El usuario no se agregó correctamente.");
++    }
++
++    @Test
++    void testEliminarUsuario() {
++        Usuario usuario1 = new Usuario("1", "Juan", "juan@example.com", "1234");
++        Usuario usuario2 = new Usuario("2", "Maria", "maria@example.com", "abcd");
++        lista.agregarUsuario(usuario1);
++        lista.agregarUsuario(usuario2);
++
++        lista.eliminarUsuario("1");
++
++        assertNotNull(lista.getCabeza(), "La lista no debería estar vacía.");
++        assertEquals("2", lista.getCabeza().getUsuario().getId(), "El usuario con ID 1 no fue eliminado correctamente.");
++    }
++
++    @Test
++    void testModificarUsuario() {
++        Usuario usuario = new Usuario("1", "Juan", "juan@example.com", "1234");
++        lista.agregarUsuario(usuario);
++
++        boolean modificado = lista.modificarUsuario("1", "Juan Modificado", "modificado@example.com", "5678");
++
++        assertTrue(modificado, "El usuario debería haberse modificado.");
++        assertEquals("Juan Modificado", lista.getCabeza().getUsuario().getNombre(), "El nombre no fue actualizado.");
++        assertEquals("modificado@example.com", lista.getCabeza().getUsuario().getEmail(), "El email no fue actualizado.");
++    }
++
++    @Test
++    void testBuscarUsuario() {
++        Usuario usuario1 = new Usuario("1", "Juan", "juan@example.com", "1234");
++        Usuario usuario2 = new Usuario("2", "Maria", "maria@example.com", "abcd");
++        lista.agregarUsuario(usuario1);
++        lista.agregarUsuario(usuario2);
++
++        Usuario encontrado = lista.buscarUsuario("2");
++
++        assertNotNull(encontrado, "El usuario con ID 2 debería existir.");
++        assertEquals("Maria", encontrado.getNombre(), "El usuario encontrado no es el esperado.");
++    }
++
++    @Test
++    void testAgregarUsuarioAlArchivo() throws IOException {
++        lista.agregarUsuarioAlArchivo("1", "Juan", "juan@example.com", "1234");
++
++        String contenidoArchivo = Files.readString(Paths.get(RUTA_TEST_USUARIOS));
++        assertTrue(contenidoArchivo.contains("1;Juan;juan@example.com;1234"), "El usuario no se guardó correctamente en el archivo.");
++    }
++
++    @Test
++    void testCargarDesdeArchivo() throws IOException {
++        String contenido = "1;Juan;juan@example.com;1234\n2;Maria;maria@example.com;abcd\n";
++        Files.write(Paths.get(RUTA_TEST_USUARIOS), contenido.getBytes());
++
++        lista.cargarDesdeArchivo(RUTA_TEST_USUARIOS);
++
++        assertNotNull(lista.getCabeza(), "La cabeza no debería ser null después de cargar el archivo.");
++        assertEquals("Juan", lista.getCabeza().getUsuario().getNombre(), "El primer usuario no se cargó correctamente.");
++        assertEquals("Maria", lista.getCabeza().getSiguiente().getUsuario().getNombre(), "El segundo usuario no se cargó correctamente.");
++    }
++
++    @Test
++    void testEliminarUsuarioDeArchivo() throws IOException {
++        String contenido = "1;Juan;juan@example.com;1234\n2;Maria;maria@example.com;abcd\n";
++        Files.write(Paths.get(RUTA_TEST_USUARIOS), contenido.getBytes());
++
++        lista.eliminarUsuarioDeArchivo("1");
++
++        String contenidoArchivo = Files.readString(Paths.get(RUTA_TEST_USUARIOS));
++        assertFalse(contenidoArchivo.contains("1;Juan;juan@example.com;1234"), "El usuario con ID 1 no fue eliminado del archivo.");
++    }
++}
+Index: src/main/java/co/edu/uniquindio/proyectoestructura/modelo/Tarea.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package co.edu.uniquindio.proyectoestructura.modelo;\r\n\r\npublic class Tarea {\r\n    private String nombre;\r\n    private String descripcion;\r\n    private boolean obligatoria;\r\n    private int duracion;\r\n\r\n    public Tarea(String nombre, String descripcion, boolean obligatoria, int duracion) {\r\n        this.nombre = nombre;\r\n        this.descripcion = descripcion;\r\n        this.obligatoria = obligatoria;\r\n        this.duracion = duracion;\r\n    }\r\n\r\n    public String getNombre() {\r\n        return nombre;\r\n    }\r\n\r\n    public void setNombre(String nombre) {\r\n        this.nombre = nombre;\r\n    }\r\n\r\n    public String getDescripcion() {\r\n        return descripcion;\r\n    }\r\n\r\n    public void setDescripcion(String descripcion) {\r\n        this.descripcion = descripcion;\r\n    }\r\n\r\n    public boolean isObligatoria() {\r\n        return obligatoria;\r\n    }\r\n\r\n    public void setObligatoria(boolean obligatoria) {\r\n        this.obligatoria = obligatoria;\r\n    }\r\n\r\n    public int getDuracion() {\r\n        return duracion;\r\n    }\r\n\r\n    @Override\r\n    public String toString() {\r\n        return \"Tarea{\" +\r\n                \"nombre='\" + nombre + '\\'' +\r\n                \", descripcion='\" + descripcion + '\\'' +\r\n                \", obligatoria=\" + obligatoria +\r\n                \", duracion=\" + duracion +\r\n                '}';\r\n    }\r\n\r\n    public void setDuracion(int duracion) {\r\n        this.duracion = duracion;\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/co/edu/uniquindio/proyectoestructura/modelo/Tarea.java b/src/main/java/co/edu/uniquindio/proyectoestructura/modelo/Tarea.java
+--- a/src/main/java/co/edu/uniquindio/proyectoestructura/modelo/Tarea.java	(revision 9205b3ea14a2b89f3dab082debc11ba7ed43c292)
++++ b/src/main/java/co/edu/uniquindio/proyectoestructura/modelo/Tarea.java	(date 1731891824260)
+@@ -17,6 +17,7 @@
+         return nombre;
+     }
+ 
++
+     public void setNombre(String nombre) {
+         this.nombre = nombre;
+     }
+Index: src/test/co/edu/uniquindio/proyectoestructura/estructurasPropias/listaEnlazada/proceso/NodoProcesoTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/co/edu/uniquindio/proyectoestructura/estructurasPropias/listaEnlazada/proceso/NodoProcesoTest.java b/src/test/co/edu/uniquindio/proyectoestructura/estructurasPropias/listaEnlazada/proceso/NodoProcesoTest.java
+new file mode 100644
+--- /dev/null	(date 1731893494285)
++++ b/src/test/co/edu/uniquindio/proyectoestructura/estructurasPropias/listaEnlazada/proceso/NodoProcesoTest.java	(date 1731893494285)
+@@ -0,0 +1,46 @@
++package co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.proceso;
++
++import co.edu.uniquindio.proyectoestructura.modelo.Proceso;
++import org.junit.jupiter.api.Test;
++import static org.junit.jupiter.api.Assertions.*;
++
++class NodoProcesoTest {
++
++    @Test
++    void testConstructorYGetters() {
++        // Crear un objeto Proceso simulado
++        Proceso proceso = new Proceso("P001", "Corte", null);
++
++        // Crear un nodo con el proceso
++        NodoProceso nodo = new NodoProceso(proceso);
++
++        // Verificar que el nodo tiene el proceso correcto
++        assertNotNull(nodo.getProceso(), "El proceso no debería ser null.");
++        assertEquals(proceso, nodo.getProceso(), "El proceso no coincide con el asignado en el constructor.");
++        assertNull(nodo.getSiguiente(), "El siguiente nodo debería ser null.");
++    }
++
++    @Test
++    void testSetters() {
++        // Crear objetos Proceso simulados
++        Proceso proceso1 = new Proceso("P001", "Corte", null);
++        Proceso proceso2 = new Proceso("P002", "Ensamble", null);
++
++        // Crear un nodo y establecer el proceso inicial
++        NodoProceso nodo = new NodoProceso(proceso1);
++
++        // Cambiar el proceso del nodo
++        nodo.setProceso(proceso2);
++
++        // Verificar que el proceso fue actualizado
++        assertEquals(proceso2, nodo.getProceso(), "El proceso no fue actualizado correctamente.");
++
++        // Crear un nodo siguiente y asignarlo
++        NodoProceso nodoSiguiente = new NodoProceso(proceso1);
++        nodo.setSiguiente(nodoSiguiente);
++
++        // Verificar que el siguiente nodo fue asignado correctamente
++        assertNotNull(nodo.getSiguiente(), "El siguiente nodo no debería ser null.");
++        assertEquals(nodoSiguiente, nodo.getSiguiente(), "El siguiente nodo no coincide con el asignado.");
++    }
++}
+Index: src/test/co/edu/uniquindio/proyectoestructura/estructurasPropias/listaEnlazada/proceso/ListaEnlazadaProcesoTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/co/edu/uniquindio/proyectoestructura/estructurasPropias/listaEnlazada/proceso/ListaEnlazadaProcesoTest.java b/src/test/co/edu/uniquindio/proyectoestructura/estructurasPropias/listaEnlazada/proceso/ListaEnlazadaProcesoTest.java
+new file mode 100644
+--- /dev/null	(date 1731893794079)
++++ b/src/test/co/edu/uniquindio/proyectoestructura/estructurasPropias/listaEnlazada/proceso/ListaEnlazadaProcesoTest.java	(date 1731893794079)
+@@ -0,0 +1,80 @@
++package co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.proceso;
++
++import co.edu.uniquindio.proyectoestructura.modelo.Actividad;
++import co.edu.uniquindio.proyectoestructura.modelo.Proceso;
++import org.junit.jupiter.api.*;
++import java.util.Queue;
++import java.util.LinkedList;
++import static org.junit.jupiter.api.Assertions.*;
++
++class ListaEnlazadaProcesoTest {
++
++    private ListaEnlazadaProceso lista;
++
++    @BeforeEach
++    void setUp() {
++        lista = new ListaEnlazadaProceso();
++    }
++
++    @Test
++    void testAgregarProceso() {
++        Proceso proceso = new Proceso("P001", "Corte", new LinkedList<>());
++        lista.agregarProceso(proceso);
++        Proceso resultado = lista.buscarProceso("P001");
++
++        assertNotNull(resultado, "El proceso debería estar en la lista.");
++        assertEquals("Corte", resultado.getNombre(), "El nombre del proceso no coincide.");
++    }
++
++    @Test
++    void testEliminarProceso() {
++        Proceso proceso = new Proceso("P001", "Corte", new LinkedList<>());
++        lista.agregarProceso(proceso);
++
++        lista.eliminarProceso("P001");
++        Proceso resultado = lista.buscarProceso("P001");
++
++        assertNull(resultado, "El proceso debería haber sido eliminado.");
++    }
++
++    @Test
++    void testModificarProceso() {
++        Proceso proceso = new Proceso("P001", "Corte", new LinkedList<>());
++        lista.agregarProceso(proceso);
++
++        boolean modificado = lista.modificarProceso("P001", "Ensamble");
++        Proceso resultado = lista.buscarProceso("P001");
++
++        assertTrue(modificado, "La modificación debería haber sido exitosa.");
++        assertNotNull(resultado, "El proceso modificado no debería ser null.");
++        assertEquals("Ensamble", resultado.getNombre(), "El nombre del proceso no fue actualizado correctamente.");
++    }
++
++    @Test
++    void testCargarDesdeArchivo() {
++        lista.cargarDesdeArchivo("src/main/resources/archivosTxt/Procesos.txt");
++        assertNotNull(lista.getCabeza(), "La lista no debería estar vacía después de cargar desde el archivo.");
++    }
++
++    @Test
++    void testGuardarActividadEnProcesoTxt() {
++        Proceso proceso = new Proceso("P002", "Pulido", new LinkedList<>());
++        lista.agregarProceso(proceso);
++
++        Actividad actividad = new Actividad("A001", "Lijar superficie", true,null);
++        lista.guardarActividadEnProcesoTxt("P002", actividad);
++
++        Proceso resultado = lista.buscarProceso("P002");
++        assertNotNull(resultado, "El proceso no debería ser null.");
++        assertEquals("Pulido", resultado.getNombre(), "El proceso no coincide.");
++    }
++
++    @Test
++    void testMostrarProcesos() {
++        lista.agregarProceso(new Proceso("P001", "Corte", new LinkedList<>()));
++        lista.agregarProceso(new Proceso("P002", "Ensamble", new LinkedList<>()));
++
++        // Redirigir salida estándar si necesitas verificar la impresión
++        lista.mostrarProcesos();
++    }
++}
+Index: src/main/resources/archivosTxt/UsuariosRegistrados.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>1061278175;luisa;luisafe@gmail;luisa10612\r\n1005090616;dillan;dillan@gmail;dillan100\r\n01;Maria;maria@gmail;01\r\n8731;fer;fer@gmail;fer87\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/archivosTxt/UsuariosRegistrados.txt b/src/main/resources/archivosTxt/UsuariosRegistrados.txt
+--- a/src/main/resources/archivosTxt/UsuariosRegistrados.txt	(revision 9205b3ea14a2b89f3dab082debc11ba7ed43c292)
++++ b/src/main/resources/archivosTxt/UsuariosRegistrados.txt	(date 1731892973259)
+@@ -2,3 +2,4 @@
+ 1005090616;dillan;dillan@gmail;dillan100
+ 01;Maria;maria@gmail;01
+ 8731;fer;fer@gmail;fer87
++1;Juan;juan@example.com;1234
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\"\r\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\r\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd\">\r\n    <modelVersion>4.0.0</modelVersion>\r\n\r\n    <groupId>co.edu.uniquindio</groupId>\r\n    <artifactId>ProyectoEstructura</artifactId>\r\n    <version>1.0-SNAPSHOT</version>\r\n    <name>ProyectoEstructura</name>\r\n\r\n    <properties>\r\n        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>\r\n        <junit.version>5.10.0</junit.version>\r\n    </properties>\r\n\r\n    <dependencies>\r\n        <dependency>\r\n            <groupId>org.openjfx</groupId>\r\n            <artifactId>javafx-controls</artifactId>\r\n            <version>21</version>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>com.sun.mail</groupId>\r\n            <artifactId>jakarta.mail</artifactId>\r\n            <version>2.0.1</version>\r\n        </dependency>\r\n\r\n        <dependency>\r\n            <groupId>org.openjfx</groupId>\r\n            <artifactId>javafx-fxml</artifactId>\r\n            <version>21</version>\r\n        </dependency>\r\n\r\n        <dependency>\r\n            <groupId>org.junit.jupiter</groupId>\r\n            <artifactId>junit-jupiter-api</artifactId>\r\n            <version>${junit.version}</version>\r\n            <scope>test</scope>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.junit.jupiter</groupId>\r\n            <artifactId>junit-jupiter-engine</artifactId>\r\n            <version>${junit.version}</version>\r\n            <scope>test</scope>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>javax.mail</groupId>\r\n            <artifactId>javax.mail-api</artifactId>\r\n            <version>1.6.2</version>\r\n        </dependency>\r\n    </dependencies>\r\n\r\n    <build>\r\n        <plugins>\r\n            <plugin>\r\n                <groupId>org.apache.maven.plugins</groupId>\r\n                <artifactId>maven-compiler-plugin</artifactId>\r\n                <version>3.11.0</version>\r\n                <configuration>\r\n                    <source>21</source>\r\n                    <target>21</target>\r\n                </configuration>\r\n            </plugin>\r\n            <plugin>\r\n                <groupId>org.openjfx</groupId>\r\n                <artifactId>javafx-maven-plugin</artifactId>\r\n                <version>0.0.8</version>\r\n                <executions>\r\n                    <execution>\r\n                        <!-- Default configuration for running with: mvn clean javafx:run -->\r\n                        <id>default-cli</id>\r\n                        <configuration>\r\n                            <mainClass>\r\n                                co.edu.uniquindio.proyectoestructura/co.edu.uniquindio.proyectoestructura.HelloApplication\r\n                            </mainClass>\r\n                            <launcher>app</launcher>\r\n                            <jlinkZipName>app</jlinkZipName>\r\n                            <jlinkImageName>app</jlinkImageName>\r\n                            <noManPages>true</noManPages>\r\n                            <stripDebug>true</stripDebug>\r\n                            <noHeaderFiles>true</noHeaderFiles>\r\n                        </configuration>\r\n                    </execution>\r\n                </executions>\r\n            </plugin>\r\n        </plugins>\r\n    </build>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pom.xml b/pom.xml
+--- a/pom.xml	(revision 9205b3ea14a2b89f3dab082debc11ba7ed43c292)
++++ b/pom.xml	(date 1731890268532)
+@@ -38,6 +38,8 @@
+             <version>${junit.version}</version>
+             <scope>test</scope>
+         </dependency>
++
++
+         <dependency>
+             <groupId>org.junit.jupiter</groupId>
+             <artifactId>junit-jupiter-engine</artifactId>
+@@ -49,6 +51,252 @@
+             <artifactId>javax.mail-api</artifactId>
+             <version>1.6.2</version>
+         </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>junit</groupId>
++            <artifactId>junit</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>org.testng</groupId>
++            <artifactId>testng</artifactId>
++            <version>RELEASE</version>
++            <scope>test</scope>
++        </dependency>
+     </dependencies>
+ 
+     <build>

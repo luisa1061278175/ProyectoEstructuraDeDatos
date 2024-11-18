@@ -1,0 +1,2 @@
+Actividad 5;Descripción de la actividad 5;true
+Actividad 6;Descripción de la actividad 6;false
