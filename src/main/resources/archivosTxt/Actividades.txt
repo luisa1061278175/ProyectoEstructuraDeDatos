@@ -1,0 +1,3 @@
+matematicas;resolverEjercicio;true
+filosofia;estudiarHistoria;true
+Futbol;EquiposDeFutbol;true

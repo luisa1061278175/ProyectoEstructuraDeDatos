@@ -5,12 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6aaae5b7-b31a-4ff7-9b60-ab078e52e8ed" name="Changes" comment="usuarios listos">
-      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/util/ImportadorCSV.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/archivosTxt/Actividades.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/co/edu/uniquindio/proyectoestructura/estructurasPropias/listaEnlazada/Usuarios/ListaEnlazadaUsuarioTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/co/edu/uniquindio/proyectoestructura/estructurasPropias/listaEnlazada/Usuarios/NodoTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/co/edu/uniquindio/proyectoestructura/estructurasPropias/listaEnlazada/proceso/ListaEnlazadaProcesoTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/co/edu/uniquindio/proyectoestructura/estructurasPropias/listaEnlazada/proceso/NodoProcesoTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/controller/AdminActividadController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/controller/AdminActividadController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/estructurasPropias/colas/actividad/ColaActividad.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/estructurasPropias/colas/actividad/ColaActividad.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/util/ImportadorCSV.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/util/ImportadorCSV.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/viewController/administradores/AdminActividadViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/viewController/administradores/AdminActividadViewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/viewController/administradores/AdminProcesosViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/viewController/administradores/AdminProcesosViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/viewController/administradores/AdminTareasViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/proyectoestructura/viewController/administradores/AdminTareasViewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/archivosTxt/UsuarioAutenticado.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/archivosTxt/UsuarioAutenticado.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/adminProcesos.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/adminProcesos.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/archivosTxt/UsuariosRegistrados.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/archivosTxt/UsuariosRegistrados.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/adminActividad.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/adminActividad.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/adminTarea.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/proyectoestructura/adminTarea.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +33,7 @@
         <option value="Interface" />
         <option value="FxmlFile" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -48,25 +59,30 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.EmailSender.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Principal.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.ProyectoEstructura [org.apache.maven.plugins:maven-clean-plugin:2.5:clean].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/USUARIO/Documents/DatosProgramacion/ProyectoEstructura/src/main/resources/estilos&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.EmailSender.executor": "Run",
+    "Application.Principal.executor": "Run",
+    "JUnit.ListaEnlazadaUsuarioTest.executor": "Run",
+    "JUnit.NodoProcesoTest.executor": "Run",
+    "JUnit.NodoTest.executor": "Run",
+    "Maven.ProyectoEstructura [org.apache.maven.plugins:maven-clean-plugin:2.5:clean].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/USUARIO/Documents/DatosProgramacion/ProyectoEstructura/src/main/resources/estilos",
+    "settings.editor.selected.configurable": "inlay.hints"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
-      &quot;CSS&quot;
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "CSS"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\USUARIO\Documents\DatosProgramacion\ProyectoEstructura\src\main\resources\estilos" />
@@ -80,9 +96,16 @@
       <recent name="C:\Users\USUARIO\Documents\DatosProgramacion\ProyectoEstructura\src\main\java\co\edu\uniquindio\proyectoestructura" />
       <recent name="C:\Users\USUARIO\Documents\DatosProgramacion\ProyectoEstructura\src\main\resources\estilos" />
     </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="co.edu.uniquindio.proyectoestructura" />
       <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.proceso" />
+      <recent name="co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.Usuarios" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="co.edu.uniquindio.proyectoestructura.modelo" />
@@ -115,9 +138,57 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ListaEnlazadaUsuarioTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ProyectoEstructura" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.Usuarios.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.Usuarios" />
+      <option name="MAIN_CLASS_NAME" value="co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.Usuarios.ListaEnlazadaUsuarioTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NodoProcesoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ProyectoEstructura" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.proceso.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.proceso" />
+      <option name="MAIN_CLASS_NAME" value="co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.proceso.NodoProcesoTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NodoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ProyectoEstructura" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.Usuarios.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.Usuarios" />
+      <option name="MAIN_CLASS_NAME" value="co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.Usuarios.NodoTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Principal" />
+        <item itemvalue="JUnit.NodoProcesoTest" />
+        <item itemvalue="JUnit.ListaEnlazadaUsuarioTest" />
+        <item itemvalue="JUnit.NodoTest" />
       </list>
     </recent_temporary>
   </component>

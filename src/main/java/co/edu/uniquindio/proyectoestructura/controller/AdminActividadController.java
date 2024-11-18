@@ -43,12 +43,15 @@ public class AdminActividadController {
         return colaActividad.buscarActividadPorNombre(nombre);
     }
 
-    public Queue<Actividad> cargarActividadesDesdeArchivo(String ruta){
-        return  colaActividad.cargarActividadesDesdeArchivo(ruta);
+    public Queue<Actividad> cargarActividadesDesdeArchivo(String ruta) {
+        return colaActividad.cargarActividadesDesdeArchivo(ruta);
     }
-    public Actividad[] leerArchivo(String ruta){
+
+    public Actividad[] leerArchivo(String ruta) {
         return colaActividad.leerArchivo(ruta);
     }
 
-
+    public boolean intercambiarActividades(String nom1, String nom2, String archivo) {
+        return colaActividad.intercambiarActividades(nom1, nom2, archivo);
+    }
 }

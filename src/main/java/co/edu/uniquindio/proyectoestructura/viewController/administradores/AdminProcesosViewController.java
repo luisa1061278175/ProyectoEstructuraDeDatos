@@ -12,8 +12,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javax.swing.JOptionPane;
 
+import javax.swing.*;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +56,7 @@ public class AdminProcesosViewController {
     private AdminProcesoController adminProcesoController = new AdminProcesoController();
     private ListaEnlazadaProceso listaEnlazadaProceso = new ListaEnlazadaProceso();
     private ExportadorCSV exportadorCSV = new ExportadorCSV();
-    private ImportadorCSV importadorCSV= new ImportadorCSV();
+    private ImportadorCSV importadorCSV = new ImportadorCSV();
     Alerta alerta = new Alerta();
     private Proceso procesoSeleccionado;
 
@@ -201,18 +203,41 @@ public class AdminProcesosViewController {
         exportadorCSV.exportToCSV(listaProcesos, new Stage());
     }
 
-    @FXML
-    public void importar(){
+    public static String seleccionarArchivo() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Seleccionar un archivo");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
-        String ruta = JOptionPane.showInputDialog(null, "Ingresa la ruta del archivo externo:");
-        if (ruta == null || ruta.trim().isEmpty()) {
-            System.out.println("No se ingresó una ruta válida.");
-            return;
+        int resultado = fileChooser.showOpenDialog(null);
+
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+
+            File archivoSeleccionado = fileChooser.getSelectedFile();
+
+            return archivoSeleccionado.getAbsolutePath();
+        } else {
+
+            return null;
         }
-        String archivoDestino = "src/main/resources/archivosTxt/Procesos.txt";
-
-        importadorCSV.importarDatos(ruta, archivoDestino);
     }
 
+    @FXML
+    public void importar() {
 
+        String ruta = seleccionarArchivo();
+
+        if (ruta != null) {
+            System.out.println("Archivo seleccionado: " + ruta);
+
+            if (ruta == null || ruta.trim().isEmpty()) {
+                System.out.println("No se ingresó una ruta válida.");
+                return;
+            }
+            String archivoDestino = "src/main/resources/archivosTxt/Procesos.txt";
+
+            importadorCSV.importarDatos(ruta, archivoDestino);
+        }
+
+
+    }
 }

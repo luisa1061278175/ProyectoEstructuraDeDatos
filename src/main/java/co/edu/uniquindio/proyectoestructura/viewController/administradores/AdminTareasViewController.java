@@ -5,13 +5,18 @@ import co.edu.uniquindio.proyectoestructura.controller.AdminActividadController;
 import co.edu.uniquindio.proyectoestructura.controller.AdminTareaController;
 import co.edu.uniquindio.proyectoestructura.modelo.Actividad;
 import co.edu.uniquindio.proyectoestructura.modelo.Tarea;
+import co.edu.uniquindio.proyectoestructura.util.ExportadorCSV;
+import co.edu.uniquindio.proyectoestructura.util.ImportadorCSV;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
+import javax.swing.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -29,6 +34,10 @@ public class AdminTareasViewController {
     private Button btnModificar;
     @FXML
     private Button btnBuscarTarea;
+    @FXML
+    private Button btnExportar;
+    @FXML
+    private Button btnImportar;
 
     @FXML
     private TableColumn<Actividad, String> colTareas;
@@ -63,7 +72,9 @@ public class AdminTareasViewController {
 
     private Actividad actividadSeleccionada;
     private Queue<String> colaAuxActividades = new LinkedList<>();
-    Alerta alerta= new Alerta();
+    private ExportadorCSV exportadorCSV = new ExportadorCSV();
+    private ImportadorCSV importadorCSV = new ImportadorCSV();
+    Alerta alerta = new Alerta();
 
     AdminTareaController adminTareaController = new AdminTareaController();
     AdminActividadController adminActividadController = new AdminActividadController();
@@ -260,9 +271,9 @@ public class AdminTareasViewController {
         construirActividad();
     }
 
-    private void buscarTarea(String nombre){
+    private void buscarTarea(String nombre) {
         cargarTareasDesdeArchivo();
-        System.out.println("lista tareas: "+ listaTareas);
+        System.out.println("lista tareas: " + listaTareas);
 
         if (nombre.isEmpty()) {
             alerta.mostrarAlertaError("Campo vacío", "Por favor, ingresa un ID para buscar.");
@@ -275,18 +286,18 @@ public class AdminTareasViewController {
         for (int i = 0; i < listaTareas.size(); i++) {
 
             if (listaTareas.get(i).getNombre().equals(nombre)) {
-               txtDescripcion.setText(listaTareas.get(i).getDescripcion());
-               txtDuracion.setText(listaTareas.get(i).getDuracion()+"");
-               txtNombre.setText(listaTareas.get(i).getNombre());
+                txtDescripcion.setText(listaTareas.get(i).getDescripcion());
+                txtDuracion.setText(listaTareas.get(i).getDuracion() + "");
+                txtNombre.setText(listaTareas.get(i).getNombre());
                 tareaEncontrada = true;
             }
         }
 
         if (tareaEncontrada) {
 
-            alerta.mostrarAlertaExito("Exitoso","Tarea encontrada");
+            alerta.mostrarAlertaExito("Exitoso", "Tarea encontrada");
         } else {
-            alerta.mostrarAlertaError("No se encuentra la tarea","ingresa nuevamente la tarea");
+            alerta.mostrarAlertaError("No se encuentra la tarea", "ingresa nuevamente la tarea");
         }
 
 
@@ -294,8 +305,51 @@ public class AdminTareasViewController {
 
     public void buscarTarea(ActionEvent event) {
 
-       String nombre= txtTareaABuscar.getText();
+        String nombre = txtTareaABuscar.getText();
         buscarTarea(nombre);
-
     }
+
+    @FXML
+    public void exportar() {
+
+        exportadorCSV.exportarTarea(listaTareas, new Stage());
+    }
+
+    public static String seleccionarArchivo() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Seleccionar un archivo");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+        int resultado = fileChooser.showOpenDialog(null);
+
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+
+            File archivoSeleccionado = fileChooser.getSelectedFile();
+
+            return archivoSeleccionado.getAbsolutePath();
+        } else {
+
+            return null;
+        }
+    }
+
+    @FXML
+    public void importar() {
+
+        String ruta = seleccionarArchivo();
+
+        if (ruta != null) {
+            System.out.println("Archivo seleccionado: " + ruta);
+
+            if (ruta == null || ruta.trim().isEmpty()) {
+                System.out.println("No se ingresó una ruta válida.");
+                return;
+            }
+            String archivoDestino = "src/main/resources/archivosTxt/Procesos.txt";
+
+            importadorCSV.importarDatos(ruta, archivoDestino);
+        }
+    }
+
+
 }

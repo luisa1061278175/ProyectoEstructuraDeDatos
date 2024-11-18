@@ -1,17 +1,18 @@
 package co.edu.uniquindio.proyectoestructura.util;
 
-import javafx.scene.shape.Path;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class ImportadorCSV {
     public  void importarDatos(String archivoExterno, String archivoDestino) {
         try {
 
-            Path pathExterno = (Path) Paths.get(archivoExterno);
-            if (!Files.exists((java.nio.file.Path) pathExterno)) {
+            Path pathExterno = Paths.get(archivoExterno);
+
+            if (!Files.exists(pathExterno)) {
                 System.out.println("El archivo externo no existe.");
                 return;
             }
@@ -21,9 +22,9 @@ public class ImportadorCSV {
             BufferedWriter escritorDestino = new BufferedWriter(new FileWriter(archivoDestino, true));
 
             String linea;
-            while ((linea = lectorExterno.readLine()) != null) {
-
+            while ((linea = lectorExterno.readLine()) !=null) {
                 escritorDestino.write(linea);
+                escritorDestino.newLine();
                 escritorDestino.newLine();
             }
 

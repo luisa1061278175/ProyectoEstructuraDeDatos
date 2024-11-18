@@ -83,7 +83,7 @@ public class ColaActividad {
     }
 
     public Actividad buscarActividadPorNombre(String nombreActividad) {
-        System.out.println("listaActividaes: "+ actividades);
+        System.out.println("listaActividaes: " + actividades);
         cargarActividadesDesdeArchivo(RUTA_ARCHIVO_ACTIVIDADES);
 
         for (Actividad actividad : actividades) {
@@ -93,6 +93,56 @@ public class ColaActividad {
         }
         return null;
     }
+
+    public boolean intercambiarActividades(String nombre1, String nombre2, String archivoDestino) {
+        Actividad actividad1 = null, actividad2 = null;
+        Actividad actividad1Temp = null, actividad2Temp = null;
+
+        List<Actividad> listaActividades = new ArrayList<>();
+
+        while (!actividades.isEmpty()) {
+            Actividad actividad = actividades.poll();
+            if (actividad.getNombre().equals(nombre1)) {
+                actividad1Temp = actividad;
+            } else if (actividad.getNombre().equals(nombre2)) {
+                actividad2Temp = actividad;
+            }
+            listaActividades.add(actividad);
+        }
+
+        if (actividad1Temp == null || actividad2Temp == null) {
+            System.out.println("Una o ambas actividades no se encontraron.");
+            return false;
+        }
+
+        for (int i = 0; i < listaActividades.size(); i++) {
+            Actividad actividad = listaActividades.get(i);
+            if (actividad == actividad1Temp) {
+                listaActividades.set(i, actividad2Temp);
+            } else if (actividad == actividad2Temp) {
+                listaActividades.set(i, actividad1Temp);
+            }
+        }
+        actividades = new LinkedList<>(listaActividades);
+        actualizarArchivoConActividades(archivoDestino);
+
+        System.out.println("Intercambio realizado exitosamente.");
+        return true;
+    }
+
+    private void actualizarArchivoConActividades(String archivoDestino) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(archivoDestino))) {
+            for (Actividad actividad : actividades) {
+
+                writer.write(actividad.getNombre() + ";" + actividad.getDescripcion() + ";" + actividad.isEsObligatoria());
+                writer.newLine();
+            }
+            System.out.println("Archivo actualizado correctamente.");
+        } catch (IOException e) {
+            System.err.println("Error al actualizar el archivo: " + e.getMessage());
+        }
+    }
+
     public Queue<Actividad> cargarActividadesDesdeArchivo(String rutaArchivo) {
         Queue<Actividad> actividades = new LinkedList<>();
 
@@ -104,13 +154,12 @@ public class ColaActividad {
                 String descripcion = partes[1].trim();
                 boolean isObligatoria = Boolean.parseBoolean(partes[2].trim());
 
-                // Lista para las tareas, si existen
                 Queue<Tarea> tareas = null;
                 if (partes.length == 4) {
                     String[] tareasArray = partes[3].split(",");
                     tareas = new LinkedList<>();
                     for (String tarea : tareasArray) {
-                        tareas.add(new Tarea(tarea.trim(),null,false,0));
+                        tareas.add(new Tarea(tarea.trim(), null, false, 0));
                     }
                 }
 
@@ -133,13 +182,11 @@ public class ColaActividad {
             while ((linea = br.readLine()) != null) {
                 String[] datos = linea.split(";");
 
-                // Verificar que la línea tenga al menos 3 elementos
                 if (datos.length >= 3) {
                     String nombre = datos[0].trim();
                     String descripcion = datos[1].trim();
                     boolean obligatoria = Boolean.parseBoolean(datos[2].trim());
 
-                    // Procesar tareas si existen
                     Queue<Tarea> tareas = new LinkedList<>();
                     if (datos.length > 3) {
                         String[] nombresTareas = datos[3].split(",");
@@ -148,7 +195,6 @@ public class ColaActividad {
                         }
                     }
 
-                    // Crear la actividad con o sin tareas
                     Actividad actividad = new Actividad(nombre, descripcion, obligatoria, tareas);
                     actividades.add(actividad);
 
@@ -172,7 +218,6 @@ public class ColaActividad {
             while ((linea = br.readLine()) != null) {
                 String[] datos = linea.split(";");
                 if (datos[0].equals(nombre)) {
-                    // Modificar la actividad con la nueva descripción y obligatoriedad
                     lineas.add(nombre + ";" + nuevaDescripcion + ";" + esObligatoria);
                 } else {
                     lineas.add(linea);
@@ -183,7 +228,6 @@ public class ColaActividad {
             return false;
         }
 
-        // Reescribir el archivo con la actividad modificada
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo, false))) {
             for (String linea : lineas) {
                 bw.write(linea);

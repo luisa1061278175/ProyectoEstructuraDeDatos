@@ -6,22 +6,31 @@ import co.edu.uniquindio.proyectoestructura.controller.AdminProcesoController;
 import co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.proceso.ListaEnlazadaProceso;
 import co.edu.uniquindio.proyectoestructura.modelo.Actividad;
 import co.edu.uniquindio.proyectoestructura.modelo.Proceso;
-import co.edu.uniquindio.proyectoestructura.modelo.Tarea;
+import co.edu.uniquindio.proyectoestructura.util.ExportadorCSV;
+import co.edu.uniquindio.proyectoestructura.util.ImportadorCSV;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.*;
+import javax.swing.*;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 public class AdminActividadViewController {
 
     @FXML
     private Button btnCrear;
-
+    @FXML
+    private Button btnExportar;
+    @FXML
+    private Button btnImportar;
+    @FXML
+    private Button btnCambiar;
     @FXML
     private Button btnRefrescar;
 
@@ -38,10 +47,15 @@ public class AdminActividadViewController {
     private ComboBox<String> jComboObligatoria;
     @FXML
 
-    private ComboBox<String>JComboTareasDeActividadBuscada;
+    private ComboBox<String> JComboTareasDeActividadBuscada;
     @FXML
     private TextField txtBuscarActividad;
 
+    @FXML
+    private TextField txtAct1;
+
+    @FXML
+    private TextField txtAct2;
 
 
     @FXML
@@ -75,11 +89,13 @@ public class AdminActividadViewController {
     private Queue<String> colaAuxProcesos = new LinkedList<>();
 
     private boolean esObligatoria;
+    ExportadorCSV exportadorCSV = new ExportadorCSV();
+    ImportadorCSV importadorCSV = new ImportadorCSV();
 
     AdminActividadController adminActividadController = new AdminActividadController();
     AdminProcesoController adminProcesoController = new AdminProcesoController();
 
-    Alerta alerta= new Alerta();
+    Alerta alerta = new Alerta();
 
     private static final String RUTA_ARCHIVO_ACTIVIDADES = "src/main/resources/archivosTxt/actividades.txt";
 
@@ -113,11 +129,11 @@ public class AdminActividadViewController {
             private final ComboBox<Actividad> comboBox = new ComboBox<>();
 
             {
-                // Agregar las actividades correspondientes al ComboBox de cada proceso
+
                 comboBox.setOnShowing(event -> {
                     Proceso proceso = getTableView().getItems().get(getIndex());
                     if (proceso != null) {
-                        // Limpiar las actividades anteriores y agregar las del proceso actual
+
                         comboBox.getItems().clear();
                         comboBox.getItems().addAll(proceso.getListaActividades());
                     }
@@ -126,7 +142,7 @@ public class AdminActividadViewController {
                 comboBox.setOnAction(event -> {
                     String nombreactividadSeleccionada = String.valueOf(comboBox.getValue());
                     if (nombreactividadSeleccionada != null) {
-                        Actividad actividad= adminActividadController.buscarActividad(nombreactividadSeleccionada);
+                        Actividad actividad = adminActividadController.buscarActividad(nombreactividadSeleccionada);
 
                         txtNombre.setText(actividad.getNombre());
                         txtDescripcion.setText(actividad.getDescripcion());
@@ -159,7 +175,8 @@ public class AdminActividadViewController {
         construirProcesos();
         System.out.println("Procesos cargados desde archivo: " + listaProcesos);
     }
-    private  void cargarCamposTexto(){
+
+    private void cargarCamposTexto() {
         txtNombre.setText(colaAuxProcesos.peek());
     }
 
@@ -167,7 +184,8 @@ public class AdminActividadViewController {
         tablaProceso.getItems().clear();
         tablaProceso.getItems().addAll(listaProcesos);
     }
-    private void construirActividad(){
+
+    private void construirActividad() {
 
     }
 
@@ -241,20 +259,77 @@ public class AdminActividadViewController {
 
     @FXML
     void refrescar(ActionEvent event) {
+    }
+
+    @FXML
+    public void exportar() {
+        exportadorCSV.exportarActividad(listaActividades, new Stage());
+    }
+
+    public static String seleccionarArchivo() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Seleccionar un archivo");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+        int resultado = fileChooser.showOpenDialog(null);
+
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+
+            File archivoSeleccionado = fileChooser.getSelectedFile();
+
+            return archivoSeleccionado.getAbsolutePath();
+        } else {
+
+            return null;
+        }
+    }
+
+    @FXML
+    public void importar() {
+
+        String ruta = seleccionarArchivo();
+
+        if (ruta != null) {
+            System.out.println("Archivo seleccionado: " + ruta);
+
+            if (ruta == null || ruta.trim().isEmpty()) {
+                System.out.println("No se ingresó una ruta válida.");
+                return;
+            }
+            String archivoDestino = "src/main/resources/archivosTxt/Procesos.txt";
+
+            importadorCSV.importarDatos(ruta, archivoDestino);
+        }
 
 
     }
 
     public void BuscarActividad(ActionEvent event) {
 
-        String nombre=txtBuscarActividad.getText();
+        String nombre = txtBuscarActividad.getText();
 
-        Actividad actividad= adminActividadController.buscarActividad(nombre);
+        Actividad actividad = adminActividadController.buscarActividad(nombre);
 
         txtNombre.setText(actividad.getNombre());
         txtDescripcion.setText(actividad.getDescripcion());
-        txtActividadObligatoria.setText(actividad.isEsObligatoria()+"");
+        txtActividadObligatoria.setText(actividad.isEsObligatoria() + "");
+    }
+    @FXML
+    public void cambiarActividades() {
 
+        String nomAct1=txtAct1.getText();
+        String nomAct2=txtAct2.getText();
+
+        adminActividadController.intercambiarActividades(nomAct1,nomAct2,"src/main/resources/archivosTxt/Actividades.txt");
+    }
+    public static void mostrarActividades(Proceso proceso) {
+        for (Object actividad : proceso.getListaActividades()) {
+            System.out.println(actividad);
+        }
+    }
+
+    public void calcularTiempo(){
 
     }
 }
+
