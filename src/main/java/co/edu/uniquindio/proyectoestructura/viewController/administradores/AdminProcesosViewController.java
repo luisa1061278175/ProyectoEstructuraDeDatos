@@ -14,7 +14,6 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import javax.swing.*;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +52,11 @@ public class AdminProcesosViewController {
     @FXML
     private TextField txtNombre;
 
+    @FXML
+    private  TextField txtTiempo;
+
+    @FXML
+    private  TextField txtIdTiempo;
     private AdminProcesoController adminProcesoController = new AdminProcesoController();
     private ListaEnlazadaProceso listaEnlazadaProceso = new ListaEnlazadaProceso();
     private ExportadorCSV exportadorCSV = new ExportadorCSV();
@@ -65,6 +69,9 @@ public class AdminProcesosViewController {
 
     @FXML
     public void initialize() {
+
+        txtTiempo.setText(tiempoProceso()+"");
+
         initDataBindig();
         cargarProcesosDesdeArchivo();
         listenerSelection();
@@ -173,7 +180,7 @@ public class AdminProcesosViewController {
         String nombre = txtNombre.getText();
         String id = txtId.getText();
 
-        Proceso nuevoProceso = new Proceso(nombre, id, null);
+        Proceso nuevoProceso = new Proceso(nombre, id);
 
         adminProcesoController.guardarProceso(nuevoProceso);
         adminProcesoController.guardarTxt(id, nombre);
@@ -237,7 +244,11 @@ public class AdminProcesosViewController {
 
             importadorCSV.importarDatos(ruta, archivoDestino);
         }
+    }
 
+    public int tiempoProceso() {
 
+        int tiempo=0;
+        return tiempo;
     }
 }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" stylesheets="styles.css" fx:controller="co.edu.uniquindio.proyectoestructura.viewController.dashboard.DashboardController">
+    <!-- Header -->
+    <top>
+        <HBox spacing="10" style="-fx-background-color: #2a9df4; -fx-padding: 10;">
+            <Label text="Dashboard" style="-fx-font-size: 20px; -fx-text-fill: white;" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button text="Logout" fx:id="btnLogout" />
+        </HBox>
+    </top>
+
+    <!-- Sidebar -->
+    <left>
+        <VBox spacing="15" style="-fx-background-color: #f0f0f0; -fx-padding: 15;">
+            <Button text="Home" fx:id="btnHome" />
+            <Button text="Settings" fx:id="btnSettings" />
+            <Button text="Profile" fx:id="btnProfile" />
+        </VBox>
+    </left>
+
+    <!-- Main Content -->
+    <center>
+        <StackPane fx:id="mainContent" style="-fx-padding: 20;">
+            <Label text="Welcome to the Dashboard!" />
+        </StackPane>
+    </center>
+
+    <!-- Footer -->
+    <bottom>
+        <HBox style="-fx-background-color: #2a9df4; -fx-padding: 10;">
+            <Label text="© 2024 Mi Aplicación" style="-fx-text-fill: white;" />
+        </HBox>
+    </bottom>
+</BorderPane>

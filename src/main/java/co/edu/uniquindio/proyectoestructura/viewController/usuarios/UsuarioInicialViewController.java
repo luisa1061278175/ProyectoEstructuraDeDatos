@@ -25,7 +25,7 @@ public class UsuarioInicialViewController {
 
     @FXML
     private Button btnIniciar;
-    private Alerta alerta = new Alerta();
+    private static Alerta alerta = new Alerta();
     Email email= new Email();
 
     public String verificarIdEnArchivo(String idUsuario) {
@@ -35,7 +35,6 @@ public class UsuarioInicialViewController {
             String linea;
 
             while ((linea = reader.readLine()) != null) {
-                System.out.println("Leyendo línea: " + linea);
                 String[] datos = linea.split(";");
 
                 if (datos.length > 1) {
@@ -168,7 +167,7 @@ public class UsuarioInicialViewController {
 
             Transport.send(message);
 
-            System.out.println("Correo enviado exitosamente.");
+            alerta.mostrarAlertaExito("Correo enviado exitosamente","Revisa tu mensaje al correo");
         } catch (MessagingException e) {
             e.printStackTrace();
         }
@@ -247,7 +246,7 @@ public class UsuarioInicialViewController {
                 enviarEmail("Recuerda las tareas pendientes",tareas,id);
                 eliminarLinea("src/main/resources/archivosTxt/UsuarioAutenticado.txt",idUsuario);
             }
-            else alerta.mostrarAlertaExito("Lista de tareas pendientes",tareas);
+            else if(configuracion.equals("aplicación")){ alerta.mostrarAlertaExito("Lista de tareas pendientes",tareas);}
             eliminarLinea("src/main/resources/archivosTxt/UsuarioAutenticado.txt",idUsuario);
         } else {
 

@@ -20,6 +20,7 @@
             <artifactId>javafx-controls</artifactId>
             <version>21</version>
         </dependency>
+
         <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>jakarta.mail</artifactId>
@@ -46,6 +47,7 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>javax.mail-api</artifactId>
@@ -297,6 +299,25 @@
             <version>RELEASE</version>
             <scope>test</scope>
         </dependency>
+
+            <!-- Core de GraphStream -->
+            <dependency>
+                <groupId>org.graphstream</groupId>
+                <artifactId>gs-core</artifactId>
+                <version>2.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.graphstream</groupId>
+                <artifactId>gs-ui-javafx</artifactId>
+                <version>2.0</version>
+            </dependency>
+              <dependency>
+                <groupId>org.graphstream</groupId>
+                <artifactId>gs-core</artifactId>
+                <version>2.0</version>
+            </dependency>
+
     </dependencies>
 
     <build>

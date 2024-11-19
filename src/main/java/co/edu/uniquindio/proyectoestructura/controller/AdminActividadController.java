@@ -2,8 +2,10 @@ package co.edu.uniquindio.proyectoestructura.controller;
 
 import co.edu.uniquindio.proyectoestructura.estructurasPropias.colas.actividad.ColaActividad;
 import co.edu.uniquindio.proyectoestructura.modelo.Actividad;
+import co.edu.uniquindio.proyectoestructura.modelo.Tarea;
 import co.edu.uniquindio.proyectoestructura.util.ArchivoUtilActividades;
 
+import java.io.IOException;
 import java.util.Queue;
 
 public class AdminActividadController {
@@ -50,7 +52,12 @@ public class AdminActividadController {
         return archivoUtilActividades.leerArchivo(ruta);
     }
 
-//    public boolean intercambiarActividades(String nom1, String nom2, String archivo) {
-//        return colaActividad.intercambiarActividades(nom1, nom2, archivo);
-//    }
+    public boolean intercambiarActividades(Queue<Actividad>cola, int indice1, int indice2) {
+        return colaActividad.intercambiarActividades(cola,indice1,indice2);
+    }
+
+    public void intercambiarActividadesTxt(String rutaArchivo, int indice1, int indice2) throws IOException {
+          archivoUtilActividades.intercambiarActividadesEnArchivo(rutaArchivo,indice1,indice2);
+    }
+
 }

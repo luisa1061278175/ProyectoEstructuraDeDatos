@@ -56,7 +56,7 @@ public class InicioSesionViewController {
 
             if (archivoUtil.verificarCredenciales(rutaArchivo, id, contrasenia)) {
                 cargarUsuario(newStage);
-                eliminarLinea("src/main/resources/archivosTxt/UsuarioAutenticado.txt", id);
+
             } else {
                 System.out.println("Usuario no encontrado.");
             }

@@ -1,3 +1,3 @@
-2831;Estudiar;matematicas
-8371;Deporte;Futbol
+2831;Estudiar;matematicas,filosofia
+8371;Deporte;futbol
 

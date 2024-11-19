@@ -48,27 +48,49 @@ public class ArchivoUtilProcesos {
         }
     }
 
-    public static Proceso[] leerTxt(String nombreArchivo) {
+    public Proceso[] leerTxt(String nombreArchivo) {
         List<Proceso> procesos = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(nombreArchivo))) {
             String linea;
-            while ((linea = br.readLine()) != null) {
+            while ((linea = reader.readLine()) != null) {
                 String[] datos = linea.split(";");
-                if (datos.length >= 2) {
-                    String id = datos[0];
-                    String nombre = datos[1];
-                    Queue<String> listaActividades = new LinkedList<>();
-                    for (int i = 2; i < datos.length; i++) {
-                        listaActividades.add(datos[i]);
+
+
+                if (datos.length >= 3) {
+                    String id = datos[0].trim();
+                    String nombre = datos[1].trim();
+
+                    // Lista de actividades
+                    Queue<Actividad> listaActividades = new LinkedList<>();
+
+                    // Verificar que haya actividades (debemos procesar desde el tercer elemento)
+                    if (datos.length > 2) {
+                        String actividadesConcatenadas = datos[2].trim(); // Las actividades están después del segundo ";"
+
+                        String[] actividadesArray = actividadesConcatenadas.split(",");
+
+
+                        for (String actividad : actividadesArray) {
+                            Actividad actividadObj = new Actividad(actividad.trim(), "", false, null);  // Ajustar según los atributos de Actividad
+                            listaActividades.add(actividadObj);  // Añadir la actividad a la cola
+                        }
+
+                        System.out.println("Actividades cargadas: " + listaActividades);
                     }
-                    procesos.add(new Proceso(nombre, id, listaActividades));
+
+                    Proceso proceso = new Proceso(nombre, id, listaActividades);
+
+                    procesos.add(proceso);
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error al leer el archivo: " + e.getMessage());
         }
+
+        // Retornar el arreglo de procesos
         return procesos.toArray(new Proceso[0]);
     }
+
 
     public void cargarDesdeArchivo(String nombreArchivo) {
         try (BufferedReader reader = new BufferedReader(new FileReader(nombreArchivo))) {
@@ -78,14 +100,14 @@ public class ArchivoUtilProcesos {
                 if (datos.length >= 2) {
                     String id = datos[0].trim();
                     String nombre = datos[1].trim();
-                    Queue<String> listaActividades = new LinkedList<>();
+                    List<String> listaActividades = new LinkedList<>();
                     for (int i = 2; i < datos.length; i++) {
                         listaActividades.add(datos[i].trim());
                     }
                     Proceso proceso = new Proceso(nombre, id, listaActividades);
                 }
             }
-            System.out.println("Datos cargados exitosamente desde el archivo " + nombreArchivo);
+
         } catch (IOException e) {
             System.out.println("Error al leer el archivo: " + e.getMessage());
         }

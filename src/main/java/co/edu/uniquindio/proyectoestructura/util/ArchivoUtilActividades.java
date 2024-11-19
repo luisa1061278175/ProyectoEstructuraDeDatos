@@ -65,6 +65,7 @@ public class ArchivoUtilActividades {
             System.err.println("Error al guardar las actividades en el archivo: " + e.getMessage());
         }
     }
+
     public Actividad[] leerArchivo(String rutaArchivo) {
         List<Actividad> actividades = new ArrayList<>();
 
@@ -100,6 +101,30 @@ public class ArchivoUtilActividades {
 
         return actividades.toArray(new Actividad[0]);
     }
+    public static void intercambiarActividadesEnArchivo(String rutaArchivo, int indice1, int indice2) throws IOException {
+        List<String> actividades = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                actividades.add(linea);
+            }
+        }
+        if (indice1 < 0 || indice2 < 0 || indice1 >= actividades.size() || indice2 >= actividades.size()) {
+            throw new IllegalArgumentException("Índices fuera de rango.");
+        }
+
+        String temp = actividades.get(indice1);
+        actividades.set(indice1, actividades.get(indice2));
+        actividades.set(indice2, temp);
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(rutaArchivo))) {
+            for (String actividad : actividades) {
+                bw.write(actividad);
+                bw.newLine();
+            }
+        }
+    }
 
     public static Queue<Actividad> cargarActividadesDesdeArchivo() {
         Queue<Actividad> actividades = new LinkedList<>();
@@ -129,7 +154,7 @@ public class ArchivoUtilActividades {
         return actividades;
     }
 
-    public static boolean modificarActividadEnArchivo(String nombre, String nuevaDescripcion, boolean esObligatoria) {
+    public boolean modificarActividadEnArchivo(String nombre, String nuevaDescripcion, boolean esObligatoria) {
         File archivo = new File(RUTA_ARCHIVO_ACTIVIDADES);
         List<String> lineas = new ArrayList<>();
 
@@ -158,5 +183,37 @@ public class ArchivoUtilActividades {
             System.err.println("Error al escribir en el archivo: " + e.getMessage());
             return false;
         }
+    }
+    public static Actividad[] cargarDesdeArchivo(String nombreArchivo) {
+        LinkedList<Actividad> actividades = new LinkedList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(nombreArchivo))) {
+            String linea;
+            while ((linea = reader.readLine()) != null) {
+                String[] datos = linea.split(";");
+                if (datos.length >= 4) {
+                    String nombre = datos[0].trim();
+                    String descripcion = datos[1].trim();
+                    boolean esObligatoria = Boolean.parseBoolean(datos[2].trim());
+
+                    Queue<Tarea> listaTareas = new LinkedList<>();
+                    if (datos.length > 3) {
+                        String[] nombresTareas = datos[3].split(",");
+                        for (String nombreTarea : nombresTareas) {
+                            Tarea tarea = new Tarea(nombreTarea.trim(), "", false, 0); // Descripción vacía, no obligatoria y duración 0
+                            listaTareas.add(tarea);
+                            System.out.println("Tarea cargada: " + tarea);
+                        }
+                    }
+                    Actividad actividad = new Actividad(nombre, descripcion, esObligatoria, listaTareas);
+                    actividades.add(actividad);
+                    System.out.println("Actividad cargada: " + actividad);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo: " + e.getMessage());
+        }
+
+        return actividades.toArray(new Actividad[0]);
     }
 }

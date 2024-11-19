@@ -4,6 +4,7 @@ module co.edu.uniquindio.proyectoestructura {
     requires jakarta.mail;
     requires javax.mail.api;
     requires java.desktop;
+    requires gs.core;
 
 
     opens co.edu.uniquindio.proyectoestructura to javafx.fxml;
@@ -16,6 +17,8 @@ module co.edu.uniquindio.proyectoestructura {
     opens co.edu.uniquindio.proyectoestructura.viewController.administradores;
     exports co.edu.uniquindio.proyectoestructura.viewController.usuarios;
     opens co.edu.uniquindio.proyectoestructura.viewController.usuarios;
+    exports co.edu.uniquindio.proyectoestructura.grafo to javafx.graphics;
+
 
 
 }

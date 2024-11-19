@@ -1,17 +1,12 @@
 package co.edu.uniquindio.proyectoestructura.estructurasPropias.colas.actividad;
 
 import co.edu.uniquindio.proyectoestructura.modelo.Actividad;
-import co.edu.uniquindio.proyectoestructura.modelo.Tarea;
 import co.edu.uniquindio.proyectoestructura.util.ArchivoUtilActividades;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-
-import static co.edu.uniquindio.proyectoestructura.util.ArchivoUtilActividades.cargarActividadesDesdeArchivo;
-import static co.edu.uniquindio.proyectoestructura.util.ArchivoUtilTareas.RUTA_ARCHIVO_ACTIVIDADES;
 
 public class ColaActividad {
     private Queue<Actividad> actividades;
@@ -23,7 +18,6 @@ public class ColaActividad {
         actividades.offer(actividad);
         System.out.println("Actividad guardada: " + actividad);
     }
-
     public Actividad buscarActividadPorNombre(String nombreActividad) {
         System.out.println("listaActividaes: " + actividades);
         archivoUtilActividades.cargarActividadesDesdeArchivo();
@@ -34,6 +28,24 @@ public class ColaActividad {
             }
         }
         return null;
+    }
+    public boolean intercambiarActividades(Queue<Actividad> actividades, int indice1, int indice2) {
+        if (indice1 == indice2) {
+            System.out.println("Los índices son iguales, no hay nada que intercambiar.");
+            return false;
+        }
+        if (indice1 < 0 || indice2 < 0 || indice1 >= actividades.size() || indice2 >= actividades.size()) {
+            System.out.println("Índices fuera de rango.");
+            return false;
+        }
+        List<Actividad> listaActividades = new ArrayList<>(actividades);
+        Actividad temp = listaActividades.get(indice1);
+        listaActividades.set(indice1, listaActividades.get(indice2));
+        listaActividades.set(indice2, temp);
+        actividades.clear();
+        actividades.addAll(listaActividades);
+        System.out.println("Actividades intercamabiads con éxito.");
+        return true;
     }
 
     public boolean eliminarActividad(String nombre) {

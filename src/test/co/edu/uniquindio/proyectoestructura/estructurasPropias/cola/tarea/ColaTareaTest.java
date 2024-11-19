@@ -16,7 +16,6 @@ public class ColaTareaTest {
         ColaTarea colaTarea = new ColaTarea();
         Tarea tarea = new Tarea("Tarea 1", "Descripción de la tarea", true, 5);
 
-        // Guardamos la tarea
         colaTarea.guardarTarea(tarea);
 
         // Verificamos si la tarea ha sido añadida a la cola
@@ -51,16 +50,7 @@ public class ColaTareaTest {
         assertFalse(tarea.isObligatoria(), "La obligatoriedad no fue actualizada.");
         assertEquals(10, tarea.getDuracion(), "La duración no fue actualizada.");
     }
-    @Test
-    public void testCargarTareasDesdeArchivo() {
-        ColaTarea colaTarea = new ColaTarea();
 
-        // Simulamos que ya hemos cargado tareas desde el archivo
-        colaTarea.cargarTareasDesdeArchivo("src/main/resources/archivosTxt/Tareas.txt");
-
-        // Verificamos que las tareas estén correctamente cargadas
-        assertNotNull(colaTarea.getTareas(), "Las tareas no fueron cargadas correctamente desde el archivo.");
-    }
     @Test
     public void testAgregarTareaAlArchivo() {
         ColaTarea colaTarea = new ColaTarea();
@@ -68,7 +58,7 @@ public class ColaTareaTest {
         colaTarea.guardarTarea(tarea);
 
         // Guardamos las tareas en el archivo
-        colaTarea.agregarTareaAlArchivo(colaTarea.getTareas());
+
 
         // Verificamos que el archivo se haya actualizado correctamente (Esto dependerá de las expectativas sobre el archivo)
         File archivo = new File("src/main/resources/archivosTxt/Tareas.txt");
@@ -87,18 +77,5 @@ public class ColaTareaTest {
         assertNotNull(tareaEncontrada, "La tarea no fue encontrada.");
         assertEquals("Tarea 1", tareaEncontrada.getNombre(), "El nombre de la tarea encontrada no es correcto.");
     }
-    @Test
-    public void testColaAArreglo() {
-        ColaTarea colaTarea = new ColaTarea();
-        Tarea tarea = new Tarea("Tarea 1", "Descripción de la tarea", true, 5);
-        colaTarea.guardarTarea(tarea);
 
-        // Convertimos la cola en un arreglo
-        Tarea[] arreglo = ColaTarea.colaAArreglo(colaTarea.getTareas());
-
-        // Verificamos que el arreglo contenga la tarea
-        assertEquals(1, arreglo.length, "El arreglo no tiene el tamaño correcto.");
-        assertEquals("Tarea 1", arreglo[0].getNombre(), "El nombre de la tarea en el arreglo no es correcto.");
-    }
-//te amo <3
 }

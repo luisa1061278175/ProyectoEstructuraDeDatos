@@ -6,6 +6,7 @@ import co.edu.uniquindio.proyectoestructura.controller.AdminProcesoController;
 import co.edu.uniquindio.proyectoestructura.estructurasPropias.listaEnlazada.proceso.ListaEnlazadaProceso;
 import co.edu.uniquindio.proyectoestructura.modelo.Actividad;
 import co.edu.uniquindio.proyectoestructura.modelo.Proceso;
+import co.edu.uniquindio.proyectoestructura.util.ArchivoUtilActividades;
 import co.edu.uniquindio.proyectoestructura.util.ExportadorCSV;
 import co.edu.uniquindio.proyectoestructura.util.ImportadorCSV;
 import javafx.beans.property.SimpleStringProperty;
@@ -16,6 +17,7 @@ import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -87,6 +89,7 @@ public class AdminActividadViewController {
     private List<Actividad> listaActividades = new ArrayList<>();
     private Proceso procesoSeleccionado;
     private Queue<String> colaAuxProcesos = new LinkedList<>();
+    ArchivoUtilActividades archivoUtilActividades= new ArchivoUtilActividades();
 
     private boolean esObligatoria;
     ExportadorCSV exportadorCSV = new ExportadorCSV();
@@ -102,6 +105,7 @@ public class AdminActividadViewController {
     public void initialize() {
         initDataBinding();
         cargarProcesosDesdeArchivo();
+         adminActividadController.cargarActividadesDesdeArchivo();
         jComboObligatoria.getItems().addAll("No", "Si");
 
         jComboObligatoria.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -242,9 +246,7 @@ public class AdminActividadViewController {
         construirProcesos();
 
         alerta.mensajeEliminado();
-
     }
-
     @FXML
     void modificarActividad(ActionEvent event) {
         String nombre = txtNombre.getText();
@@ -256,7 +258,6 @@ public class AdminActividadViewController {
         construirProcesos();
         alerta.mensajeModificado();
     }
-
     @FXML
     void refrescar(ActionEvent event) {
     }
@@ -286,9 +287,7 @@ public class AdminActividadViewController {
 
     @FXML
     public void importar() {
-
         String ruta = seleccionarArchivo();
-
         if (ruta != null) {
             System.out.println("Archivo seleccionado: " + ruta);
 
@@ -300,33 +299,53 @@ public class AdminActividadViewController {
 
             importadorCSV.importarDatos(ruta, archivoDestino);
         }
-
-
     }
 
     public void BuscarActividad(ActionEvent event) {
 
         String nombre = txtBuscarActividad.getText();
-
         Actividad actividad = adminActividadController.buscarActividad(nombre);
-
         txtNombre.setText(actividad.getNombre());
         txtDescripcion.setText(actividad.getDescripcion());
         txtActividadObligatoria.setText(actividad.isEsObligatoria() + "");
     }
+    public int indice(String nombre) {
+        Queue<Actividad> colaActividades = adminActividadController.cargarActividadesDesdeArchivo();
+
+        LinkedList<Actividad> listaActividades = new LinkedList<>(colaActividades);
+
+        for (int i = 0; i < listaActividades.size(); i++) {
+            if (listaActividades.get(i).getNombre().equals(nombre)) {
+                return i;
+            }
+        }
+        return -1;
+    }
     @FXML
-    public void cambiarActividades() {
+    public void cambiarActividades() throws IOException {
+        Queue<Actividad> colaActividades = adminActividadController.cargarActividadesDesdeArchivo();
+
+        LinkedList<Actividad> listaActividades = new LinkedList<>(colaActividades);
 
         String nomAct1=txtAct1.getText();
         String nomAct2=txtAct2.getText();
 
-        //adminActividadController.intercambiarActividades(nomAct1,nomAct2,"src/main/resources/archivosTxt/Actividades.txt");
+        int indice1=indice(nomAct1);
+        System.out.println("Indice 1:"+ indice1);
+
+        int indice2=indice(nomAct2);
+        System.out.println("indice 2: "+indice2);
+
+
+        adminActividadController.intercambiarActividades(colaActividades,indice1,indice2);
+        adminActividadController.intercambiarActividadesTxt("src/main/resources/archivosTxt/Actividades.txt",indice1,indice2);
     }
     public static void mostrarActividades(Proceso proceso) {
         for (Object actividad : proceso.getListaActividades()) {
             System.out.println(actividad);
         }
     }
+
 
     public void calcularTiempo(){
 
